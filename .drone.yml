@@ -1,0 +1,41 @@
+kind: pipeline
+type: ssh
+name: default
+
+server:
+  host: 192.168.1.22
+  user: root
+  password:
+    from_secret: ssh_password
+
+steps:
+- name: preflight
+  commands:
+    - discord.sh --webhook-url=https://discord.com/api/webhooks/976373264467255347/oFX1ZuFQHMG4QtGP8X69G2QaxNBBYkzIu3i76CugHa_oqzCh6Vix008UH_nFqIVvN4Ic --text "New code pushed to KitchenVision, starting build - standby for results :construction:"
+    - whoami
+    - ls
+
+- name: setup-app
+  commands:
+  - npm install
+  - ls
+  - chmod +x ./android/gradlew
+
+- name: build-app
+  commands:
+  - cd ./android
+  - gradlew clean
+
+- name: notification-success
+  commands:
+  - discord.sh --webhook-url=https://discord.com/api/webhooks/976373264467255347/oFX1ZuFQHMG4QtGP8X69G2QaxNBBYkzIu3i76CugHa_oqzCh6Vix008UH_nFqIVvN4Ic --text "Build Success! :white_check_mark:"
+  when:
+    status:
+      - Success
+
+- name: notification-failure
+  commands:
+  - discord.sh --webhook-url=https://discord.com/api/webhooks/976373264467255347/oFX1ZuFQHMG4QtGP8X69G2QaxNBBYkzIu3i76CugHa_oqzCh6Vix008UH_nFqIVvN4Ic --text "Build Failed! :heavy_exclamation_mark:"
+  when:
+    status:
+      - failure
