@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-//file name: helperFunctions.js
+//file name: vision.js
 
 const credentials = require('./config.json');
 
