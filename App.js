@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import InventoryScreen from './src/screens/InventoryScreen';
 import GroceryScreen from './src/screens/GroceryScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import {useEffect} from 'react'
+import { PermissionsAndroid, View, Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +20,12 @@ function MyTabs() {
     );
 }
 
-export default function App() {
+    export default function App() {
+        const permission =()=>{    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,PermissionsAndroid.INTERNET)    
+        }  
+    
+    useEffect(()=>{permission()},[])
+
     return (
         <NavigationContainer>
             <MyTabs />
