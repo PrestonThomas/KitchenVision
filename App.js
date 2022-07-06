@@ -20,15 +20,20 @@ function MyTabs() {
     );
 }
 
+
     export default function App() {
-        const permission =()=>{    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,PermissionsAndroid.INTERNET)    
-        }  
-    
+
+    const permission =()=>{
+        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,PermissionsAndroid.INTERNET).then(result =>  { console.log("The permissions are: ", result) });    
+    }
+
     useEffect(()=>{permission()},[])
+
 
     return (
         <NavigationContainer>
             <MyTabs />
         </NavigationContainer>
     );
+
 }
