@@ -5,8 +5,11 @@ import FAB from 'react-native-fab';
 import Barcode from '../components/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import barcode from '../components/barcode';
 
-// Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston
+// Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
+
+let barcodeOutput;
 
 const RootStack = createStackNavigator();
 class InventoryScreen extends React.Component {
@@ -15,8 +18,7 @@ class InventoryScreen extends React.Component {
             <NavigationContainer independent={true}>
                 <RootStack.Navigator>
                     <RootStack.Group>
-                        <RootStack.Screen name="Cat" options={{ headerShown: false }} component={HomeScreen} />
-                        <RootStack.Screen name="Details" component={DetailsScreen} />
+                        <RootStack.Screen name="Home Screen" options={{ headerShown: false }} component={HomeScreen} />
                     </RootStack.Group>
                     <RootStack.Group screenOptions={{ presentation: 'modal' }}>
                         <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
@@ -29,8 +31,27 @@ class InventoryScreen extends React.Component {
 }
 
 function BcScreenModal({ navigation }) {
-    let bc = new Barcode();
-    return bc;
+    // let bc = new Barcode.BarcodeScanner();
+    return (
+        <View style={{ flex: 1}}>
+                <Barcode.BarcodeScanner/>
+            <View>
+                <Button
+                    title="Scan Barcode"
+                    onPress={() => {
+                        try {
+                            console.log(Barcode.output[barcode.output.length - 1]);
+                            barcodeOutput = Barcode.output[barcode.output.length - 1];
+                            navigation.navigate('Home Screen');
+                        } catch (e) {
+                            console.log(e);
+                        }
+                    }
+                    }
+                />
+            </View>
+        </View>
+    );
 }
 
 function HomeScreen({ navigation }) {
@@ -49,14 +70,11 @@ function HomeScreen({ navigation }) {
                 onPress={() => navigation.navigate('Barcode Scanner')}
                 title="Scan Barcode"
             />
-        </View>
-    );
-}
-
-function DetailsScreen() {
-    return (
-        <View>
-            <Text>Details</Text>
+            <Button
+                // style align to the bottom of the screen
+                onPress={() => console.log(barcodeOutput[0].barcodeText)}
+                title="Log barcode output"
+            />
         </View>
     );
 }
