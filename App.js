@@ -21,7 +21,7 @@ function MyTabs() {
 }
 
 
-    export default function App() {
+export default function App() {
 
     const permission =()=>{
         PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,PermissionsAndroid.INTERNET).then(result =>  { console.log("The permissions are: ", result) });    

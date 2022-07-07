@@ -61,13 +61,18 @@ function onCameraPress() {
       );
 }
 
+var dataArray = []
+
 function returnScannedText() {
     // wait for the image to be read
     if (output === undefined) {
         return 'No text found';
     } else {
+        JSON.stringify(dataArray.push(output));
+        console.log('JSON STRING of Expiry Dates', dataArray);
         return output;
     }
 }
+
 
 export default {onCameraPress, readFile, capturedImage, resizeImage, returnScannedText, CameraOpen};
