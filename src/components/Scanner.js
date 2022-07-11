@@ -2,6 +2,7 @@ import fs from 'react-native-fs';
 import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import checkForLabels from '../api/vision';
+import { useNavigate } from "react-router-dom";
 
 let capturedImage;
 let output;

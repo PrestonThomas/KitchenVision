@@ -6,6 +6,8 @@ import Barcode from '../components/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import barcode from '../components/barcode';
+import NameForm from '../components/ItemDetail';
+import Form from '../components/ItemDetail';
 
 // Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
 
@@ -18,10 +20,13 @@ class InventoryScreen extends React.Component {
             <NavigationContainer independent={true}>
                 <RootStack.Navigator>
                     <RootStack.Group>
-                        <RootStack.Screen name="Home Screen" options={{ headerShown: false }} component={HomeScreen} />
+                        <RootStack.Screen name="Home Screen" options={{ headerShown: false }} component={InventoryHome} />
                     </RootStack.Group>
                     <RootStack.Group screenOptions={{ presentation: 'modal' }}>
                         <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
+                    </RootStack.Group>
+                    <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+                        <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
                     </RootStack.Group>
                 </RootStack.Navigator>
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { scanner.onCameraPress(); }} visible={true} />
@@ -42,7 +47,7 @@ function BcScreenModal({ navigation }) {
                         try {
                             console.log(Barcode.output[barcode.output.length - 1]);
                             barcodeOutput = Barcode.output[barcode.output.length - 1];
-                            navigation.navigate('Home Screen');
+                            navigation.navigate('Item Details');
                         } catch (e) {
                             console.log(e);
                         }
@@ -54,7 +59,7 @@ function BcScreenModal({ navigation }) {
     );
 }
 
-function HomeScreen({ navigation }) {
+function InventoryHome({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{ fontSize: 30, color: 'black' }}>
@@ -77,6 +82,33 @@ function HomeScreen({ navigation }) {
             />
         </View>
     );
+}
+function ItemDetailsScreen({ navigation }) {
+        class NameForm extends React.Component {
+            constructor(props) {
+              super(props);
+              this.state = {value: ''};
+              this.handleChange = this.handleChange.bind(this);
+              this.handleSubmit = this.handleSubmit.bind(this);
+            }
+          
+            handleChange(event) {    this.setState({value: event.target.value});  }
+            handleSubmit(event) {
+              alert('A name was submitted: ' + this.state.value);
+              event.preventDefault();
+            }
+          
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                <label>
+                    Name:
+                    <input type="text" value={this.state.value} onChange={this.handleChange} />        </label>
+                <input type="submit" value="Submit" />
+                </form> 
+            );
+        }
+    }
 }
 
 export default InventoryScreen;
