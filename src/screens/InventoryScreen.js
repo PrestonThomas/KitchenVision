@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Text, View, Button } from 'react-native';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
@@ -20,7 +20,7 @@ class InventoryScreen extends React.Component {
             <NavigationContainer independent={true}>
                 <RootStack.Navigator>
                     <RootStack.Group>
-                        <RootStack.Screen name="Home Screen" options={{ headerShown: false }} component={InventoryHome} />
+                        <RootStack.Screen name="Inventory Home Screen" options={{ headerShown: false }} component={InventoryHome} />
                     </RootStack.Group>
                     <RootStack.Group screenOptions={{ presentation: 'modal' }}>
                         <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
@@ -60,13 +60,6 @@ function InventoryHome({ navigation }) {
     );
 }
 
-function ItemDetailsScreen({ navigation }) {
-    let nf = new NameForm();
-    return (
-        nf.render()
-    );
-}
-
 function BcScreenModal({ navigation }) {
     // let bc = new Barcode.BarcodeScanner();
     return (
@@ -88,6 +81,44 @@ function BcScreenModal({ navigation }) {
                 />
             </View>
         </View>
+    );
+}
+
+function queryItem(barcode) {
+    let url = 'https://world.openfoodfacts.org/api/v0/product/' + barcode + '.json';
+    return fetch(url);
+}
+
+function ItemDetailsScreen({ navigation }) {
+    let nf = new NameForm();
+    const [isLoading, setLoading] = useState(true);
+    const [item, setItem] = useState();
+    useEffect(() => {
+        queryItem(barcodeOutput[0].barcodeText).then(response => response.json()).then(json => {
+            setItem(json.product);
+            setLoading(false);
+        }
+        ).catch(error => {
+            console.log(error);
+        }
+        );
+    }
+    , []);
+    if (isLoading) {
+        return <Text style={{ fontSize: 30, color: 'black' }}>Loading...</Text>;
+    }
+    nf.state.value = barcodeOutput[0].barcodeText;
+    nf.state.json = item;
+    nf.state.img = item.image_url;
+    // nf.queryItem(barcodeOutput[0].barcodeText);
+    nf.handleSubmit = () => {
+        console.log(item.brands);
+        console.log(nf.state.value);
+        console.log(nf.state.img);
+        navigation.navigate('Inventory Home Screen');
+    };
+    return (
+        nf.render()
     );
 }
 
