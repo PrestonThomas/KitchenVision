@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, Button } from 'react-native';
 import { DynamsoftBarcodeReader, DynamsoftCameraView, EnumBarcodeFormat } from 'dynamsoft-capture-vision-react-native';
 
+const credentials = require('./config.json');
+
 
 let output = [];
 class BarcodeScanner extends React.Component {
@@ -11,7 +13,7 @@ class BarcodeScanner extends React.Component {
     componentDidMount() {
         (async () => {
             try {
-                await DynamsoftBarcodeReader.initLicense('DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9');
+                await DynamsoftBarcodeReader.initLicense(credentials.licenseKey);
             } catch (e) {
                 console.log(e);
             }
