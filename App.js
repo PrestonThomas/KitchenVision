@@ -1,87 +1,39 @@
-/* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
-import fs from 'react-native-fs';
-import { StatusBar, Button, Image, View, SafeAreaView, Text } from 'react-native';
-import * as ImagePicker from 'react-native-image-picker';
-import ImageResizer from 'react-native-image-resizer';
-import checkForLabels from './helperFunctions';
+import * as React from 'react';
+import { Button, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import InventoryScreen from './src/screens/InventoryScreen';
+import GroceryScreen from './src/screens/GroceryScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import {useEffect} from 'react'
+import { PermissionsAndroid, View, Text } from 'react-native';
 
-let capturedImage;
-let capturedImageData;
+const Tab = createBottomTabNavigator();
 
-export default function () {
-  const [pickerResponse, setPickerResponse] = useState(null);
-  const [myText, setMyText] = React.useState('Test Text');
-
-  function resizeImage(uri) {
-    return ImageResizer.createResizedImage(uri, 256, 256, 'JPEG', 80)
-      .then((response) => {
-        console.log(response);
-        return response;
-      })
-      .catch((err) => {
-        console.error(err);
-      }
-      );
-  }
-
-  async function readFile() {
-    // let file = capturedImage;
-    // let file = resizeImage(capturedImage);
-
-    try {
-      const file = await resizeImage(capturedImage);
-      console.log(file);
-      const fileData = await fs.readFile(file.uri, 'base64');
-      console.log(fileData);
-      const response = await checkForLabels(fileData);
-      console.log(response);
-      setMyText(response.responses[0].textAnnotations[0].description);
-    } catch (err) {
-      console.error(err);
-    }
-
-    // const data = await fs.readFile(file, 'base64');
-    // capturedImageData = data;
-    // let result = await checkForLabels(data);
-    // console.log('Results:');
-    // console.log(result.responses[0].fullTextAnnotation.text);
-    // setMyText(result.responses[0].fullTextAnnotation.text);
-  }
-
-  const onCameraPress = React.useCallback(() => {
-    const options = {
-      saveToPhotos: true,
-      mediaType: 'photo',
-      includeBase64: false,
-    };
-    ImagePicker.launchCamera(options, response => {
-      console.log({ response });
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        let source = { uri: response.uri };
-        console.log(response.assets[0].uri);
-        capturedImage = response.assets[0].uri;
-        setPickerResponse(source.uri);
-      }
-    }
+function MyTabs() {
+    return (
+        <Tab.Navigator>
+            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Inventory" component={InventoryScreen} />
+            <Tab.Screen name="Grocery" component={GroceryScreen} />
+        </Tab.Navigator>
     );
-  }, []);
+}
 
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View>
-        <Button onPress={onCameraPress} title="Camera" color="#841584"></Button>
-        <Button title="Vision" onPress={readFile}> </Button>
-        <Text onPress={() => setMyText('Changed Text')}>
-          {myText}
-        </Text>
-      </View>
-    </SafeAreaView>
-  );
+
+export default function App() {
+
+    const permission =()=>{
+        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,PermissionsAndroid.INTERNET).then(result =>  { console.log("The permissions are: ", result) });    
+    }
+
+    useEffect(()=>{permission()},[])
+
+
+    return (
+        <NavigationContainer>
+            <MyTabs />
+        </NavigationContainer>
+    );
+
 }

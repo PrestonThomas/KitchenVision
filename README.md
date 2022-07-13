@@ -3,6 +3,8 @@
 ## About The Project
 KitchenVision is an OCR powered tool for managing your groceries and shopping. Built using React Native and Google Cloud Vision.
 
+[Azure DevOps Link](https://dev.azure.com/pthomas007/KitchenVision)
+
 ## Setup and Usage
 
 Follow the React Native Development Environment Setup instructions [here](https://reactnative.dev/docs/environment-setup). Ensure that you are following the correct guide, you need <u> React Native CLI </u>  <i> not </i> Expo CLI. Once your environment is configured and you are able to run their example program, you can run the app by opening the terminal and running the following commands:
