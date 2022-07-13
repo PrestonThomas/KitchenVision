@@ -7,15 +7,29 @@ import GroceryScreen from './src/screens/GroceryScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import {useEffect} from 'react'
 import { PermissionsAndroid, View, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator();
+
 
 function MyTabs() {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Inventory" component={InventoryScreen} />
-            <Tab.Screen name="Grocery" component={GroceryScreen} />
+            <Tab.Screen name="Home" component={HomeScreen} options={{
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="home" color={color} size={size} />
+                )
+            }} />
+            <Tab.Screen name="Inventory" component={InventoryScreen} options={{
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="list" color={color} size={size} />
+                )
+            }} />
+            <Tab.Screen name="Grocery" component={GroceryScreen} options={{
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="shopping-cart" color={color} size={size} />
+                )
+            }} />
         </Tab.Navigator>
     );
 }
