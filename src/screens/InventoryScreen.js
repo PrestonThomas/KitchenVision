@@ -2,22 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, Button, StyleSheet,TouchableOpacity } from 'react-native';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
-<<<<<<< HEAD
-import Icon from "react-native-vector-icons/Entypo";
-import Collapsible from 'react-native-collapsible';
-=======
 import Icon from 'react-native-vector-icons/Entypo';
->>>>>>> 66c50b78a114b00e722773ca48cc77fb064cdb09
 import Barcode from '../api/barcode';
 import barcode from '../api/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
-<<<<<<< HEAD
-import Form from '../components/ItemDetail';
-=======
-
->>>>>>> 66c50b78a114b00e722773ca48cc77fb064cdb09
 // Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
 
 let barcodeOutput;
