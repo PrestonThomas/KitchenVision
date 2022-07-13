@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginTop: 0,
         marginLeft: 8,
-<<<<<<< HEAD
         position: "absolute",
     },
     minusButton: {
@@ -234,9 +233,5 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         position: "absolute",
     }
-=======
-        position: 'absolute',
-    },
->>>>>>> 66c50b78a114b00e722773ca48cc77fb064cdb09
   });
 export default InventoryScreen;
