@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Text, View, Button, StyleSheet,TouchableOpacity } from 'react-native';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
-import Icon from "react-native-vector-icons/Entypo";
+import Icon from 'react-native-vector-icons/Entypo';
 import Barcode from '../api/barcode';
 import barcode from '../api/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
-import Form from '../components/ItemDetail';
 
 // Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
 
@@ -142,9 +141,9 @@ function ItemDetailsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: "#E6E6E6",
+      backgroundColor: '#E6E6E6',
       width: 375,
-      height: 65
+      height: 65,
     },
     name:{
         fontSize:20,
@@ -153,69 +152,69 @@ const styles = StyleSheet.create({
     rect: {
         width: 360,
         height: 66,
-        backgroundColor: "rgba(255,255,255,1)",
+        backgroundColor: 'rgba(255,255,255,1)',
         borderWidth: 1,
-        borderColor: "#000000",
-        flexDirection: "row"
+        borderColor: '#000000',
+        flexDirection: 'row',
     },
     rect2: {
-        backgroundColor: "rgba(255,255,255,1)",
+        backgroundColor: 'rgba(255,255,255,1)',
         borderWidth: 1,
-        borderColor: "#000000",
+        borderColor: '#000000',
         padding: 0,
         margin: 0,
-        width: 155
+        width: 155,
     },
     rect3: {
         flex: 0.5,
-        backgroundColor: "rgba(248, 248, 248,1)",
-        flexDirection: "row"
+        backgroundColor: 'rgba(248, 248, 248,1)',
+        flexDirection: 'row',
     },
     rect4: {
-        backgroundColor: "rgba(255,255,255,1)",
+        backgroundColor: 'rgba(255,255,255,1)',
         borderWidth: 1,
-        borderColor: "#000000",
+        borderColor: '#000000',
         marginLeft: 0,
-        width: 75
+        width: 75,
     },
     rect5: {
-        backgroundColor: "rgba(255,255,255,1)",
+        backgroundColor: 'rgba(255,255,255,1)',
         borderWidth: 1,
-        borderColor: "#000000",
+        borderColor: '#000000',
         marginLeft: 0,
-        width: 128
+        width: 128,
     },
     date: {
         top: 15,
         left: 15,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212",
-        fontSize: 22
+        position: 'absolute',
+        fontFamily: 'roboto-regular',
+        color: '#121212',
+        fontSize: 22,
     },
     itemsName: {
         top: 15,
         left: 15,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212",
-        fontSize: 22
+        position: 'absolute',
+        fontFamily: 'roboto-regular',
+        color: '#121212',
+        fontSize: 22,
     },
     plusButton: {
         top: 15,
         left: 15,
         width: 30,
         height: 33,
-        position: "absolute",
-        backgroundColor: "rgba(88,138,240,1)"
+        position: 'absolute',
+        backgroundColor: 'rgba(88,138,240,1)',
     },
     plusText: {
-        fontFamily: "roboto-regular",
-        color: "rgba(255,255,255,1)",
+        fontFamily: 'roboto-regular',
+        color: 'rgba(255,255,255,1)',
         fontSize: 25,
         marginTop: 0,
         marginLeft: 8,
-        position: "absolute",
-    }
+        position: 'absolute',
+    },
   });
 export default InventoryScreen;
