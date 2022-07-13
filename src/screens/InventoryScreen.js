@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, StyleSheet,TouchableOpacity } from 'react-native';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
+import Icon from "react-native-vector-icons/Entypo";
 import Barcode from '../api/barcode';
 import barcode from '../api/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -37,26 +38,43 @@ class InventoryScreen extends React.Component {
 
 function InventoryHome({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 30, color: 'black' }}>
-                InventoryScreen
-            </Text>
-            <Button
-                onPress={() => {
-                    console.log(scanner.returnScannedText());
-                }}
-                title="Retrieve Expiry Date"
-            />
-            <Button
-                onPress={() => navigation.navigate('Barcode Scanner')}
-                title="Scan Barcode"
-            />
-            <Button
-                // style align to the bottom of the screen
-                onPress={() => console.log(barcodeOutput[0].barcodeText)}
-                title="Log barcode output"
-            />
+        <>
+        <View style={styles.container}>
+            <Text style={styles.name}>Product Category</Text>
+            <View style={styles.rect}>
+                <View style={styles.rect2}>
+                    <Text style={styles.itemsName}>Item&#39;s Name</Text>
+                </View>
+                <View style={styles.rect3}>
+                    <View style={styles.rect4}>
+                        <Text style={styles.date}>Date</Text>
+                    </View>
+                    <View style={styles.rect5}>
+                    <TouchableOpacity style={styles.plusButton}>
+                        <Text style={styles.plusText}>+</Text>
+                    </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
         </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 30, color: 'black' }}>
+            InventoryScreen
+        </Text>
+        <Button
+            onPress={() => {
+                console.log(scanner.returnScannedText());
+            } }
+            title="Retrieve Expiry Date" />
+        <Button
+            onPress={() => navigation.navigate('Barcode Scanner')}
+            title="Scan Barcode" />
+        <Button
+            // style align to the bottom of the screen
+            onPress={() => console.log(barcodeOutput[0].barcodeText)}
+            title="Log barcode output" />
+    </View></>
+
     );
 }
 
@@ -122,4 +140,82 @@ function ItemDetailsScreen({ navigation }) {
     );
 }
 
+const styles = StyleSheet.create({
+    container: {
+      backgroundColor: "#E6E6E6",
+      width: 375,
+      height: 65
+    },
+    name:{
+        fontSize:20,
+        margin:18,
+    },
+    rect: {
+        width: 360,
+        height: 66,
+        backgroundColor: "rgba(255,255,255,1)",
+        borderWidth: 1,
+        borderColor: "#000000",
+        flexDirection: "row"
+    },
+    rect2: {
+        backgroundColor: "rgba(255,255,255,1)",
+        borderWidth: 1,
+        borderColor: "#000000",
+        padding: 0,
+        margin: 0,
+        width: 155
+    },
+    rect3: {
+        flex: 0.5,
+        backgroundColor: "rgba(248, 248, 248,1)",
+        flexDirection: "row"
+    },
+    rect4: {
+        backgroundColor: "rgba(255,255,255,1)",
+        borderWidth: 1,
+        borderColor: "#000000",
+        marginLeft: 0,
+        width: 75
+    },
+    rect5: {
+        backgroundColor: "rgba(255,255,255,1)",
+        borderWidth: 1,
+        borderColor: "#000000",
+        marginLeft: 0,
+        width: 128
+    },
+    date: {
+        top: 15,
+        left: 15,
+        position: "absolute",
+        fontFamily: "roboto-regular",
+        color: "#121212",
+        fontSize: 22
+    },
+    itemsName: {
+        top: 15,
+        left: 15,
+        position: "absolute",
+        fontFamily: "roboto-regular",
+        color: "#121212",
+        fontSize: 22
+    },
+    plusButton: {
+        top: 15,
+        left: 15,
+        width: 30,
+        height: 33,
+        position: "absolute",
+        backgroundColor: "rgba(88,138,240,1)"
+    },
+    plusText: {
+        fontFamily: "roboto-regular",
+        color: "rgba(255,255,255,1)",
+        fontSize: 25,
+        marginTop: 0,
+        marginLeft: 8,
+        position: "absolute",
+    }
+  });
 export default InventoryScreen;
