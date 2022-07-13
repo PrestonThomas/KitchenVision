@@ -11,13 +11,27 @@
   },
   "dependencies": {
     "@google-cloud/vision": "^2.4.2",
+    "@react-navigation/bottom-tabs": "^6.3.1",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/native-stack": "^6.6.2",
+    "@react-navigation/stack": "^6.2.2",
+    "dynamsoft-capture-vision-react-native": "^1.1.1",
+    "expo-constants": "^13.1.1",
     "fs": "^0.0.1-security",
     "glob": "^7.2.0",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-actions-sheet": "^0.7.2",
+    "react-native-collapsible": "^1.6.0",
+    "react-native-fab": "^1.0.18",
     "react-native-fs": "^2.20.0",
+    "react-native-gesture-handler": "^2.5.0",
     "react-native-image-picker": "^4.8.3",
-    "react-native-image-resizer": "^1.4.5"
+    "react-native-image-resizer": "^1.4.5",
+    "react-native-safe-area-context": "^4.3.1",
+    "react-native-screens": "^3.14.0",
+    "react-native-vector-icons": "^9.2.0",
+    "react-native-vision-camera": "^2.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -30,6 +44,11 @@
     "react-test-renderer": "17.0.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "transformIgnorePatterns": []
   }
 }

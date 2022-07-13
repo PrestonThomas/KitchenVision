@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-//file name: helperFunctions.js
+//file name: vision.js
 
 const credentials = require('./config.json');
 
@@ -8,7 +7,6 @@ const credentials = require('./config.json');
 // For our API key, please ask Preston.
 
 async function checkForLabels(base64) {
-
     return await
       fetch('https://vision.googleapis.com/v1/images:annotate?key=' + credentials.apiKey, {
         method: 'POST',
