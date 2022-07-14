@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet,TouchableOpacity } from 'react-native';
+import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator } from 'react-native';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
-import Icon from 'react-native-vector-icons/Entypo';
 import Barcode from '../api/barcode';
 import barcode from '../api/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -124,7 +123,9 @@ function ItemDetailsScreen({ navigation }) {
     }
     , []);
     if (isLoading) {
-        return <Text style={{ fontSize: 30, color: 'black' }}>Loading...</Text>;
+        return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            </View>;
     }
     nf.state.value = barcodeOutput[0].barcodeText;
     nf.state.json = item;
@@ -216,22 +217,22 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginTop: 0,
         marginLeft: 8,
-        position: "absolute",
+        position: 'absolute',
     },
     minusButton: {
         top: 15,
         left: 85,
         width: 30,
         height: 33,
-        position: "absolute",
-        backgroundColor: "rgba(88,138,240,1)"
+        position: 'absolute',
+        backgroundColor: 'rgba(88,138,240,1)',
     },
     minusText: {
-        fontFamily: "roboto-regular",
-        color: "rgba(255,255,255,1)",
+        fontFamily: 'roboto-regular',
+        color: 'rgba(255,255,255,1)',
         fontSize: 25,
         marginLeft: 8,
-        position: "absolute",
-    }
+        position: 'absolute',
+    },
   });
 export default InventoryScreen;
