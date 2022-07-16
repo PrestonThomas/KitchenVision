@@ -3,12 +3,15 @@ import { StyleSheet, View, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 function ScannedTextBox(props) {
+  // add onChange text event listener
   return (
     <View style={[styles.container, props.style]}>
       <Icon name="barcode" style={styles.iconStyle}></Icon>
       <TextInput
+        onChangeText={props.handleChange}
         placeholder={props.inputStyle || ""}
         style={styles.inputStyle}
+        onPressIn={props.function}
       ></TextInput>
     </View>
   );

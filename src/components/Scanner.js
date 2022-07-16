@@ -57,6 +57,7 @@ function onCameraPress() {
           resizeImage(capturedImage);
           readFile(capturedImage);
           CameraOpen = false;
+          checkCameraStatus();
         }
       }
       );
@@ -75,5 +76,12 @@ function returnScannedText() {
     }
 }
 
+function checkCameraStatus() {
+  if(CameraOpen === false) {
+    alert('Camera is closed');
+  }
+  return CameraOpen;
+}
 
-export default {onCameraPress, readFile, capturedImage, resizeImage, returnScannedText, CameraOpen};
+
+export default {onCameraPress, readFile, capturedImage, resizeImage, returnScannedText, CameraOpen, checkCameraStatus};

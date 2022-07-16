@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import scanner from '../components/Scanner';
 
 function ExpiryButton(props) {
   return (
-    <TouchableOpacity style={[styles.container, props.style]}>
+    <TouchableOpacity onPress={props.function} style={[styles.container, props.style]} >
       <Icon name="food-off" style={styles.icon}></Icon>
     </TouchableOpacity>
   );

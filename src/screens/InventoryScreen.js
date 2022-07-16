@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable } from 'react-native';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
 import Barcode from '../api/barcode';
@@ -84,19 +84,17 @@ function BcScreenModal({ navigation }) {
         <View style={{ flex: 1}}>
                 <Barcode.BarcodeScanner/>
             <View>
-                <Button
-                    title="Scan Barcode"
-                    onPress={() => {
-                        try {
-                            console.log(Barcode.output[barcode.output.length - 1]);
-                            barcodeOutput = Barcode.output[barcode.output.length - 1];
-                            navigation.navigate('Item Details');
-                        } catch (e) {
-                            console.log(e);
-                        }
+                <Pressable style={styles.bcScanButton} onPress={() => {
+                    try {
+                        console.log(Barcode.output[barcode.output.length - 1]);
+                        barcodeOutput = Barcode.output[barcode.output.length - 1];
+                        navigation.navigate('Item Details');
+                    } catch (e) {
+                        console.log(e);
                     }
-                    }
-                />
+                }}>
+                    <Text style={styles.text}>Scan Barcode</Text>
+                </Pressable>
             </View>
         </View>
     );
@@ -131,6 +129,15 @@ function ItemDetailsScreen({ navigation }) {
     nf.state.json = item;
     nf.state.img = item.image_url;
     // nf.queryItem(barcodeOutput[0].barcodeText);
+    nf.handleExpiry = () => {
+        scanner.onCameraPress();
+        nf.returnExpiry();
+    };
+    nf.returnExpiry = () => {
+        nf.state.expiry = scanner.returnScannedText();
+        console.log(nf.state.expiry);
+        return nf.state.expiry;
+    };
     nf.handleSubmit = () => {
         console.log(item.brands);
         console.log(nf.state.value);
@@ -234,5 +241,21 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         position: 'absolute',
     },
+    bcScanButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        elevation: 3,
+        backgroundColor: 'blue',
+        height: 50,
+      },
+    text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
+      },
   });
 export default InventoryScreen;

@@ -179,6 +179,11 @@ const ItemDetailStyles = StyleSheet.create({
         color: "#fff",
         fontSize: 14,
         fontFamily: "acme-regular"
+      },
+      icon: {
+        color: "#fff",
+        fontSize: 24,
+        alignSelf: "center"
       }
   });
 

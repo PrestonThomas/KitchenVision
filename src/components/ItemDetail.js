@@ -7,27 +7,23 @@ import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import FormLabelBox from './FormLabelBox';
 import FormNolabelBox from './FormNolabelBox';
 import componentStyles from '../components/componentStyles';
-
+import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons';
+import ExpiryForm from './ExpiryForm';
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
 
 export default class NameForm extends React.Component {
+  state = {};
   constructor(props) {
     super(props);
-    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {} };
+    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.queryItem = this.queryItem.bind(this);
+    this.handleExpiry = this.handleExpiry.bind(this);
+    this.returnExpiry = this.returnExpiry.bind(this);
   }
-  // queryItem(barcode) {
-  //   queryItem(barcode).then(response => response.json())
-  //     .then(json => {
-  //       console.log(json);
-  //       this.state.img = json.product.image_front_url;
-  //       return json;
-  //     }
-  //   );
-  // }
+  handleExpiry(event) {console.log('expiry');}
+  returnExpiry(event) {console.log('expiry');}
   handleChange(event) { this.setState({ value: event.target.value }); }
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
@@ -38,6 +34,7 @@ export default class NameForm extends React.Component {
   }
 
   detailsForm() {
+
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={{height: screenHeight}}>
         <View style={styles.container}>
@@ -49,19 +46,23 @@ export default class NameForm extends React.Component {
               style={styles.BarCodeButton}
             />
             <ScannedTextBox
-              inputStyle="CAN ID"
+              inputStyle={this.state.value}
               style={styles.BarCodeTextbox}
             />
           </View>
-          <View style={styles.materialButtonShare1Row}>
+          <ExpiryForm function={this.handleExpiry} data={this.returnExpiry}/>
+          {/* <View style={styles.materialButtonShare1Row}>
             <ExpiryButton
+              function={this.handleExpiry}
               style={styles.ExpiryButton}
             />
             <ScannedTextBox
-              inputStyle="Expiry Date"
+              inputStyle={this.state.expiry}
+              onChangeText={this.returnExpiry}
               style={styles.ExpiryDateTextbox}
             />
-          </View>
+            <Button title='refresh' onPress={this.returnExpiry} />
+          </View> */}
           <MaterialButtonSuccess
             function={this.handleSubmit}
             button="SUBMIT"
@@ -69,15 +70,19 @@ export default class NameForm extends React.Component {
           />
           <Text style={styles.loremIpsum} />
           <FormLabelBox
-            fixedLabel="Item name:"
+            fixedLabel={this.state.json.brands}
             style={styles.ItemNameTextbox}
           />
           <FormLabelBox
-            fixedLabel="Category:"
+            // fixedLabel="Category:"
+            fixedLabel={this.state.json.categories_hierarchy}
             style={styles.CategoryTextbox}
           />
           <FormNolabelBox
-            inputStyle="Calories"
+            // inputStyle="Calories"
+            // Nutriscore
+            // fixedLabel={this.state.json.nutriments.energy-kcal}
+            fixedLabel={this.state.json.nutriscore_data.grade}
             style={styles.CaloriesTextbox}
           />
           <FormNolabelBox
