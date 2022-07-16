@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import InventoryScreen from './src/screens/InventoryScreen';
 import GroceryScreen from './src/screens/GroceryScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import {useEffect} from 'react'
-import { PermissionsAndroid, View, Text } from 'react-native';
+import { PermissionsAndroid, View, Text, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator();
@@ -37,11 +36,15 @@ function MyTabs() {
 
 export default function App() {
 
-    const permission =()=>{
-        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,PermissionsAndroid.INTERNET).then(result =>  { console.log("The permissions are: ", result) });    
-    }
+    const permission = () => {
+        if (Platform.OS === 'android') {
+            PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, PermissionsAndroid.INTERNET).then(result => { console.log("The permissions are: ", result) });
+        } else {
+            console.log("iOS Device");
+        }
+    };
 
-    useEffect(()=>{permission()},[])
+    useEffect(() => { permission() }, [])
 
 
     return (
