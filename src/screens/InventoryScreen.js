@@ -39,7 +39,18 @@ function InventoryHome({ navigation }) {
         <View style={styles.container}>
             <Text style={styles.name}>Product Category</Text>
             <View style={styles.rect}>
-                <View style={styles.rect2}>
+                <Text style={styles.itemsName}>Item&#39;s Name</Text>
+                <Text style={styles.date}>Date</Text>
+                <View style={styles.inputBox}>
+                    <TouchableOpacity style={styles.plusButton}>
+                        <Button title='+'/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.minusButton}>
+                        {/* <Text style={styles.minusText}>−</Text> */}
+                        <Button title='−'/>
+                    </TouchableOpacity>
+                </View>
+                {/* <View style={styles.rect2}>
                     <Text style={styles.itemsName}>Item&#39;s Name</Text>
                 </View>
                 <View style={styles.rect3}>
@@ -54,7 +65,7 @@ function InventoryHome({ navigation }) {
                         <Text style={styles.minusText}>−</Text>
                     </TouchableOpacity>
                     </View>
-                </View>
+                </View> */}
             </View>
         </View>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -166,81 +177,82 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#000000',
         flexDirection: 'row',
+        // justifyContent:'space-between',
     },
-    rect2: {
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderWidth: 1,
-        borderColor: '#000000',
-        padding: 0,
-        margin: 0,
-        width: 155,
-    },
-    rect3: {
-        flex: 0.5,
-        backgroundColor: 'rgba(248, 248, 248,1)',
-        flexDirection: 'row',
-    },
-    rect4: {
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderWidth: 1,
-        borderColor: '#000000',
-        marginLeft: 0,
-        width: 75,
-    },
-    rect5: {
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderWidth: 1,
-        borderColor: '#000000',
-        marginLeft: 0,
-        width: 128,
-    },
+    // rect2: {
+    //     backgroundColor: 'rgba(255,255,255,1)',
+    //     borderWidth: 1,
+    //     borderColor: '#000000',
+    //     padding: 0,
+    //     margin: 0,
+    //     width: '40%',
+    // },
+    // rect3: {
+    //     flex: 0.5,
+    //     backgroundColor: 'rgba(248, 248, 248,1)',
+    //     flexDirection: 'row',
+    // },
+    // rect4: {
+    //     backgroundColor: 'rgba(255,255,255,1)',
+    //     borderWidth: 1,
+    //     borderColor: '#000000',
+    //     marginLeft: 0,
+    //     width: '40%',
+    // },
+    // rect5: {
+    //     backgroundColor: 'rgba(255,255,255,1)',
+    //     borderWidth: 1,
+    //     borderColor: '#000000',
+    //     marginLeft: 0,
+    //     width: '60%',
+    // },
     date: {
         top: 15,
         left: 15,
-        position: 'absolute',
         fontFamily: 'roboto-regular',
         color: '#121212',
         fontSize: 22,
+        width:'20%',
     },
     itemsName: {
         top: 15,
         left: 15,
-        position: 'absolute',
         fontFamily: 'roboto-regular',
         color: '#121212',
         fontSize: 22,
+        width:'40%',
+    },
+    inputBox: {
+        width:'40%',
     },
     plusButton: {
-        top: 15,
-        left: 15,
-        width: 30,
-        height: 33,
+        margin:15,
+        width: '25%',
         position: 'absolute',
         backgroundColor: 'rgba(88,138,240,1)',
     },
-    plusText: {
-        fontFamily: 'roboto-regular',
-        color: 'rgba(255,255,255,1)',
-        fontSize: 25,
-        marginTop: 0,
-        marginLeft: 8,
-        position: 'absolute',
-    },
+    // plusText: {
+    //     fontFamily: 'roboto-regular',
+    //     color: 'rgba(255,255,255,1)',
+    //     fontSize: 25,
+    //     marginTop: 0,
+    //     marginLeft: 8,
+    //     position: 'absolute',
+    // },
     minusButton: {
-        top: 15,
-        left: 85,
-        width: 30,
-        height: 33,
-        position: 'absolute',
+        margin:15,
+        width: '25%',
+        position:'relative',
         backgroundColor: 'rgba(88,138,240,1)',
+        alignSelf:'flex-end',
     },
-    minusText: {
-        fontFamily: 'roboto-regular',
-        color: 'rgba(255,255,255,1)',
-        fontSize: 25,
-        marginLeft: 8,
-        position: 'absolute',
-    },
+    // minusText: {
+    //     fontFamily: 'roboto-regular',
+    //     color: 'rgba(255,255,255,1)',
+    //     fontSize: 25,
+    //     marginLeft: 8,
+    //     position: 'absolute',
+    // },
     bcScanButton: {
         alignItems: 'center',
         justifyContent: 'center',
