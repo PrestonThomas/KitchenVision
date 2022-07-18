@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@google-cloud/vision": "^2.4.2",
+    "@react-native-async-storage/async-storage": "^1.17.7",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
@@ -34,6 +35,7 @@
     "react-native-numeric-input": "^1.9.1",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.14.0",
+    "react-native-storage": "^1.0.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-vision-camera": "^2.13.5"
   },

@@ -16,7 +16,7 @@ export default class NameForm extends React.Component {
   state = {};
   constructor(props) {
     super(props);
-    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date' };
+    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date', quantity: 1 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleExpiry = this.handleExpiry.bind(this);
@@ -44,7 +44,7 @@ export default class NameForm extends React.Component {
           <InputFormLabel formName="Name:" value={this.state.json.brands} />
           <InputFormLabel formName="Category:" value={this.state.json.categories_hierarchy[0]} />
           <InputFormLabel formName="NutriScore:" value={this.state.json.nutriscore_data.grade} />
-          <QuantityFormLabel formName="Quantity:" value='1' />
+          <QuantityFormLabel formName="Quantity:" value={this.state.quantity} />
           <View
             style={{
               borderBottomColor: 'black',

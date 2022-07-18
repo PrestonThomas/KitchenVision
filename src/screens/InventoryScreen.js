@@ -14,6 +14,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
+import storage from '../api/storage';
+
 // Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
 
 
@@ -56,14 +58,13 @@ class InventoryScreen extends React.Component {
                     <RootStack.Group>
                         <RootStack.Screen name="Inventory Home Screen" options={{ headerShown: false }} component={InventoryHome} />
                     </RootStack.Group>
-                    <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+                    <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
                         <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
                     </RootStack.Group>
-                    <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+                    <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
                         <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
                     </RootStack.Group>
                 </RootStack.Navigator>
-                {/* <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { scanner.onCameraPress(); }} visible={true} /> */}
             </NavigationContainer>
         );
     }
@@ -145,13 +146,14 @@ function InventoryHome({ navigation }) {
                         console.log(scanner.returnScannedText());
                     } }
                     title="Retrieve Expiry Date" />
-                <Button
+                {/* <Button
                     onPress={() => navigation.navigate('Barcode Scanner')}
-                    title="Scan Barcode" />
+                    title="Scan Barcode" /> */}
                 <Button
                     // style align to the bottom of the screen
-                    onPress={() => console.log(barcodeOutput[0].barcodeText)}
-                    title="Log barcode output" />
+                    onPress={() => storage.load({key:"9002490100070"}).then(val => {console.log(val)})}
+                    title="Log Storage output" />
+                <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View></>
             
             <SafeAreaView style={{ flex: 1 }}>
@@ -247,11 +249,17 @@ function BcScreenModal({ navigation }) {
             <View>
                 <Pressable style={styles.bcScanButton} onPress={() => {
                     try {
-                        console.log(Barcode.output[barcode.output.length - 1]);
-                        barcodeOutput = Barcode.output[barcode.output.length - 1];
-                        navigation.navigate('Item Details');
+                        if(Barcode.output[barcode.output.length - 1] !== undefined) {
+                            barcodeOutput = Barcode.output[barcode.output.length - 1];
+                            navigation.navigate('Item Details');
+                        } else {
+                            alert('No barcode detected, returning to home screen');
+                            navigation.navigate('Inventory Home Screen');
+                        }
                     } catch (e) {
                         console.log(e);
+                        alert('No barcode detected, returning to home screen');
+                        navigation.navigate('Inventory Home Screen');
                     }
                 }}>
                     <Text style={styles.text}>Scan Barcode</Text>
@@ -313,6 +321,7 @@ function ItemDetailsScreen({ navigation }) {
         console.log(item.brands);
         console.log(nf.state.value);
         console.log(nf.state.img);
+        storage.save({key: nf.state.value, data:{ value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, brands: item.brands, category: item.categories_hierarchy[0], quantity: nf.state.quantity }});
         navigation.navigate('Inventory Home Screen');
     };
     return (

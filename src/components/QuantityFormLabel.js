@@ -13,7 +13,6 @@ const QuantityFormLabel = (props) => {
                 <NumericInput
                     onChange={value => console.log(value)}
                     rounded
-                    value={props.value}
                     valueType='real'
                     minValue={1}
                     iconStyle={{ color: 'black' }}
