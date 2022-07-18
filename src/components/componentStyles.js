@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 // Item Detail Component
 const ItemDetailStyles = StyleSheet.create({
+    //1 item per row container 
     container: {
       flex: 1,
       backgroundColor: 'rgba(139,175,229,1)',
@@ -184,7 +185,7 @@ const ItemDetailStyles = StyleSheet.create({
         color: "#fff",
         fontSize: 24,
         alignSelf: "center"
-      }
+      },
   });
 
   export default ItemDetailStyles;

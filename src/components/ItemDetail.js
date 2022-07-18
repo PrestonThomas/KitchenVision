@@ -9,8 +9,12 @@ import FormNolabelBox from './FormNolabelBox';
 import componentStyles from '../components/componentStyles';
 import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import ExpiryForm from './ExpiryForm';
+import BarcodeForm from './BarcodeForm';
+import InputFormLabel from './InputFormLabel';
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
+
+// Leaving this here so I don't have to search it up each time - https://world.openfoodfacts.org/api/v0/product/9002490100070.json
 
 export default class NameForm extends React.Component {
   state = {};
@@ -41,34 +45,30 @@ export default class NameForm extends React.Component {
           <View style={styles.imageBox}>
             <Image source={{ uri: this.state.img }} style={{ width: 100, height: 100 }} />
           </View>
-          <View style={styles.materialButtonShareRow}>
-            <BarCodeButton
-              style={styles.BarCodeButton}
-            />
-            <ScannedTextBox
-              inputStyle={this.state.value}
-              style={styles.BarCodeTextbox}
-            />
-          </View>
+          <InputFormLabel formName="Name:" value={this.state.json.brands} />
+          <InputFormLabel formName="Category:" value={this.state.json.categories_hierarchy[0]} />
+          <InputFormLabel formName="NutriScore:" value={this.state.json.nutriscore_data.grade} />
+          <InputFormLabel formName="Quantity:" value='0' />
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
+          <BarcodeForm value={this.state.value} />
           <ExpiryForm function={this.handleExpiry} data={this.returnExpiry}/>
-          {/* <View style={styles.materialButtonShare1Row}>
-            <ExpiryButton
-              function={this.handleExpiry}
-              style={styles.ExpiryButton}
-            />
-            <ScannedTextBox
-              inputStyle={this.state.expiry}
-              onChangeText={this.returnExpiry}
-              style={styles.ExpiryDateTextbox}
-            />
-            <Button title='refresh' onPress={this.returnExpiry} />
-          </View> */}
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
           <MaterialButtonSuccess
             function={this.handleSubmit}
             button="SUBMIT"
             style={styles.materialButtonSuccess}
           />
-          <Text style={styles.loremIpsum} />
+          {/* <Text style={styles.loremIpsum} />
           <FormLabelBox
             fixedLabel={this.state.json.brands}
             style={styles.ItemNameTextbox}
@@ -88,22 +88,9 @@ export default class NameForm extends React.Component {
           <FormNolabelBox
             inputStyle="Item Quantity"
             style={styles.ItemQtyTextbox}
-          />
+          /> */}
         </View>
       </View>
     </ScrollView>
-    //////////////////////////////////ORIGINAL VERSION///////////////////////////////////////////
-    // <View style={styles.container}>
-    //   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    //     <Text style={{ fontSize: 30, color: 'black' }}> {this.state.json.brands}</Text>
-    //     <TextInput style={styles.valueBox}
-    //       style={styles.input}
-    //       value={this.state.value} />
-    //     <Button
-    //       title="Submit"
-    //       onPress={this.handleSubmit} />
-    //     <Image source={{ uri: this.state.img }} style={{ width: 200, height: 200 }} />
-    //   </View>
-    // </View>;
   }
 }

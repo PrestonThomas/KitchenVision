@@ -62,7 +62,7 @@ class InventoryScreen extends React.Component {
                         <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
                     </RootStack.Group>
                 </RootStack.Navigator>
-                <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { scanner.onCameraPress(); }} visible={true} />
+                {/* <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { scanner.onCameraPress(); }} visible={true} /> */}
             </NavigationContainer>
         );
     }
