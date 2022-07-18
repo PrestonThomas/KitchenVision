@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Button } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import DatePicker from 'react-native-date-picker'
+
+// Considering a datepicker for this
 
 const ExpiryForm = (props) => {
+    // const [expiry, setExpiry] = useState(new Date());
     const [expiry, setExpiry] = useState('');
     return (
         <View style={styles.twoItem}>
@@ -18,9 +22,10 @@ const ExpiryForm = (props) => {
                     style={styles.inputStyle}
                     onChangeText={(text) => { setExpiry(text) }}
                 />
+                 {/* <DatePicker mode="date" date={expiry} onDateChange={setExpiry} /> */}
             </View>
             <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={() => { setExpiry(props.data) }} style={[styles.container, props.style]} >
+                <TouchableOpacity onPress={() => { setExpiry(props.data); }} style={[styles.container, props.style]} >
                     <Icon name="refresh" style={styles.icon} />
                 </TouchableOpacity>
             </View>

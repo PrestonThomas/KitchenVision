@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
-import BarCodeButton from '../components/BarcodeButton';
-import ScannedTextBox from './ScanTextbox';
-import ExpiryButton from './ExpiryButton';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
-import FormLabelBox from './FormLabelBox';
-import FormNolabelBox from './FormNolabelBox';
 import componentStyles from '../components/componentStyles';
 import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import ExpiryForm from './ExpiryForm';
 import BarcodeForm from './BarcodeForm';
 import InputFormLabel from './InputFormLabel';
+import QuantityFormLabel from './QuantityFormLabel';
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
 
@@ -48,7 +44,7 @@ export default class NameForm extends React.Component {
           <InputFormLabel formName="Name:" value={this.state.json.brands} />
           <InputFormLabel formName="Category:" value={this.state.json.categories_hierarchy[0]} />
           <InputFormLabel formName="NutriScore:" value={this.state.json.nutriscore_data.grade} />
-          <InputFormLabel formName="Quantity:" value='0' />
+          <QuantityFormLabel formName="Quantity:" value='1' />
           <View
             style={{
               borderBottomColor: 'black',
@@ -68,27 +64,6 @@ export default class NameForm extends React.Component {
             button="SUBMIT"
             style={styles.materialButtonSuccess}
           />
-          {/* <Text style={styles.loremIpsum} />
-          <FormLabelBox
-            fixedLabel={this.state.json.brands}
-            style={styles.ItemNameTextbox}
-          />
-          <FormLabelBox
-            // fixedLabel="Category:"
-            fixedLabel={this.state.json.categories_hierarchy}
-            style={styles.CategoryTextbox}
-          />
-          <FormNolabelBox
-            // inputStyle="Calories"
-            // Nutriscore
-            // fixedLabel={this.state.json.nutriments.energy-kcal}
-            fixedLabel={this.state.json.nutriscore_data.grade}
-            style={styles.CaloriesTextbox}
-          />
-          <FormNolabelBox
-            inputStyle="Item Quantity"
-            style={styles.ItemQtyTextbox}
-          /> */}
         </View>
       </View>
     </ScrollView>

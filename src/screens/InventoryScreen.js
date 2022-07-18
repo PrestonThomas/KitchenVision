@@ -13,6 +13,7 @@ import barcode from '../api/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
+import dayjs from 'dayjs';
 // Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
 
 
@@ -265,6 +266,16 @@ function queryItem(barcode) {
     return fetch(url);
 }
 
+function extractDate(string) {
+    return string.match(/\d{2}\/\d{2}\/\d{2}/)[0];
+}
+
+function convertToDate(string) {
+    let date = string.split('/');
+    let output = dayjs(date[1] + '/' + date[0] + '/' + date[2]);
+    return output.toDate();
+}
+
 function ItemDetailsScreen({ navigation }) {
     let nf = new NameForm();
     const [isLoading, setLoading] = useState(true);
@@ -291,11 +302,11 @@ function ItemDetailsScreen({ navigation }) {
     // nf.queryItem(barcodeOutput[0].barcodeText);
     nf.handleExpiry = () => {
         scanner.onCameraPress();
-        nf.returnExpiry();
     };
     nf.returnExpiry = () => {
-        nf.state.expiry = scanner.returnScannedText();
-        console.log(nf.state.expiry);
+        let rawText = scanner.returnScannedText();
+        let convertedDate = extractDate(rawText);
+        nf.state.expiry = convertedDate;
         return nf.state.expiry;
     };
     nf.handleSubmit = () => {
