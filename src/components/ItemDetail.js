@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
-import BarCodeButton from '../components/BarcodeButton';
-import ScannedTextBox from './ScanTextbox';
-import ExpiryButton from './ExpiryButton';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
-import FormLabelBox from './FormLabelBox';
-import FormNolabelBox from './FormNolabelBox';
 import componentStyles from '../components/componentStyles';
 import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import ExpiryForm from './ExpiryForm';
+import BarcodeForm from './BarcodeForm';
+import InputFormLabel from './InputFormLabel';
+import QuantityFormLabel from './QuantityFormLabel';
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
+
+// Leaving this here so I don't have to search it up each time - https://world.openfoodfacts.org/api/v0/product/9002490100070.json
 
 export default class NameForm extends React.Component {
   state = {};
   constructor(props) {
     super(props);
-    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date' };
+    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date', quantity: 1 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleExpiry = this.handleExpiry.bind(this);
@@ -41,69 +41,31 @@ export default class NameForm extends React.Component {
           <View style={styles.imageBox}>
             <Image source={{ uri: this.state.img }} style={{ width: 100, height: 100 }} />
           </View>
-          <View style={styles.materialButtonShareRow}>
-            <BarCodeButton
-              style={styles.BarCodeButton}
-            />
-            <ScannedTextBox
-              inputStyle={this.state.value}
-              style={styles.BarCodeTextbox}
-            />
-          </View>
+          <InputFormLabel formName="Name:" value={this.state.json.brands} />
+          <InputFormLabel formName="Category:" value={this.state.json.categories_hierarchy[0]} />
+          <InputFormLabel formName="NutriScore:" value={this.state.json.nutriscore_data.grade} />
+          <QuantityFormLabel formName="Quantity:" value={this.state.quantity} />
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
+          <BarcodeForm value={this.state.value} />
           <ExpiryForm function={this.handleExpiry} data={this.returnExpiry}/>
-          {/* <View style={styles.materialButtonShare1Row}>
-            <ExpiryButton
-              function={this.handleExpiry}
-              style={styles.ExpiryButton}
-            />
-            <ScannedTextBox
-              inputStyle={this.state.expiry}
-              onChangeText={this.returnExpiry}
-              style={styles.ExpiryDateTextbox}
-            />
-            <Button title='refresh' onPress={this.returnExpiry} />
-          </View> */}
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
           <MaterialButtonSuccess
             function={this.handleSubmit}
             button="SUBMIT"
             style={styles.materialButtonSuccess}
           />
-          <Text style={styles.loremIpsum} />
-          <FormLabelBox
-            fixedLabel={this.state.json.brands}
-            style={styles.ItemNameTextbox}
-          />
-          <FormLabelBox
-            // fixedLabel="Category:"
-            fixedLabel={this.state.json.categories_hierarchy}
-            style={styles.CategoryTextbox}
-          />
-          <FormNolabelBox
-            // inputStyle="Calories"
-            // Nutriscore
-            // fixedLabel={this.state.json.nutriments.energy-kcal}
-            fixedLabel={this.state.json.nutriscore_data.grade}
-            style={styles.CaloriesTextbox}
-          />
-          <FormNolabelBox
-            inputStyle="Item Quantity"
-            style={styles.ItemQtyTextbox}
-          />
         </View>
       </View>
     </ScrollView>
-    //////////////////////////////////ORIGINAL VERSION///////////////////////////////////////////
-    // <View style={styles.container}>
-    //   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    //     <Text style={{ fontSize: 30, color: 'black' }}> {this.state.json.brands}</Text>
-    //     <TextInput style={styles.valueBox}
-    //       style={styles.input}
-    //       value={this.state.value} />
-    //     <Button
-    //       title="Submit"
-    //       onPress={this.handleSubmit} />
-    //     <Image source={{ uri: this.state.img }} style={{ width: 200, height: 200 }} />
-    //   </View>
-    // </View>;
   }
 }

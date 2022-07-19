@@ -1,33 +1,23 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Button } from "react-native";
+import { StyleSheet, View, TextInput, TouchableOpacity, Button, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import DatePicker from 'react-native-date-picker'
 
-// Considering a datepicker for this
-
-const ExpiryForm = (props) => {
-    // const [expiry, setExpiry] = useState(new Date());
-    const [expiry, setExpiry] = useState('');
+const BarcodeForm = (props) => {
+    const [Barcode, setBarcode] = useState('');
     return (
         <View style={styles.twoItem}>
             <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={() => { setExpiry(props.function) }} style={[styles.container, props.style]} >
-                    <Icon name="food-off" style={styles.icon} />
+                <TouchableOpacity onPress={() => { setBarcode(props.function) }} style={[styles.container, props.style]} >
+                    <Icon name="barcode-scan" style={styles.icon} />
                 </TouchableOpacity>
             </View>
             <View style={[styles.inputContainer, props.style]}>
                 <TextInput
-                    placeholder="Scan or enter expiry date"
-                    defaultValue={expiry}
+                    placeholder="Barcode"
+                    value={props.value}
                     style={styles.inputStyle}
-                    onChangeText={(text) => { setExpiry(text) }}
+                    onChangeText={(text) => { setBarcode(text) }}
                 />
-                 {/* <DatePicker mode="date" date={expiry} onDateChange={setExpiry} /> */}
-            </View>
-            <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={() => { setExpiry(props.data); }} style={[styles.container, props.style]} >
-                    <Icon name="refresh" style={styles.icon} />
-                </TouchableOpacity>
             </View>
         </View>
     );
@@ -44,7 +34,7 @@ const styles = StyleSheet.create({
         paddingRight: 110
     },
     btnContainer: {
-        backgroundColor: "rgba(225,82,100,1)",
+        backgroundColor: "rgba(74,144,226,1)",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 28,
@@ -91,4 +81,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ExpiryForm;
+export default BarcodeForm;

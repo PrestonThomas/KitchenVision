@@ -70,8 +70,8 @@ function returnScannedText() {
     if (output === undefined) {
         return 'No text found';
     } else {
-        JSON.stringify(dataArray.push(output));
-        console.log('JSON STRING of Expiry Dates', dataArray);
+        // JSON.stringify(dataArray.push(output));
+        // console.log('JSON STRING of Expiry Dates', dataArray);
         return output;
     }
 }
