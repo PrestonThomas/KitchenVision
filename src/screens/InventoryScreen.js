@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
-//import for the collapsible/Expandable view
-import Collapsible from 'react-native-collapsible';
 //import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
+import Counter from 'react-native-counters';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
 import Barcode from '../api/barcode';
@@ -18,6 +17,10 @@ import storage from '../api/storage';
 
 // Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
 
+// counter button onchange function
+const onChange = (number,type) => {
+    console.log(number, type) // 1, + or -
+};
 
 //Dummy content to show
 //You can also use dynamic data by calling web service
@@ -25,45 +28,43 @@ const CONTENT = [
     {
         title: 'Dairy',
         customInnerItem: (
-            <ScrollView>
-                <View style={{backgroundColor: '#E6E6E6', width: 375,height: 65,}}>
-                    <View style={{width: 360,height: 66,backgroundColor: 'rgba(255,255,255,1)',borderWidth: 1,borderColor: '#000000',flexDirection: 'row',}}>
-                        <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'40%',}}>Item&#39;s Name</Text>
-                        <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'20%',}}>Date</Text>
-                        <View style={{ width:'40%',}}>
-                            <TouchableOpacity style={{ margin:15,width: '25%',position: 'absolute',backgroundColor: 'rgba(88,138,240,1)',}}>
-                                <Button title='+' />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{   margin:15,width: '25%',position:'relative',backgroundColor: 'rgba(88,138,240,1)',alignSelf:'flex-end',}}>
-                                <Button title='−' />
-                            </TouchableOpacity>
+                <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
+                    <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
+                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                            <Counter start={1} onChange={onChange} />
                         </View>
                     </View>
                 </View>
-            </ScrollView>
+                <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
+                    <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
+                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                            <Counter start={1} onChange={onChange} />
+                        </View>
+                    </View>
+                </View></>
           ),
         // content:
         // 'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).',
     },
     {
-        title: 'Privacy Policy',
-        content:
-        'A Privacy Policy agreement is the agreement where you specify if you collect personal data from your users, what kind of personal data you collect and what you do with that data.',
-    },
-    {
-        title: 'Return Policy',
-        content:
-        'Our Return & Refund Policy template lets you get started with a Return and Refund Policy agreement. This template is free to download and use.According to TrueShip study, over 60% of customers review a Return/Refund Policy before they make a purchasing decision.',
+        title: 'Fridge',
+        customInnerItem: (
+            <View style={{backgroundColor: '#E6E6E6', width: '100%',height: 65,}}>
+                <View style={{width: 370,height: 66,backgroundColor: 'rgba(255,255,255,1)',borderWidth: 1,borderColor: '#000000',flexDirection: 'row',}}>
+                    <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'40%',}}>Item&#39;s Name</Text>
+                    <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'20%',}}>Date</Text>
+                    <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}>
+                        <Counter start={1} onChange={onChange} />
+                    </View>
+                </View>
+            </View>
+      ),
     },
 ];
-
-//To make the selector (Something like tabs)
-// const SELECTORS = [
-//     { title: 'T&C', value: 0 },
-//     { title: 'Privacy Policy', value: 1 },
-//     { title: 'Return Policy', value: 2 },
-//     { title: 'Reset all' },
-// ];
 
 let barcodeOutput;
 
@@ -89,7 +90,6 @@ class InventoryScreen extends React.Component {
 }
 
 function InventoryHome({ navigation }) {
-
     // Ddefault active selector
     const [activeSections, setActiveSections] = useState([]);
     // Collapsed condition for the single collapsible
@@ -138,68 +138,9 @@ function InventoryHome({ navigation }) {
     };
 
     return (
-        <><>
-            <View style={styles.container}>
-                <Text style={styles.name}>Product Category</Text>
-                <View style={styles.rect}>
-                    <Text style={styles.itemsName}>Item&#39;s Name</Text>
-                    <Text style={styles.date}>Date</Text>
-                    <View style={styles.inputBox}>
-                        <TouchableOpacity style={styles.plusButton}>
-                            <Button title='+' />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.minusButton}>
-                            {/* <Text style={styles.minusText}>−</Text> */}
-                            <Button title='−' />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 30, color: 'black' }}>
-                    InventoryScreen
-                </Text>
-                <Button
-                    onPress={() => {
-                        console.log(scanner.returnScannedText());
-                    } }
-                    title="Retrieve Expiry Date" />
-                {/* <Button
-                    onPress={() => navigation.navigate('Barcode Scanner')}
-                    title="Scan Barcode" /> */}
-                <Button
-                    // style align to the bottom of the screen
-                    onPress={() => storage.load({key:"9002490100070"}).then(val => {console.log(val)})}
-                    title="Log Storage output" />
-                <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
-            </View></>
-            
-            <SafeAreaView style={{ flex: 1 }}>
+         <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.containerA}>
                     <ScrollView>
-                        {/* <Text style={styles.title}>
-                            Example of Collapsible/Accordion/Expandable List View in React
-                            Native
-                        </Text> */}
-
-                        {/*Code for Single Collapsible Start*/}
-                        {/* <TouchableOpacity onPress={toggleExpanded}>
-                            <View style={styles.header}>
-                                <Text style={styles.headerText}>Single Collapsible</Text>
-                                Heading of Single Collapsible
-                            </View>
-                        </TouchableOpacity> */}
-                        {/*Content of Single Collapsible*/}
-                        {/* <Collapsible collapsed={collapsed} align="center">
-                            <View style={styles.content}>
-                                <Text style={{ textAlign: 'center' }}>
-                                    This is a dummy text of Single Collapsible View
-                                </Text>
-                            </View>
-                        </Collapsible> */}
-                        {/*Code for Single Collapsible Ends*/}
-
-                        {/* <View style={{ backgroundColor: '#000', height: 1, marginTop: 10 }} /> */}
                         <View style={styles.multipleToggle}>
                             <Text style={styles.multipleToggle__title}>
                                 Multiple Expand Allowed?
@@ -211,25 +152,6 @@ function InventoryHome({ navigation }) {
                         <Text style={styles.selectTitle}>
                             Please select below option to expand
                         </Text>
-
-                        {/*Code for Selector starts here*/}
-                        {/* <View style={styles.selectors}>
-                            {SELECTORS.map((selector) => (
-                                <TouchableOpacity
-                                    key={selector.title}
-                                    onPress={() => setSections([selector.value])}
-                                >
-                                    <View style={styles.selector}>
-                                        <Text
-                                            style={activeSections.includes(selector.value) &&
-                                                styles.activeSelector}>
-                                            {selector.title}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            ))}
-                        </View> */}
-                        {/*Code for Selector ends here*/}
 
                         {/*Code for Accordion/Expandable List starts here*/}
                         <Accordion
@@ -252,9 +174,27 @@ function InventoryHome({ navigation }) {
                         //Duration for Collapse and expand
                         onChange={setSections} />
                         {/*Code for Accordion/Expandable List ends here*/}
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 30, color: 'black' }}>
+                                InventoryScreen
+                            </Text>
+                            <Button
+                                onPress={() => {
+                                    console.log(scanner.returnScannedText());
+                                } }
+                                title="Retrieve Expiry Date" />
+                            {/* <Button
+                                onPress={() => navigation.navigate('Barcode Scanner')}
+                                title="Scan Barcode" /> */}
+                            <Button
+                                // style align to the bottom of the screen
+                                onPress={() => storage.load({key:"9002490100070"}).then(val => {console.log(val)})}
+                                title="Log Storage output" />
+                        </View>
                     </ScrollView>
+                    <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
                 </View>
-            </SafeAreaView></>
+            </SafeAreaView>
 
     );
 }
@@ -414,64 +354,46 @@ const styles = StyleSheet.create({
         color: 'white',
       },
 
-
-      containerA: {
+    // collapsible list styling
+    containerA: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        paddingTop: 30,
-      },
-    //   title: {
-    //     textAlign: 'center',
-    //     fontSize: 18,
-    //     fontWeight: '300',
-    //     marginBottom: 20,
-    //   },
-      header: {
+        paddingTop: '5%',
+    },
+    header: {
         backgroundColor: '#F5FCFF',
         padding: 10,
-      },
-      headerText: {
+    },
+    headerText: {
         textAlign: 'center',
         fontSize: 20,
         fontWeight: '500',
-      },
-      content: {
+    },
+    content: {
         padding: 20,
         backgroundColor: '#fff',
-      },
-      active: {
+    },
+    active: {
         backgroundColor: 'rgba(255,255,255,1)',
-      },
-      inactive: {
+    },
+    inactive: {
         backgroundColor: 'rgba(245,252,255,1)',
-      },
-    //   selectors: {
-    //     marginBottom: 10,
-    //     flexDirection: 'row',
-    //     justifyContent: 'center',
-    //   },
-    //   selector: {
-    //     backgroundColor: '#F5FCFF',
-    //     padding: 10,
-    //   },
-    //   activeSelector: {
-    //     fontWeight: 'bold',
-    //   },
-      selectTitle: {
+    },
+    selectTitle: {
         fontSize: 14,
         fontWeight: '500',
         padding: 10,
         textAlign: 'center',
-      },
-      multipleToggle: {
+    },
+    multipleToggle: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginVertical: 30,
         alignItems: 'center',
-      },
-      multipleToggle__title: {
+    },
+    multipleToggle__title: {
         fontSize: 16,
         marginRight: 8,
-      },
+    },
   });
 export default InventoryScreen;

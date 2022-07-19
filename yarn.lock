@@ -7786,7 +7786,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@*", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@*", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -7954,6 +7954,14 @@
   "resolved" "https://registry.npmjs.org/react-native-collapsible/-/react-native-collapsible-1.6.0.tgz"
   "version" "1.6.0"
 
+"react-native-counters@^1.2.0":
+  "integrity" "sha512-KFcpyopqFXOb2iw1qbVJRbxmJStK8jcf/zlEJ/PAy6sV4M82xGImRFy+Y1jqdm6Eherg34LR2ay4KYoA3wB/8g=="
+  "resolved" "https://registry.npmjs.org/react-native-counters/-/react-native-counters-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "prop-types" "^15.6.2"
+    "react-native-text" "^1.0.8"
+
 "react-native-date-picker@^4.2.4":
   "integrity" "sha512-bvxScAM1se/krnLiemSMDf6jH0sh50r9E6WdmUFe3RqXjdr/3VGBTUvYHW1nRmMuBn3Vj2AiNEfCX+rlU7bsGQ=="
   "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.4.tgz"
@@ -8035,6 +8043,11 @@
   dependencies:
     "opencollective" "^1.0.3"
     "opencollective-postinstall" "^2.0.2"
+
+"react-native-text@^1.0.8":
+  "integrity" "sha512-pw6qY88hH5EXhnBzkN4KuRVdpjc0TZtL94/0oznDSXdowTf8Lrqsxg8LTlSrypBWNiWa8++6zfDz6dEfbHw45A=="
+  "resolved" "https://registry.npmjs.org/react-native-text/-/react-native-text-1.2.2.tgz"
+  "version" "1.2.2"
 
 "react-native-vector-icons@^9.*", "react-native-vector-icons@^9.2.0":
   "integrity" "sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA=="
