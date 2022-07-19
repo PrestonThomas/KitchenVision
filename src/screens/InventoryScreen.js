@@ -21,8 +21,26 @@ import NameForm from '../components/ItemDetail';
 const CONTENT = [
     {
         title: 'Dairy',
-        content:
-        'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).',
+        customInnerItem: (
+            <ScrollView>
+                <View style={{backgroundColor: '#E6E6E6', width: 375,height: 65,}}>
+                    <View style={{width: 360,height: 66,backgroundColor: 'rgba(255,255,255,1)',borderWidth: 1,borderColor: '#000000',flexDirection: 'row',}}>
+                        <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'40%',}}>Item&#39;s Name</Text>
+                        <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'20%',}}>Date</Text>
+                        <View style={{ width:'40%',}}>
+                            <TouchableOpacity style={{ margin:15,width: '25%',position: 'absolute',backgroundColor: 'rgba(88,138,240,1)',}}>
+                                <Button title='+' />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{   margin:15,width: '25%',position:'relative',backgroundColor: 'rgba(88,138,240,1)',alignSelf:'flex-end',}}>
+                                <Button title='−' />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+          ),
+        // content:
+        // 'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).',
     },
     {
         title: 'Privacy Policy',
@@ -111,7 +129,7 @@ function InventoryHome({ navigation }) {
         <Animatable.Text
             animation={isActive ? 'bounceIn' : undefined}
             style={{ textAlign: 'center' }}>
-            {section.content}
+            {section.customInnerItem}
         </Animatable.Text>
         </Animatable.View>
     );
@@ -212,24 +230,24 @@ function InventoryHome({ navigation }) {
 
                         {/*Code for Accordion/Expandable List starts here*/}
                         <Accordion
-                            activeSections={activeSections}
-                            //for any default active section
-                            sections={CONTENT}
-                            //title and content of accordion
-                            touchableComponent={TouchableOpacity}
-                            //which type of touchable component you want
-                            //It can be the following Touchables
-                            //TouchableHighlight, TouchableNativeFeedback
-                            //TouchableOpacity , TouchableWithoutFeedback
-                            expandMultiple={multipleSelect}
-                            //Do you want to expand mutiple at a time or single at a time
-                            renderHeader={renderHeader}
-                            //Header Component(View) to render
-                            renderContent={renderContent}
-                            //Content Component(View) to render
-                            duration={400}
-                            //Duration for Collapse and expand
-                            onChange={setSections} />
+                        activeSections={activeSections}
+                        //for any default active section
+                        sections={CONTENT}
+                        //title and content of accordion
+                        touchableComponent={TouchableOpacity}
+                        //which type of touchable component you want
+                        //It can be the following Touchables
+                        //TouchableHighlight, TouchableNativeFeedback
+                        //TouchableOpacity , TouchableWithoutFeedback
+                        expandMultiple={multipleSelect}
+                        //Do you want to expand mutiple at a time or single at a time
+                        renderHeader={renderHeader}
+                        //Header Component(View) to render
+                        renderContent={renderContent}
+                        //Content Component(View) to render
+                        duration={400}
+                        //Duration for Collapse and expand
+                        onChange={setSections} />
                         {/*Code for Accordion/Expandable List ends here*/}
                     </ScrollView>
                 </View>
@@ -394,7 +412,7 @@ const styles = StyleSheet.create({
       },
       headerText: {
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '500',
       },
       content: {
