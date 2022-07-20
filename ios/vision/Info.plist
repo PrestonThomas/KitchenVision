@@ -13,6 +13,10 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>roboto-regular.ttf</string>
+		<string>acme-regular.ttf</string>
+		<string>ionicons.ttf</string>
 	</array>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
