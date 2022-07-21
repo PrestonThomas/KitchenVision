@@ -188,7 +188,7 @@ function InventoryHome({ navigation }) {
                                 title="Scan Barcode" /> */}
                             <Button
                                 // style align to the bottom of the screen
-                                onPress={() => storage.load({key:"9002490100070"}).then(val => {console.log(val)})}
+                                onPress={() => storage.storage.load({key:"9002490100070"}).then(val => {console.log(val)})}
                                 title="Log Storage output" />
                         </View>
                     </ScrollView>
@@ -279,7 +279,7 @@ function ItemDetailsScreen({ navigation }) {
         console.log(item.brands);
         console.log(nf.state.value);
         console.log(nf.state.img);
-        storage.save({key: nf.state.value, data:{ value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, brands: item.brands, category: item.categories_hierarchy[0], quantity: nf.state.quantity }});
+        storage.storage.save({key: nf.state.value, data:{ value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, brands: item.brands, category: item.categories_hierarchy[0], quantity: nf.state.quantity }});
         navigation.navigate('Inventory Home Screen');
     };
     return (

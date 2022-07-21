@@ -6,7 +6,19 @@ const storage = new Storage({
     storageBackend: AsyncStorage,
     defaultExpires: null,
     enableCache: true,
-    sync: {}
+    sync: {},
 });
 
-export default storage;
+
+
+const getAllKeys = async () => {
+    return await storage.getIdsForKey('barcode').then(ids => {
+        return ids;
+    }
+    ).catch(err => {
+        console.log(err);
+    }
+    );
+}
+
+export default {storage, getAllKeys};
