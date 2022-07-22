@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
 import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -41,9 +41,9 @@ export default class NameForm extends React.Component {
           <View style={styles.imageBox}>
             <Image source={{ uri: this.state.img }} style={{ width: 100, height: 100 }} />
           </View>
-          <InputFormLabel formName="Name:" value={this.state.json.brands} />
-          <InputFormLabel formName="Category:" value={this.state.json.categories_hierarchy[0]} />
-          <InputFormLabel formName="NutriScore:" value={this.state.json.nutriscore_data.grade} />
+          {/* <InputFormLabel formName="Name:" value={this.state.json.brands} /> */}
+          <InputFormLabel formName="Name:" value="This will also be changed to manual input maybe?" />
+          <InputFormLabel formName="Category:" value="This will change to a selection list" />
           <QuantityFormLabel formName="Quantity:" value={this.state.quantity} />
           <View
             style={{
@@ -58,6 +58,10 @@ export default class NameForm extends React.Component {
               borderBottomColor: 'black',
               borderBottomWidth: StyleSheet.hairlineWidth,
             }}
+          />
+          <Button
+            title="Learn More at openfoodfacts.org"
+            onPress={() => Linking.openURL("https://world.openfoodfacts.org/product/"+this.state.value)}
           />
           <MaterialButtonSuccess
             function={this.handleSubmit}
