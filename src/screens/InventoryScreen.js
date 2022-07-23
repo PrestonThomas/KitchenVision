@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView } from 'react-native';
+import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView, Alert } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
@@ -14,6 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
 import storage from '../api/storage';
+import { styles } from './styles.1';
 
 // Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
 
@@ -229,7 +230,7 @@ function BcScreenModal({ navigation }) {
 
 function queryItem(barcode) {
     let url = 'https://world.openfoodfacts.org/api/v0/product/' + barcode + '.json';
-    return fetch(url);
+    return fetch(url)
 }
 
 function extractDate(string) {
@@ -248,15 +249,34 @@ function ItemDetailsScreen({ navigation }) {
     const [item, setItem] = useState();
     useEffect(() => {
         queryItem(barcodeOutput[0].barcodeText).then(response => response.json()).then(json => {
-            setItem(json.product);
-            setLoading(false);
+            if (json === undefined || json === null || json.status_verbose === 'product not found') {
+                Alert.alert('No Entry For Item', 'Would you like to add this item manually?', [
+                    {
+                        text: 'Yes', onPress: () => {
+                            setLoading(false);
+                            setItem(json);
+                            navigation.navigate('Item Details');
+                        }
+                    },
+                    {
+                        text: 'No', onPress: () => {
+                            setLoading(false);
+                            setItem(json);
+                            navigation.navigate('Inventory Home Screen');
+                        }
+                    }
+                ]);
+            } else {
+                setItem(json.product);
+                setLoading(false);
+            }
         }
         ).catch(error => {
             console.log(error);
         }
         );
     }
-    , []);
+    , [navigation]);
     if (isLoading) {
         return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ActivityIndicator size="large" color="#0000ff" />
@@ -264,8 +284,11 @@ function ItemDetailsScreen({ navigation }) {
     }
     nf.state.value = barcodeOutput[0].barcodeText;
     nf.state.json = item;
-    nf.state.img = item.image_url;
-    // nf.queryItem(barcodeOutput[0].barcodeText);
+    if ( item === undefined || item.image_url === undefined) {
+        nf.state.img = 'https://i.imgur.com/YYIRUdf.jpeg';
+    } else {
+        nf.state.img = item.image_url;
+    }
     nf.handleExpiry = () => {
         scanner.onCameraPress();
     };
@@ -287,113 +310,4 @@ function ItemDetailsScreen({ navigation }) {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#E6E6E6',
-      width: 375,
-      height: 65,
-    },
-    name:{
-        fontSize:20,
-        margin:18,
-    },
-    rect: {
-        width: 360,
-        height: 66,
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderWidth: 1,
-        borderColor: '#000000',
-        flexDirection: 'row',
-    },
-    date: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width:'20%',
-    },
-    itemsName: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width:'40%',
-    },
-    inputBox: {
-        width:'40%',
-    },
-    plusButton: {
-        margin:15,
-        width: '25%',
-        position: 'absolute',
-        backgroundColor: 'rgba(88,138,240,1)',
-    },
-    minusButton: {
-        margin:15,
-        width: '25%',
-        position:'relative',
-        backgroundColor: 'rgba(88,138,240,1)',
-        alignSelf:'flex-end',
-    },
-    bcScanButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        elevation: 3,
-        backgroundColor: 'blue',
-        height: 50,
-      },
-    text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25,
-        color: 'white',
-      },
-
-    // collapsible list styling
-    containerA: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-        paddingTop: '5%',
-    },
-    header: {
-        backgroundColor: '#F5FCFF',
-        padding: 10,
-    },
-    headerText: {
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: '500',
-    },
-    content: {
-        padding: 20,
-        backgroundColor: '#fff',
-    },
-    active: {
-        backgroundColor: 'rgba(255,255,255,1)',
-    },
-    inactive: {
-        backgroundColor: 'rgba(245,252,255,1)',
-    },
-    selectTitle: {
-        fontSize: 14,
-        fontWeight: '500',
-        padding: 10,
-        textAlign: 'center',
-    },
-    multipleToggle: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 30,
-        alignItems: 'center',
-    },
-    multipleToggle__title: {
-        fontSize: 16,
-        marginRight: 8,
-    },
-  });
 export default InventoryScreen;
