@@ -2,7 +2,6 @@ import fs from 'react-native-fs';
 import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import checkForLabels from '../api/vision';
-import { useNavigate } from "react-router-dom";
 
 let capturedImage;
 let output;
@@ -57,6 +56,7 @@ function onCameraPress() {
           resizeImage(capturedImage);
           readFile(capturedImage);
           CameraOpen = false;
+          checkCameraStatus();
         }
       }
       );
@@ -69,11 +69,18 @@ function returnScannedText() {
     if (output === undefined) {
         return 'No text found';
     } else {
-        JSON.stringify(dataArray.push(output));
-        console.log('JSON STRING of Expiry Dates', dataArray);
+        // JSON.stringify(dataArray.push(output));
+        // console.log('JSON STRING of Expiry Dates', dataArray);
         return output;
     }
 }
 
+function checkCameraStatus() {
+  if(CameraOpen === false) {
+    alert('Camera is closed');
+  }
+  return CameraOpen;
+}
 
-export default {onCameraPress, readFile, capturedImage, resizeImage, returnScannedText, CameraOpen};
+
+export default {onCameraPress, readFile, capturedImage, resizeImage, returnScannedText, CameraOpen, checkCameraStatus};
