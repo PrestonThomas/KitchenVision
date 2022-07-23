@@ -298,6 +298,9 @@ function ItemDetailsScreen({ navigation }) {
         nf.state.expiry = convertedDate;
         return nf.state.expiry;
     };
+    nf.handleCancel = () => {
+        navigation.navigate('Inventory Home Screen');
+    };
     nf.handleSubmit = () => {
         console.log(item.brands);
         console.log(nf.state.value);

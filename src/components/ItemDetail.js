@@ -18,17 +18,19 @@ export default class NameForm extends React.Component {
     super(props);
     this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date', quantity: 1 };
     this.handleChange = this.handleChange.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleExpiry = this.handleExpiry.bind(this);
     this.returnExpiry = this.returnExpiry.bind(this);
   }
-  handleExpiry(event) {console.log('expiry');}
-  returnExpiry(event) {console.log('expiry');}
   handleChange(event) { this.setState({ value: event.target.value }); }
+  handleCancel(event) { console.log('Cancel'); }
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
+  handleExpiry(event) { console.log('expiry'); }
+  returnExpiry(event) { console.log('expiry'); }
   render() {
     return this.detailsForm();
   }
@@ -68,6 +70,9 @@ export default class NameForm extends React.Component {
             button="SUBMIT"
             style={styles.materialButtonSuccess}
           />
+          <Button
+          title="Cancel"
+          onPress={this.handleCancel}/>
         </View>
       </View>
     </ScrollView>
