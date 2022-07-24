@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
@@ -10,18 +10,21 @@ import QuantityFormLabel from './QuantityFormLabel';
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
 
+
 // Leaving this here so I don't have to search it up each time - https://world.openfoodfacts.org/api/v0/product/9002490100070.json
 
 export default class NameForm extends React.Component {
   state = {};
   constructor(props) {
     super(props);
-    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date', quantity: 1 };
+    this.state = { value: 'Cat', img: 'https://i.imgur.com/YYIRUdf.jpeg', json: {}, expiry: 'Expiry Date', quantity: 1, name: 'Name', category: 'Category' };
     this.handleChange = this.handleChange.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleExpiry = this.handleExpiry.bind(this);
     this.returnExpiry = this.returnExpiry.bind(this);
+    this.updateName = this.updateName.bind(this);
+    this.updateCategory = this.updateCategory.bind(this);
   }
   handleChange(event) { this.setState({ value: event.target.value }); }
   handleCancel(event) { console.log('Cancel'); }
@@ -35,8 +38,10 @@ export default class NameForm extends React.Component {
     return this.detailsForm();
   }
 
+  updateName(event) { console.log('test'); }
+  updateCategory(event) { console.log('test'); }
+  
   detailsForm() {
-
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={{height: screenHeight}}>
         <View style={styles.container}>
@@ -44,8 +49,8 @@ export default class NameForm extends React.Component {
             <Image source={{ uri: this.state.img }} style={{ width: 100, height: 100 }} />
           </View>
           {/* <InputFormLabel formName="Name:" value={this.state.json.brands} /> */}
-          <InputFormLabel formName="Name:" value="This will also be changed to manual input maybe?" />
-          <InputFormLabel formName="Category:" value="This will change to a selection list" />
+          <InputFormLabel formName="Name:" placeholder="This will also be changed to manual input maybe?" updateChangedText={this.updateName('TestName')}/>
+          <InputFormLabel formName="Category:" placeholder="This will change to a selection list" value={this.state.value} updateChangedText={this.updateCategory('TestCategory')}/>
           <QuantityFormLabel formName="Quantity:" value={this.state.quantity} />
           <View
             style={{
@@ -78,3 +83,4 @@ export default class NameForm extends React.Component {
     </ScrollView>
   }
 }
+

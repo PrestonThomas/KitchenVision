@@ -3,6 +3,7 @@ import { StyleSheet, View, TextInput, TouchableOpacity, Button, Text } from "rea
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const InputFormLabel = (props) => {
+    const [enteredText, setEnteredText] = useState("");
     return (
         <View style={styles.twoItem}>
             <View style={styles.labelContainer}>
@@ -10,8 +11,11 @@ const InputFormLabel = (props) => {
             </View>
             <View style={[styles.inputContainer, props.style]}>
                 <TextInput
-                    placeholder="Barcode"
-                    value={props.value}
+                    onChangeText={enteredText => setEnteredText(enteredText)}
+                    value={(enteredText)}
+                    // onContentSizeChange={console.log(enteredText)}
+                    onContentSizeChange={()=>props.updateChangedText}
+                    placeholder={props.placeholder}
                     style={styles.inputStyle}
                 />
             </View>
