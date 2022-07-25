@@ -18,25 +18,25 @@ import storage from '../api/storage';
 
 
 const RootStack = createStackNavigator();
-// class GroceryScreen extends React.Component {
-//     render() {
-//         return (
-//             <NavigationContainer independent={true}>
-//                 <RootStack.Navigator>
-//                     <RootStack.Group>
-//                         <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
-//                     </RootStack.Group>
-//                     <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
-//                         <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
-//                     </RootStack.Group>
-//                     <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
-//                         <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
-//                     </RootStack.Group>
-//                 </RootStack.Navigator>
-//             </NavigationContainer>
-//         );
-//     }
-// }
+class GroceryScreen extends React.Component {
+    render() {
+        return (
+            <NavigationContainer independent={true}>
+                <RootStack.Navigator>
+                    <RootStack.Group>
+                        <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
+                    </RootStack.Group>
+                    {/* <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
+                        <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
+                    </RootStack.Group>
+                    <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
+                        <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
+                    </RootStack.Group> */}
+                </RootStack.Navigator>
+            </NavigationContainer>
+        );
+    }
+}
 // counter button onchange function
 const onChange = (number,type) => {
     console.log(number, type) // 1, + or -
@@ -87,26 +87,26 @@ const CONTENT = [
 ];
 
 
-function GroceryScreen() {
-    // return (
-    //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //         <Text style={{ fontSize: 30, color: 'black' }}>
-    //             GroceryScreen
-    //         </Text>
-    //     </View>
-    // );
+// function GroceryScreen() {
+//     // return (
+//     //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//     //         <Text style={{ fontSize: 30, color: 'black' }}>
+//     //             GroceryScreen
+//     //         </Text>
+//     //     </View>
+//     // );
    
-        return (
-        <NavigationContainer independent={true}>
-                <RootStack.Navigator>
-                    <RootStack.Group>
-                        <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
-                    </RootStack.Group>
-                </RootStack.Navigator>
-        </NavigationContainer>
-        )
+//         return (
+//         <NavigationContainer independent={true}>
+//                 <RootStack.Navigator>
+//                     <RootStack.Group>
+//                         <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
+//                     </RootStack.Group>
+//                 </RootStack.Navigator>
+//         </NavigationContainer>
+//         )
     
-}
+// }
 
 
 function GroceryHome({ navigation }) {
@@ -151,12 +151,10 @@ function GroceryHome({ navigation }) {
             <Animatable.Text
                 animation = {isActive ? 'bounceIn' : undefined}
                 style = {{textAlign: 'center'}}>
-                {section.content}
+                {section.customInnerItem}
             </Animatable.Text>
             </Animatable.View>
-
         )
-
     }
 
     return (
@@ -202,13 +200,13 @@ function GroceryHome({ navigation }) {
                 </SafeAreaView>
     )
 
-    return (
-        <SafeAreaView style = {{flex:1}}>
-            <View style = {styles.containerA}>
+    // return (
+    //     <SafeAreaView style = {{flex:1}}>
+    //         <View style = {styles.containerA}>
                 
-            </View>
-        </SafeAreaView>
-    )
+    //         </View>
+    //     </SafeAreaView>
+    // )
 }
 
 //Add New Item function 
@@ -230,13 +228,40 @@ const styles = StyleSheet.create({
         margin:18
     },
 
-    itemsName: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width:'40%',
+    header: {
+        backgroundColor: '#F5FCFF',
+        padding: 10,
+    },
+    headerText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: '500',
+    },
+    content: {
+        padding: 20,
+        backgroundColor: '#fff',
+    },
+    active: {
+        backgroundColor: 'rgba(255,255,255,1)',
+    },
+    inactive: {
+        backgroundColor: 'rgba(245,252,255,1)',
+    },
+    selectTitle: {
+        fontSize: 14,
+        fontWeight: '500',
+        padding: 10,
+        textAlign: 'center',
+    },
+    multipleToggle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: 30,
+        alignItems: 'center',
+    },
+    multipleToggle__title: {
+        fontSize: 16,
+        marginRight: 8,
     },
 })
 

@@ -55,18 +55,14 @@ let CONTENT = [
         customInnerItem: (
             <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
                 <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}></Text>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}></Text>
-                    <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                    </View>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
                 </View>
             </View>
                 <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                        </View>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
                     </View>
                 </View></>
         ),
@@ -76,11 +72,8 @@ let CONTENT = [
         customInnerItem: (
             <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
                 <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                    <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                        <Counter start={1} onChange={onChange} />
-                    </View>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
                 </View>
             </View>
         ),

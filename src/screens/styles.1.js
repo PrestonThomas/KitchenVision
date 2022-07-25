@@ -1,54 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#E6E6E6',
-        width: 375,
-        height: 65,
-    },
+    // container: {
+    //     backgroundColor: '#E6E6E6',
+    //     width: 375,
+    //     height: 65,
+    // },
     name: {
         fontSize: 20,
         margin: 18,
-    },
-    rect: {
-        width: 360,
-        height: 66,
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderWidth: 1,
-        borderColor: '#000000',
-        flexDirection: 'row',
-    },
-    date: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width: '20%',
-    },
-    itemsName: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width: '40%',
-    },
-    inputBox: {
-        width: '40%',
-    },
-    plusButton: {
-        margin: 15,
-        width: '25%',
-        position: 'absolute',
-        backgroundColor: 'rgba(88,138,240,1)',
-    },
-    minusButton: {
-        margin: 15,
-        width: '25%',
-        position: 'relative',
-        backgroundColor: 'rgba(88,138,240,1)',
-        alignSelf: 'flex-end',
     },
     bcScanButton: {
         alignItems: 'center',
