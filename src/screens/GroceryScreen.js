@@ -6,6 +6,7 @@ import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
 import Counter from 'react-native-counters';
+// import QuantityFormLabel from '../components/QuantityFormLabel';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
 import Barcode from '../api/barcode';
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
      // collapsible list styling
      containerA: {
         flex: 1,
-        backgroundColor: '#E6E6E6',
+        backgroundColor: '#F5FCFF',
         paddingTop: '5%',
     },
 
