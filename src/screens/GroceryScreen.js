@@ -1,6 +1,6 @@
 import { useNavigationBuilder } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView } from 'react-native';
+import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView, Alert } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
@@ -27,9 +27,9 @@ class GroceryScreen extends React.Component {
                         <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
                     </RootStack.Group>
                     {/* <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
-                        <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
-                    </RootStack.Group>
-                    <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
+                        <RootStack.Screen name="Add New Item" component={AddNewItem} />
+                    </RootStack.Group> */}
+                    {/* <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
                         <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
                     </RootStack.Group> */}
                 </RootStack.Navigator>
@@ -86,27 +86,6 @@ const CONTENT = [
     },
 ];
 
-
-// function GroceryScreen() {
-//     // return (
-//     //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//     //         <Text style={{ fontSize: 30, color: 'black' }}>
-//     //             GroceryScreen
-//     //         </Text>
-//     //     </View>
-//     // );
-   
-//         return (
-//         <NavigationContainer independent={true}>
-//                 <RootStack.Navigator>
-//                     <RootStack.Group>
-//                         <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
-//                     </RootStack.Group>
-//                 </RootStack.Navigator>
-//         </NavigationContainer>
-//         )
-    
-// }
 
 
 function GroceryHome({ navigation }) {
@@ -196,30 +175,30 @@ function GroceryHome({ navigation }) {
                         onChange={setSections} />
                         {/*Code for Accordion/Expandable List ends here*/}
                         </ScrollView>
+                        <FAB buttonColor="grey" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
                         </View>
                 </SafeAreaView>
     )
-
-    // return (
-    //     <SafeAreaView style = {{flex:1}}>
-    //         <View style = {styles.containerA}>
-                
-    //         </View>
-    //     </SafeAreaView>
-    // )
 }
+
 
 //Add New Item function 
 // Users tap the + floating button to initialize the page and key in the item details either through scanning or manual entry. 
-function addNewItem (){
+// function AddNewItem ({ navigation }){
+//     const [isLoading, setLoading] = useState(true);
+//     const [newItem, setNewItem] = useState('');
 
-}
+//     // return (
+
+//     // )
+      
+// }
 
 const styles = StyleSheet.create({
      // collapsible list styling
      containerA: {
         flex: 1,
-        backgroundColor: '#E6E6E6',
+        backgroundColor: '#F8F0E3',
         paddingTop: '5%',
     },
 

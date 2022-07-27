@@ -528,7 +528,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5PN3PXN8G5;
+				DEVELOPMENT_TEAM = QD2RA82TUS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = vision/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -540,7 +540,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.react.native.kitchenvision.agile;
+				PRODUCT_BUNDLE_IDENTIFIER = react.native.kitchenvision.agile;
 				PRODUCT_NAME = vision;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -555,7 +555,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5PN3PXN8G5;
+				DEVELOPMENT_TEAM = QD2RA82TUS;
 				INFOPLIST_FILE = vision/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -566,7 +566,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.react.native.kitchenvision.agile;
+				PRODUCT_BUNDLE_IDENTIFIER = react.native.kitchenvision.agile;
 				PRODUCT_NAME = vision;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
