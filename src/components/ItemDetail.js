@@ -1,15 +1,12 @@
-import React, { Component, useRef } from 'react';
+import React from 'react';
 import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
-import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons';
-import ExpiryForm from './ExpiryForm';
 import BarcodeForm from './BarcodeForm';
-import InputFormLabel from './InputFormLabel';
-import QuantityFormLabel from './QuantityFormLabel';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import NumericInput from 'react-native-numeric-input'
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
-
 
 // Leaving this here so I don't have to search it up each time - https://world.openfoodfacts.org/api/v0/product/9002490100070.json
 
@@ -23,8 +20,6 @@ export default class NameForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleExpiry = this.handleExpiry.bind(this);
     this.returnExpiry = this.returnExpiry.bind(this);
-    this.updateName = this.updateName.bind(this);
-    this.updateCategory = this.updateCategory.bind(this);
   }
   handleChange(event) { this.setState({ value: event.target.value }); }
   handleCancel(event) { console.log('Cancel'); }
@@ -37,9 +32,6 @@ export default class NameForm extends React.Component {
   render() {
     return this.detailsForm();
   }
-
-  updateName(event) { console.log('test'); }
-  updateCategory(event) { console.log('test'); }
   
   detailsForm() {
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -48,10 +40,45 @@ export default class NameForm extends React.Component {
           <View style={styles.imageBox}>
             <Image source={{ uri: this.state.img }} style={{ width: 100, height: 100 }} />
           </View>
-          {/* <InputFormLabel formName="Name:" value={this.state.json.brands} /> */}
-          <InputFormLabel formName="Name:" placeholder="This will also be changed to manual input maybe?" updateChangedText={this.updateName('TestName')}/>
-          <InputFormLabel formName="Category:" placeholder="This will change to a selection list" value={this.state.value} updateChangedText={this.updateCategory('TestCategory')}/>
-          <QuantityFormLabel formName="Quantity:" value={this.state.quantity} />
+          <View style={styles.twoItem}>
+            <View style={styles.labelContainer}>
+              <Text style={styles.labelStyle}>Name</Text>
+            </View>
+            <View style={[styles.inputContainer]}>
+                <TextInput
+                    placeholder='This will be a manual entry'
+                    onChangeText={(text) => {this.state.name = text }}
+                    style={styles.inputStyle}
+                />
+            </View>
+          </View>
+          <View style={styles.twoItem}>
+            <View style={styles.labelContainer}>
+                <Text style={styles.labelStyle}>Category:</Text>
+            </View>
+            <View style={[styles.inputContainer]}>
+                <TextInput
+                    placeholder='This will become a selection list'
+                    onChangeText={(text) => {this.state.category = text }}
+                    style={styles.inputStyle}
+                />
+            </View>
+        </View>
+        <View style={styles.twoItem}>
+            <View style={styles.labelContainer}>
+                <Text style={styles.labelStyle}>Quantity:</Text>
+            </View>
+            <View style={[styles.inputContainer]}>
+                <NumericInput
+                    onChange={value => {this.state.quantity = value}}
+                    rounded
+                    valueType='real'
+                    minValue={1}
+                    iconStyle={{ color: 'black' }}
+                    rightButtonBackgroundColor='#EA3788'
+                    leftButtonBackgroundColor='#E56B70' />
+            </View>
+        </View>
           <View
             style={{
               borderBottomColor: 'black',
@@ -59,7 +86,25 @@ export default class NameForm extends React.Component {
             }}
           />
           <BarcodeForm value={this.state.value} />
-          <ExpiryForm function={this.handleExpiry} data={this.returnExpiry}/>
+          <View style={styles.twoItem}>
+            <View style={styles.btnContainer}>
+                <TouchableOpacity onPress={this.handleExpiry}>
+                    <Icon name="food-off" style={styles.icon} />
+                </TouchableOpacity>
+            </View>
+            <View style={[styles.inputContainer]}>
+                <TextInput
+                    placeholder="Scan or enter expiry date"
+                    style={styles.inputStyle}
+                    onChangeText={(text) => { this.state.expiry = text }}
+                />
+            </View>
+            <View style={styles.btnContainer}>
+                <TouchableOpacity onPress={this.returnExpiry} >
+                    <Icon name="refresh" style={styles.icon} />
+                </TouchableOpacity>
+            </View>
+        </View>
           <View
             style={{
               borderBottomColor: 'black',

@@ -59,5 +59,10 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     },
     "transformIgnorePatterns": []
+  },
+  "rnpm": {
+    "assets": [
+      "./src/assets/fonts"
+    ]
   }
 }

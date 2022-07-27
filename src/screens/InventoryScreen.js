@@ -14,7 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
 import storage from '../api/storage';
-import { styles } from './styles.1';
+import { styles } from './screenStyles';
 
 const wait = (timeout) => {
     return new Promise(resolve => {
@@ -31,10 +31,15 @@ const onChange = (number, type) => {
     console.log(number, type) // 1, + or -
 };
 
-let invItems = storage.storage.load({ key: 'barcode', id: '8881300239206' }).then(val => { invItems = val; });
+// let invItems = storage.storage.load({ key: 'barcode', id: '8881300239206' }).then(val => { invItems = val; });
+let idList = storage.getAllKeys().then(keys => { idList = keys});
 
 getInvItem = async () => {
-    let item = await storage.storage.load({ key: 'barcode', id: '8881300239206' }).then(val => { return val; });
+    for (let i = 0; i < idList.length; i++) {
+        let invItem = await storage.storage.load({ key: 'barcode', id: idList[i] }).then(val => { return val; });
+        console.log(invItem);
+    }
+    let item = await storage.storage.load({ key: 'barcode', id: idList[2] }).then(val => { return val; });
     return item;
 }
 
@@ -114,10 +119,11 @@ function InventoryHome({ navigation }) {
         console.log("Refreshing")
         // load inventory items from storage
         getInvItem().then((val) => {
-            CONTENT[0].customInnerItem = (<View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-                <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>{val.name}</Text>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>{val.expiry}</Text>
+            CONTENT[0].title = val.category;
+            CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
+                <View style={styles.contentItem}>
+                    <Text style={styles.contentItemName}>{val.name}</Text>
+                    <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
                     <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
                     </View>
                 </View>
@@ -160,6 +166,55 @@ function InventoryHome({ navigation }) {
             </Animatable.View>
         );
     };
+
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getInvItem().then((val) => {
+            // CONTENT[0].title = val.category;
+            // CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
+            //     <View style={styles.contentItem}>
+            //         <Text style={styles.contentItemName}>{val.name}</Text>
+            //         <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
+            //         <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+            //         </View>
+            //     </View>
+            // </View>);
+            if (val == undefined) {
+                CONTENT[0].title = "No Items";
+                CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
+                    <View style={styles.contentItem}>
+                        <Text style={styles.contentItemName}>No Items</Text>
+                        <Text style={styles.contentItemExpiry}>No Items</Text>
+                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                        </View>
+                    </View>
+                </View>);
+            }
+            else {
+                for (let i = 0; i < CONTENT.length; i++) {
+                    CONTENT[i].title = val.category;
+                    CONTENT[i].customInnerItem = (<View style={styles.contentContainer}>
+                        <View style={styles.contentItem}>
+                            <Text style={styles.contentItemName}>{val.name}</Text>
+                            <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
+                            <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                            </View>
+                        </View>
+                    </View>);
+                }
+                console.log(val.expiry);
+            }
+        }
+        );
+        wait(100).then(() => setLoading(false));
+    }
+        , [navigation]);
+    if (isLoading) {
+        return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+        </View>;
+    }
 
     let renderContent = (section, _, isActive) => {
         //Accordion Content view
@@ -220,6 +275,10 @@ function InventoryHome({ navigation }) {
                         onChange={setSections} />
                     {/*Code for Accordion/Expandable List ends here*/}
                 </ScrollView>
+                <Button
+                    // style align to the bottom of the screen
+                    onPress={() => storage.storage.load({ key: "barcode", id: "8881300239206" }).then(val => { console.log(val) })}
+                    title="Log Storage output" />
                 <Text>Pull down to Refresh</Text>
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View>
@@ -330,9 +389,6 @@ function ItemDetailsScreen({ navigation }) {
     };
     nf.updateName = (input) => {
         nf.state.name = input;
-    };
-    nf.updateCategory = (input) => {
-        nf.state.category = input;
     };
     nf.handleSubmit = () => {
         console.log(item.brands);
