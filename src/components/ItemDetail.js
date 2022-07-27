@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Linking, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions,  Platform, TouchableOpacity, Linking, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
 //import {LocalCategories} from '../components/dropdownList';
@@ -36,10 +36,12 @@ export const LocalCategories = memo(() => {
         ]}
         ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
         getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
+        onChange={(selectedItem) => { NameForm.state.category = selectedItem }}
       />
       {/* <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text> */}
-      <TextInput onChangeText={(selectedItem) => {this.state.category = selectedItem }}/>
+      
     </View>
+    
   )
 })
 
@@ -89,22 +91,22 @@ export default class NameForm extends React.Component {
               <Text style={styles.labelStyle}>Name</Text>
             </View>
             <View style={[styles.inputContainer]}>
-                <TextInput
-                    placeholder='This will be a manual entry'
-                    onChangeText={(text) => {this.state.name = text }}
-                    style={styles.inputStyle}
-                />
+              <TextInput
+                  placeholder='This will be a manual entry'
+                  onChangeText={(text) => {this.state.name = text }}
+                  style={styles.inputStyle}
+              />
             </View>
           </View>
           {/* <View style={styles.twoItem}> */}
             <View style={styles.labelContainer}>
                 <Text style={styles.labelStyle}>Category:</Text>
             </View>
-            {/* DROP DOWN LIST  */}
-              <View style={{padding: 20}}>
-                <LocalCategories/>
+          {/* DROP DOWN LIST  */}
+            <View style={{padding: 20}, Platform.select({ ios: { zIndex: 100 } })}>
+              <LocalCategories/>
             </View>
-            {/* DROP DOWN LIST  */}
+          {/* DROP DOWN LIST  */}
         {/* </View> */}
         <View style={styles.twoItem}>
             <View style={styles.labelContainer}>
