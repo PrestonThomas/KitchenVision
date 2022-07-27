@@ -255,6 +255,9 @@ const ItemDetailStyles = StyleSheet.create({
       maxHeight: 60,
       opacity: 0.9
   },
+    scrollContainer: {
+      flex: 1
+    },
   });
 
   export default ItemDetailStyles;

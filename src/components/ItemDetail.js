@@ -1,14 +1,47 @@
-import React from 'react';
-import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Linking } from 'react-native';
+import React, { memo, useState } from 'react';
+import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Linking, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
+//import {LocalCategories} from '../components/dropdownList';
 import BarcodeForm from './BarcodeForm';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import NumericInput from 'react-native-numeric-input'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
 
 // Leaving this here so I don't have to search it up each time - https://world.openfoodfacts.org/api/v0/product/9002490100070.json
+
+//DROP DOWN LIST INTERNAL COMPONENT
+export const LocalCategories = memo(() => {
+  const [selectedItem, setSelectedItem] = useState(null)
+
+  const dataSet = new Array(450)
+    .fill({ id: '1', title: 'test' })
+    .map((item, i) => ({ ...item, id: i.toString(), title: item.title + i }))
+
+  return (
+    <View>
+      <AutocompleteDropdown
+        clearOnFocus={false}
+        closeOnBlur={false}
+        initialValue={{ id: '2' }} // or just '2'
+        onSelectItem={setSelectedItem}
+        //  dataSet={dataSet}
+        dataSet={[
+          { id: '1', title: 'Meats' },
+          { id: '2', title: 'Vegetables' },
+          { id: '3', title: 'Drinks' }
+        ]}
+        ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
+        getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
+      />
+      {/* <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text> */}
+      <TextInput onChangeText={(selectedItem) => {this.state.category = selectedItem }}/>
+    </View>
+  )
+})
 
 export default class NameForm extends React.Component {
   state = {};
@@ -32,9 +65,20 @@ export default class NameForm extends React.Component {
   render() {
     return this.detailsForm();
   }
-  
+
+
   detailsForm() {
-    return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    return <SafeAreaView style={({ flex: 1 })}>
+    <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        enabled>
+    <ScrollView nestedScrollEnabled
+    keyboardDismissMode="on-drag"
+    keyboardShouldPersistTaps="handled"
+    contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ paddingBottom: 200 }}
+    style={styles.scrollContainer}>
+
       <View style={{height: screenHeight}}>
         <View style={styles.container}>
           <View style={styles.imageBox}>
@@ -52,18 +96,16 @@ export default class NameForm extends React.Component {
                 />
             </View>
           </View>
-          <View style={styles.twoItem}>
+          {/* <View style={styles.twoItem}> */}
             <View style={styles.labelContainer}>
                 <Text style={styles.labelStyle}>Category:</Text>
             </View>
-            <View style={[styles.inputContainer]}>
-                <TextInput
-                    placeholder='This will become a selection list'
-                    onChangeText={(text) => {this.state.category = text }}
-                    style={styles.inputStyle}
-                />
+            {/* DROP DOWN LIST  */}
+              <View style={{padding: 20}}>
+                <LocalCategories/>
             </View>
-        </View>
+            {/* DROP DOWN LIST  */}
+        {/* </View> */}
         <View style={styles.twoItem}>
             <View style={styles.labelContainer}>
                 <Text style={styles.labelStyle}>Quantity:</Text>
@@ -126,6 +168,8 @@ export default class NameForm extends React.Component {
         </View>
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
+    </SafeAreaView>
+
   }
 }
-
