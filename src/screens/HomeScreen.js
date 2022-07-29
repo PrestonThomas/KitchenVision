@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Button, Text, View } from 'react-native';
 import storage from '../api/storage';
+import { styles } from './liststyle';
 
 function HomeScreen() {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ fontSize: 30, color: 'black' }}>
+        <View styles={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.name}>
                 Home Test Test Test
             </Text>
             <Button
