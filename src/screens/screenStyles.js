@@ -83,9 +83,9 @@ export const styles = StyleSheet.create({
         flexDirection: 'row', 
     },
     contentItemName: {
-        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%',
+        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '65%',
     },
     contentItemExpiry: {
-        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%',
+        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '35%',
     },
 });

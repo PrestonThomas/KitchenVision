@@ -104,7 +104,7 @@ export default class NameForm extends React.Component {
             </View>
           {/* DROP DOWN LIST  */}
             <View style={{padding: 20}, Platform.select({ ios: { zIndex: 100 } })}>
-              <LocalCategories/>
+              <LocalCategories onChange={(selectedItem) => {this.state.category = selectedItem}}/>
             </View>
           {/* DROP DOWN LIST  */}
         {/* </View> */}

@@ -31,59 +31,125 @@ const onChange = (number, type) => {
     console.log(number, type) // 1, + or -
 };
 
-// let invItems = storage.storage.load({ key: 'barcode', id: '8881300239206' }).then(val => { invItems = val; });
+// let invItems = storage.storage.load({ key: 'barcode', id: '5449000000996' }).then(val => { invItems = val; });
 let idList = storage.getAllKeys().then(keys => { idList = keys});
-
-getInvItem = async () => {
-    for (let i = 0; i < idList.length; i++) {
-        let invItem = await storage.storage.load({ key: 'barcode', id: idList[i] }).then(val => { return val; });
-        console.log(invItem);
+let initialLoad = false;
+let getInvItem = async () => {
+    let itemArr = [];
+    let idListLength = idList.length;
+    if (idListLength !== idList.length || initialLoad === false) {
+        initialLoad = true;
+        for (let i = 0; i < idList.length; i++) {
+            itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
+            // console.log(invItem + ' ' + idList[i]);
+            // return invItem
+    
+            // find duplicates in itemArr[i].category
+            let toMap = {}
+            let resultToReturn = false;
+            for (let j = 0; j < itemArr.length; j++) {
+                if (itemArr[j].category in toMap) {
+                    toMap[itemArr[j].category] += 1;
+                } else {
+                    toMap[itemArr[j].category] = 1;
+                }
+            }
+            for (let key in toMap) {
+                if (toMap[key] > 1) {
+                    resultToReturn = true;
+                }
+            }
+            if (resultToReturn) {
+                console.log(Object.keys(toMap));
+                console.log("Duplicates found"); 
+                console.log(itemArr[i].name);
+                for (let key in toMap) {
+                    CONTENT.push({
+                        title: key,
+                        customInnerItem: []
+                    })
+                    for (let j = 0; j < itemArr.length; j++) {
+                        if (itemArr[j].category === key) {
+                            CONTENT[CONTENT.length - 1].customInnerItem.push(itemArr[j].name + " ---- " + itemArr[j].expiry + "\n");
+                        }
+                    }
+                }
+            }
+    
+            // CONTENT.push({
+            //     dynData: itemArr[i].value,
+            //     title: itemArr[i].category,
+            //     customInnerItem: (
+            //         <><View style={styles.contentContainer}>
+            //             <View style={styles.contentItem}>
+            //                 <Text style={styles.contentItemName}>{itemArr[i].value}</Text>
+            //                 <Text style={styles.contentItemExpiry}>{itemArr[i].expiry}</Text>
+            //             </View>
+            //         </View>
+            //             <View style={styles.contentContainer}>
+            //                 <View style={styles.contentItem}>
+            //                     <Text style={styles.contentItemName}>{itemArr[i].value}</Text>
+            //                     <Text style={styles.contentItemExpiry}>{itemArr[i].expiry}</Text>
+            //                 </View>
+            //             </View></>
+            //     )
+            // })
+    
+            // populate the CONTENT array with the item data only if the item does not already exist in the CONTENT array
+            // console.log(itemArr[i]);
+            // if (CONTENT[i].dynData !== itemArr[i].value) {
+            //     CONTENT.push({
+            //         dynData: itemArr[i].value,
+            //         title: itemArr[i].category,
+            //         customInnerItem: (<View style={styles.contentContainer}>
+            //             <View style={styles.contentItem}>
+            //                 <Text style={styles.contentItemName}>{itemArr[i].value}</Text>
+            //                 <Text style={styles.contentItemExpiry}>{itemArr[i].expiry}</Text>
+            //                 <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+            //                 </View>
+            //             </View>
+            //         </View>)
+            //     });
+            // }
+        }
+        return itemArr;
+    } else {
+        return console.log("No new items to load");
     }
-    let item = await storage.storage.load({ key: 'barcode', id: idList[2] }).then(val => { return val; });
-    return item;
 }
 
+let CONTENT = [];
 
 // let CONTENT = [
 //     {
-//         title: 'Inventory',
-//         customInnerItem: 'cat',
+//         title: 'Dairy',
+//         customInnerItem: (
+//             <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
+//                 <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
+//                 </View>
+//             </View>
+//                 <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
+//                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+//                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+//                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
+//                     </View>
+//                 </View></>
+//         ),
 //     },
-//     {   title: 'Expiry',
-//         customInnerItem: 'Test',
+//     {
+//         title: 'Fridge',
+//         customInnerItem: (
+//             <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
+//                 <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
+//                 </View>
+//             </View>
+//         ),
 //     },
-// ]
-
-let CONTENT = [
-    {
-        title: 'Dairy',
-        customInnerItem: (
-            <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-                <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
-                </View>
-            </View>
-                <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-                    <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
-                    </View>
-                </View></>
-        ),
-    },
-    {
-        title: 'Fridge',
-        customInnerItem: (
-            <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-                <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
-                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
-                </View>
-            </View>
-        ),
-    },
-];
+// ];
 
 let barcodeOutput;
 
@@ -119,19 +185,10 @@ function InventoryHome({ navigation }) {
         console.log("Refreshing")
         // load inventory items from storage
         getInvItem().then((val) => {
-            CONTENT[0].title = val.category;
-            CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
-                <View style={styles.contentItem}>
-                    <Text style={styles.contentItemName}>{val.name}</Text>
-                    <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
-                    <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                    </View>
-                </View>
-            </View>);
-            console.log(val.expiry);
+            
         }
         );
-        wait(2000).then(() => setRefreshing(false));
+        wait(1000).then(() => setRefreshing(false));
     }, []);
 
 
@@ -171,40 +228,7 @@ function InventoryHome({ navigation }) {
 
     useEffect(() => {
         getInvItem().then((val) => {
-            // CONTENT[0].title = val.category;
-            // CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
-            //     <View style={styles.contentItem}>
-            //         <Text style={styles.contentItemName}>{val.name}</Text>
-            //         <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
-            //         <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-            //         </View>
-            //     </View>
-            // </View>);
-            if (val == undefined) {
-                CONTENT[0].title = "No Items";
-                CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
-                    <View style={styles.contentItem}>
-                        <Text style={styles.contentItemName}>No Items</Text>
-                        <Text style={styles.contentItemExpiry}>No Items</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                        </View>
-                    </View>
-                </View>);
-            }
-            else {
-                for (let i = 0; i < CONTENT.length; i++) {
-                    CONTENT[i].title = val.category;
-                    CONTENT[i].customInnerItem = (<View style={styles.contentContainer}>
-                        <View style={styles.contentItem}>
-                            <Text style={styles.contentItemName}>{val.name}</Text>
-                            <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
-                            <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                            </View>
-                        </View>
-                    </View>);
-                }
-                console.log(val.expiry);
-            }
+            // console.log(val[0].category);
         }
         );
         wait(100).then(() => setLoading(false));
@@ -277,7 +301,7 @@ function InventoryHome({ navigation }) {
                 </ScrollView>
                 <Button
                     // style align to the bottom of the screen
-                    onPress={() => storage.storage.load({ key: "barcode", id: "8881300239206" }).then(val => { console.log(val) })}
+                    onPress={() => console.log(CONTENT)}
                     title="Log Storage output" />
                 <Text>Pull down to Refresh</Text>
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
