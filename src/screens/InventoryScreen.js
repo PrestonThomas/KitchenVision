@@ -46,7 +46,7 @@ let getInvItem = async () => {
     
             // find duplicates in itemArr[i].category
             let toMap = {}
-            let resultToReturn = false;
+            let duplicateCheck = false;
             for (let j = 0; j < itemArr.length; j++) {
                 if (itemArr[j].category in toMap) {
                     toMap[itemArr[j].category] += 1;
@@ -56,10 +56,10 @@ let getInvItem = async () => {
             }
             for (let key in toMap) {
                 if (toMap[key] > 1) {
-                    resultToReturn = true;
+                    duplicateCheck = true;
                 }
             }
-            if (resultToReturn) {
+            if (duplicateCheck) {
                 console.log(Object.keys(toMap));
                 console.log("Duplicates found"); 
                 console.log(itemArr[i].name);
@@ -95,7 +95,6 @@ let getInvItem = async () => {
             //     )
             // })
     
-            // populate the CONTENT array with the item data only if the item does not already exist in the CONTENT array
             // console.log(itemArr[i]);
             // if (CONTENT[i].dynData !== itemArr[i].value) {
             //     CONTENT.push({
