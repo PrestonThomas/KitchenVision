@@ -1,11 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-    // container: {
-    //     backgroundColor: '#E6E6E6',
-    //     width: 375,
-    //     height: 65,
-    // },
+
     name: {
         fontSize: 20,
         margin: 18,
@@ -30,7 +26,7 @@ export const styles = StyleSheet.create({
     // collapsible list styling
     containerA: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#F8F0E3',
         paddingTop: '5%',
     },
     header: {
@@ -88,4 +84,23 @@ export const styles = StyleSheet.create({
     contentItemExpiry: {
         top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%',
     },
+
+    //Styling for Add Item function
+    appBackground: {
+        backgroundColor: '#F8F0E3',
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    addItemBox: {
+        backgroundColor: 'rgba(255,255,255,1)',
+        color:"#ec645b",
+        alignItems: 'center',
+        marginTop: 1,
+        marginBottom: 1,
+        borderRadius: 10,
+        padding: 5,
+
+    }
+
 });

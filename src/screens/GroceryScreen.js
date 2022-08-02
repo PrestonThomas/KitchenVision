@@ -1,6 +1,6 @@
 import { useNavigationBuilder } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView, Alert } from 'react-native';
+import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView, Alert, TextInputComponent } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
@@ -16,6 +16,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
 import storage from '../api/storage';
+import { TextInput } from 'react-native-gesture-handler';
+import { styles } from './screenStyles';
+import react from 'react';
+import { style } from 'react-native-mock-render/build/propTypes/ViewPropTypes';
+
 
 
 const RootStack = createStackNavigator();
@@ -27,9 +32,9 @@ class GroceryScreen extends React.Component {
                     <RootStack.Group>
                         <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
                     </RootStack.Group>
-                    {/* <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
+                    <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
                         <RootStack.Screen name="Add New Item" component={AddNewItem} />
-                    </RootStack.Group> */}
+                    </RootStack.Group>
                     {/* <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
                         <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
                     </RootStack.Group> */}
@@ -53,7 +58,7 @@ const CONTENT = [
                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                        <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}>
                             <Counter start={1} onChange={onChange} />
                         </View>
                     </View>
@@ -62,7 +67,7 @@ const CONTENT = [
                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                        <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}> 
                             <Counter start={1} onChange={onChange} />
                         </View>
                     </View>
@@ -176,74 +181,73 @@ function GroceryHome({ navigation }) {
                         onChange={setSections} />
                         {/*Code for Accordion/Expandable List ends here*/}
                         </ScrollView>
-                        <FAB buttonColor="grey" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
+                        <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
                         </View>
                 </SafeAreaView>
     )
 }
 
 
-//Add New Item function 
-// Users tap the + floating button to initialize the page and key in the item details either through scanning or manual entry. 
-// function AddNewItem ({ navigation }){
-//     const [isLoading, setLoading] = useState(true);
-//     const [newItem, setNewItem] = useState('');
+// Add New Item function 
+function AddNewItem ({navigation}) {
+    const [items,setItems] = useState([
+        {itemName: "item1", quantity: 1, isSelected: false},
+    ]);
 
-//     // return (
+    const [inputValue, setInputValue] = useState('');
+    const [totalItemCount, setTotalItemCount] = useState(0);
 
-//     // )
-      
-// }
 
-const styles = StyleSheet.create({
-     // collapsible list styling
-     containerA: {
-        flex: 1,
-        backgroundColor: '#F8F0E3',
-        paddingTop: '5%',
-    },
+    const handleAddButtonClick = () => {
+        const newItem = {
+            newItem: inputValue,
+            quantity: 1,
+            isSelected: false,
+        };
 
-    name: {
-        fontSize:20,
-        margin:18
-    },
+        const newItems = [...items,newItem];
 
-    header: {
-        backgroundColor: '#F5FCFF',
-        padding: 10,
-    },
-    headerText: {
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: '500',
-    },
-    content: {
-        padding: 20,
-        backgroundColor: '#fff',
-    },
-    active: {
-        backgroundColor: 'rgba(255,255,255,1)',
-    },
-    inactive: {
-        backgroundColor: 'rgba(245,252,255,1)',
-    },
-    selectTitle: {
-        fontSize: 14,
-        fontWeight: '500',
-        padding: 10,
-        textAlign: 'center',
-    },
-    multipleToggle: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 30,
-        alignItems: 'center',
-    },
-    multipleToggle__title: {
-        fontSize: 16,
-        marginRight: 8,
-    },
-})
+        setItems(newItems);
+        setInputValue(''),
+        calculateTotal();
+    };
+
+    const handleQuantityIncrease = (index) => {
+        const newItems = [...items];
+        newItems[index].quantity++;
+        setItems(newItems);
+        calculateTotal();
+    };
+
+    const handleQuantityDecrease = (index) => {
+        const newItems = [...items];
+        newItems[index].quantity--;
+        setItems(newItems);
+        calculateTotal();
+    };
+
+    const toggleComplete = (index) => {
+        const newItems = [...items];
+        newItems[index].isSelected = !newItems[index].isSelected;
+        setItems(newItems);
+    }
+
+    const calculateTotal = () => {
+        const totalItemCount = items.reduce((total,item) => {
+            return total + item.quantity;
+        }, 0);
+        setTotalItemCount(totalItemCount);
+    };
+
+    return (
+        <View style = {styles.appBackground}>
+            <View style = {styles.addItemBox}>
+                
+            </View>
+        </View>
+
+    )
+}
 
 
 export default GroceryScreen;
