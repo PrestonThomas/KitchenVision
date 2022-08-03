@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView, Alert } from 'react-native';
+import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
@@ -14,56 +14,74 @@ import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
 import storage from '../api/storage';
-import { styles } from './styles.1';
+import { styles } from './screenStyles';
 
-// Still working on getting the text to update/return upon camera close. Looking at async functions and promises. - Preston;
+const wait = (timeout) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
 
-// counter button onchange function
-const onChange = (number,type) => {
+function useForceUpdate() {
+    const [value, setValue] = useState(0);
+    return () => setValue(value => value + 1);
+}
+
+const onChange = (number, type) => {
     console.log(number, type) // 1, + or -
 };
 
-//Dummy content to show
-//You can also use dynamic data by calling web service
-const CONTENT = [
+// let invItems = storage.storage.load({ key: 'barcode', id: '8881300239206' }).then(val => { invItems = val; });
+let idList = storage.getAllKeys().then(keys => { idList = keys});
+
+getInvItem = async () => {
+    for (let i = 0; i < idList.length; i++) {
+        let invItem = await storage.storage.load({ key: 'barcode', id: idList[i] }).then(val => { return val; });
+        console.log(invItem);
+    }
+    let item = await storage.storage.load({ key: 'barcode', id: idList[2] }).then(val => { return val; });
+    return item;
+}
+
+
+// let CONTENT = [
+//     {
+//         title: 'Inventory',
+//         customInnerItem: 'cat',
+//     },
+//     {   title: 'Expiry',
+//         customInnerItem: 'Test',
+//     },
+// ]
+
+let CONTENT = [
     {
         title: 'Dairy',
         customInnerItem: (
-                <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-                    <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                            <Counter start={1} onChange={onChange} />
-                        </View>
-                    </View>
+            <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
+                <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
                 </View>
+            </View>
                 <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-                            <Counter start={1} onChange={onChange} />
-                        </View>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
                     </View>
                 </View></>
-          ),
-        // content:
-        // 'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).',
+        ),
     },
     {
         title: 'Fridge',
         customInnerItem: (
-            <View style={{backgroundColor: '#E6E6E6', width: '100%',height: 65,}}>
-                <View style={{width: 370,height: 66,backgroundColor: 'rgba(255,255,255,1)',borderWidth: 1,borderColor: '#000000',flexDirection: 'row',}}>
-                    <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'40%',}}>Item&#39;s Name</Text>
-                    <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'20%',}}>Date</Text>
-                    <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}>
-                        <Counter start={1} onChange={onChange} />
-                    </View>
+            <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
+                <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
+                    <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
                 </View>
             </View>
-      ),
+        ),
     },
 ];
 
@@ -91,6 +109,32 @@ class InventoryScreen extends React.Component {
 }
 
 function InventoryHome({ navigation }) {
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const forceUpdate = useForceUpdate();
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        console.log("Refreshing")
+        // load inventory items from storage
+        getInvItem().then((val) => {
+            CONTENT[0].title = val.category;
+            CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
+                <View style={styles.contentItem}>
+                    <Text style={styles.contentItemName}>{val.name}</Text>
+                    <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
+                    <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                    </View>
+                </View>
+            </View>);
+            console.log(val.expiry);
+        }
+        );
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+
+
     // Ddefault active selector
     const [activeSections, setActiveSections] = useState([]);
     // Collapsed condition for the single collapsible
@@ -110,52 +154,107 @@ function InventoryHome({ navigation }) {
         setActiveSections(sections.includes(undefined) ? [] : sections);
     };
 
+
     const renderHeader = (section, _, isActive) => {
-    //Accordion Header view
-    return (
-        <Animatable.View
-        duration={400}
-        style={[styles.header, isActive ? styles.active : styles.inactive]}
-        transition="backgroundColor">
-        <Text style={styles.headerText}>{section.title}</Text>
-        </Animatable.View>
-    );
+        //Accordion Header view
+        return (
+            <Animatable.View
+                duration={400}
+                style={[styles.header, isActive ? styles.active : styles.inactive]}
+                transition="backgroundColor">
+                <Text style={styles.headerText}>{section.title}</Text>
+            </Animatable.View>
+        );
     };
 
-    const renderContent = (section, _, isActive) => {
-    //Accordion Content view
-    return (
-        <Animatable.View
-        duration={400}
-        style={[styles.content, isActive ? styles.active : styles.inactive]}
-        transition="backgroundColor">
-        <Animatable.Text
-            animation={isActive ? 'bounceIn' : undefined}
-            style={{ textAlign: 'center' }}>
-            {section.customInnerItem}
-        </Animatable.Text>
-        </Animatable.View>
-    );
-    };
+    const [isLoading, setLoading] = useState(true);
 
-    return (
-         <SafeAreaView style={{ flex: 1 }}>
-                <View style={styles.containerA}>
-                    <ScrollView>
-                        <View style={styles.multipleToggle}>
-                            <Text style={styles.multipleToggle__title}>
-                                Multiple Expand Allowed?
-                            </Text>
-                            <Switch
-                                value={multipleSelect}
-                                onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
+    useEffect(() => {
+        getInvItem().then((val) => {
+            // CONTENT[0].title = val.category;
+            // CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
+            //     <View style={styles.contentItem}>
+            //         <Text style={styles.contentItemName}>{val.name}</Text>
+            //         <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
+            //         <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+            //         </View>
+            //     </View>
+            // </View>);
+            if (val == undefined) {
+                CONTENT[0].title = "No Items";
+                CONTENT[0].customInnerItem = (<View style={styles.contentContainer}>
+                    <View style={styles.contentItem}>
+                        <Text style={styles.contentItemName}>No Items</Text>
+                        <Text style={styles.contentItemExpiry}>No Items</Text>
+                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
                         </View>
-                        <Text style={styles.selectTitle}>
-                            Please select below option to expand
-                        </Text>
+                    </View>
+                </View>);
+            }
+            else {
+                for (let i = 0; i < CONTENT.length; i++) {
+                    CONTENT[i].title = val.category;
+                    CONTENT[i].customInnerItem = (<View style={styles.contentContainer}>
+                        <View style={styles.contentItem}>
+                            <Text style={styles.contentItemName}>{val.name}</Text>
+                            <Text style={styles.contentItemExpiry}>{val.expiry}</Text>
+                            <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                            </View>
+                        </View>
+                    </View>);
+                }
+                console.log(val.expiry);
+            }
+        }
+        );
+        wait(100).then(() => setLoading(false));
+    }
+        , [navigation]);
+    if (isLoading) {
+        return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+        </View>;
+    }
 
-                        {/*Code for Accordion/Expandable List starts here*/}
-                        <Accordion
+    let renderContent = (section, _, isActive) => {
+        //Accordion Content view
+        return (
+            <Animatable.View
+                duration={400}
+                style={[styles.content, isActive ? styles.active : styles.inactive]}
+                transition="backgroundColor">
+                <Animatable.Text
+                    animation={isActive ? 'bounceIn' : undefined}
+                    style={{ textAlign: 'center' }}>
+                    {section.customInnerItem}
+                </Animatable.Text>
+            </Animatable.View>
+        );
+    };
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={styles.containerA}>
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh} />
+                    }>
+                    <View style={styles.multipleToggle}>
+                        <Text style={styles.multipleToggle__title}>
+                            Multiple Expand Allowed?
+                        </Text>
+                        <Switch
+                            value={multipleSelect}
+                            onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
+                    </View>
+                    <Text style={styles.selectTitle}>
+                        Please select below option to expand
+                    </Text>
+
+                    {/*Code for Accordion/Expandable List starts here*/}
+                    <Accordion
                         activeSections={activeSections}
                         //for any default active section
                         sections={CONTENT}
@@ -174,41 +273,28 @@ function InventoryHome({ navigation }) {
                         duration={400}
                         //Duration for Collapse and expand
                         onChange={setSections} />
-                        {/*Code for Accordion/Expandable List ends here*/}
-                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 30, color: 'black' }}>
-                                InventoryScreen
-                            </Text>
-                            <Button
-                                onPress={() => {
-                                    console.log(scanner.returnScannedText());
-                                } }
-                                title="Retrieve Expiry Date" />
-                            {/* <Button
-                                onPress={() => navigation.navigate('Barcode Scanner')}
-                                title="Scan Barcode" /> */}
-                            <Button
-                                // style align to the bottom of the screen
-                                onPress={() => storage.storage.load({key:"9002490100070"}).then(val => {console.log(val)})}
-                                title="Log Storage output" />
-                        </View>
-                    </ScrollView>
-                    <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
-                </View>
-            </SafeAreaView>
-
+                    {/*Code for Accordion/Expandable List ends here*/}
+                </ScrollView>
+                <Button
+                    // style align to the bottom of the screen
+                    onPress={() => storage.storage.load({ key: "barcode", id: "8881300239206" }).then(val => { console.log(val) })}
+                    title="Log Storage output" />
+                <Text>Pull down to Refresh</Text>
+                <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
+            </View>
+        </SafeAreaView>
     );
 }
 
 function BcScreenModal({ navigation }) {
     // let bc = new Barcode.BarcodeScanner();
     return (
-        <View style={{ flex: 1}}>
-                <Barcode.BarcodeScanner/>
+        <View style={{ flex: 1 }}>
+            <Barcode.BarcodeScanner />
             <View>
                 <Pressable style={styles.bcScanButton} onPress={() => {
                     try {
-                        if(Barcode.output[barcode.output.length - 1] !== undefined) {
+                        if (Barcode.output[barcode.output.length - 1] !== undefined) {
                             barcodeOutput = Barcode.output[barcode.output.length - 1];
                             navigation.navigate('Item Details');
                         } else {
@@ -276,15 +362,15 @@ function ItemDetailsScreen({ navigation }) {
         }
         );
     }
-    , [navigation]);
+        , [navigation]);
     if (isLoading) {
         return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ActivityIndicator size="large" color="#0000ff" />
-            </View>;
+        </View>;
     }
     nf.state.value = barcodeOutput[0].barcodeText;
     nf.state.json = item;
-    if ( item === undefined || item.image_url === undefined) {
+    if (item === undefined || item.image_url === undefined) {
         nf.state.img = 'https://i.imgur.com/YYIRUdf.jpeg';
     } else {
         nf.state.img = item.image_url;
@@ -298,11 +384,17 @@ function ItemDetailsScreen({ navigation }) {
         nf.state.expiry = convertedDate;
         return nf.state.expiry;
     };
+    nf.handleCancel = () => {
+        navigation.navigate('Inventory Home Screen');
+    };
+    nf.updateName = (input) => {
+        nf.state.name = input;
+    };
     nf.handleSubmit = () => {
         console.log(item.brands);
         console.log(nf.state.value);
         console.log(nf.state.img);
-        storage.storage.save({key: nf.state.value, data:{ value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, brands: item.brands, category: item.categories_hierarchy[0], quantity: nf.state.quantity }});
+        storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
         navigation.navigate('Inventory Home Screen');
     };
     return (

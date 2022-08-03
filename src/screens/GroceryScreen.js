@@ -1,11 +1,12 @@
 import { useNavigationBuilder } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView } from 'react-native';
+import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView, Alert, TextInputComponent } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
 import Counter from 'react-native-counters';
+// import QuantityFormLabel from '../components/QuantityFormLabel';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
 import Barcode from '../api/barcode';
@@ -15,28 +16,33 @@ import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
 import storage from '../api/storage';
+import { TextInput } from 'react-native-gesture-handler';
+import { styles } from './screenStyles';
+import react from 'react';
+import { style } from 'react-native-mock-render/build/propTypes/ViewPropTypes';
+
 
 
 const RootStack = createStackNavigator();
-// class GroceryScreen extends React.Component {
-//     render() {
-//         return (
-//             <NavigationContainer independent={true}>
-//                 <RootStack.Navigator>
-//                     <RootStack.Group>
-//                         <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
-//                     </RootStack.Group>
-//                     <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
-//                         <RootStack.Screen name="Barcode Scanner" component={BcScreenModal} />
-//                     </RootStack.Group>
-//                     <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
-//                         <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
-//                     </RootStack.Group>
-//                 </RootStack.Navigator>
-//             </NavigationContainer>
-//         );
-//     }
-// }
+class GroceryScreen extends React.Component {
+    render() {
+        return (
+            <NavigationContainer independent={true}>
+                <RootStack.Navigator>
+                    <RootStack.Group>
+                        <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
+                    </RootStack.Group>
+                    <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
+                        <RootStack.Screen name="Add New Item" component={AddNewItem} />
+                    </RootStack.Group>
+                    {/* <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
+                        <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
+                    </RootStack.Group> */}
+                </RootStack.Navigator>
+            </NavigationContainer>
+        );
+    }
+}
 // counter button onchange function
 const onChange = (number,type) => {
     console.log(number, type) // 1, + or -
@@ -52,7 +58,7 @@ const CONTENT = [
                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                        <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}>
                             <Counter start={1} onChange={onChange} />
                         </View>
                     </View>
@@ -61,7 +67,7 @@ const CONTENT = [
                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
+                        <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}> 
                             <Counter start={1} onChange={onChange} />
                         </View>
                     </View>
@@ -86,27 +92,6 @@ const CONTENT = [
     },
 ];
 
-
-function GroceryScreen() {
-    // return (
-    //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //         <Text style={{ fontSize: 30, color: 'black' }}>
-    //             GroceryScreen
-    //         </Text>
-    //     </View>
-    // );
-   
-        return (
-        <NavigationContainer independent={true}>
-                <RootStack.Navigator>
-                    <RootStack.Group>
-                        <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
-                    </RootStack.Group>
-                </RootStack.Navigator>
-        </NavigationContainer>
-        )
-    
-}
 
 
 function GroceryHome({ navigation }) {
@@ -151,12 +136,10 @@ function GroceryHome({ navigation }) {
             <Animatable.Text
                 animation = {isActive ? 'bounceIn' : undefined}
                 style = {{textAlign: 'center'}}>
-                {section.content}
+                {section.customInnerItem}
             </Animatable.Text>
             </Animatable.View>
-
         )
-
     }
 
     return (
@@ -198,47 +181,73 @@ function GroceryHome({ navigation }) {
                         onChange={setSections} />
                         {/*Code for Accordion/Expandable List ends here*/}
                         </ScrollView>
+                        <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
                         </View>
                 </SafeAreaView>
     )
+}
+
+
+// Add New Item function 
+function AddNewItem ({navigation}) {
+    const [items,setItems] = useState([
+        {itemName: "item1", quantity: 1, isSelected: false},
+    ]);
+
+    const [inputValue, setInputValue] = useState('');
+    const [totalItemCount, setTotalItemCount] = useState(0);
+
+
+    const handleAddButtonClick = () => {
+        const newItem = {
+            newItem: inputValue,
+            quantity: 1,
+            isSelected: false,
+        };
+
+        const newItems = [...items,newItem];
+
+        setItems(newItems);
+        setInputValue(''),
+        calculateTotal();
+    };
+
+    const handleQuantityIncrease = (index) => {
+        const newItems = [...items];
+        newItems[index].quantity++;
+        setItems(newItems);
+        calculateTotal();
+    };
+
+    const handleQuantityDecrease = (index) => {
+        const newItems = [...items];
+        newItems[index].quantity--;
+        setItems(newItems);
+        calculateTotal();
+    };
+
+    const toggleComplete = (index) => {
+        const newItems = [...items];
+        newItems[index].isSelected = !newItems[index].isSelected;
+        setItems(newItems);
+    }
+
+    const calculateTotal = () => {
+        const totalItemCount = items.reduce((total,item) => {
+            return total + item.quantity;
+        }, 0);
+        setTotalItemCount(totalItemCount);
+    };
 
     return (
-        <SafeAreaView style = {{flex:1}}>
-            <View style = {styles.containerA}>
+        <View style = {styles.appBackground}>
+            <View style = {styles.addItemBox}>
                 
             </View>
-        </SafeAreaView>
+        </View>
+
     )
 }
-
-//Add New Item function 
-// Users tap the + floating button to initialize the page and key in the item details either through scanning or manual entry. 
-function addNewItem (){
-
-}
-
-const styles = StyleSheet.create({
-     // collapsible list styling
-     containerA: {
-        flex: 1,
-        backgroundColor: '#E6E6E6',
-        paddingTop: '5%',
-    },
-
-    name: {
-        fontSize:20,
-        margin:18
-    },
-
-    itemsName: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width:'40%',
-    },
-})
 
 
 export default GroceryScreen;

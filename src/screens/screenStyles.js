@@ -1,54 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#E6E6E6',
-        width: 375,
-        height: 65,
-    },
+
     name: {
         fontSize: 20,
         margin: 18,
-    },
-    rect: {
-        width: 360,
-        height: 66,
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderWidth: 1,
-        borderColor: '#000000',
-        flexDirection: 'row',
-    },
-    date: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width: '20%',
-    },
-    itemsName: {
-        top: 15,
-        left: 15,
-        fontFamily: 'roboto-regular',
-        color: '#121212',
-        fontSize: 22,
-        width: '40%',
-    },
-    inputBox: {
-        width: '40%',
-    },
-    plusButton: {
-        margin: 15,
-        width: '25%',
-        position: 'absolute',
-        backgroundColor: 'rgba(88,138,240,1)',
-    },
-    minusButton: {
-        margin: 15,
-        width: '25%',
-        position: 'relative',
-        backgroundColor: 'rgba(88,138,240,1)',
-        alignSelf: 'flex-end',
     },
     bcScanButton: {
         alignItems: 'center',
@@ -70,7 +26,7 @@ export const styles = StyleSheet.create({
     // collapsible list styling
     containerA: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#F8F0E3',
         paddingTop: '5%',
     },
     header: {
@@ -108,4 +64,43 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         marginRight: 8,
     },
+    // Styling for Content Array
+    contentContainer: { 
+        backgroundColor: '#E6E6E6', 
+        width: '100%', 
+        height: 65, 
+    },
+    contentItem: {
+        width: 370,
+        height: 66,
+        backgroundColor: 'rgba(255,255,255,1)',
+        borderWidth: 1, 
+        borderColor: '#000000', 
+        flexDirection: 'row', 
+    },
+    contentItemName: {
+        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%',
+    },
+    contentItemExpiry: {
+        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%',
+    },
+
+    //Styling for Add Item function
+    appBackground: {
+        backgroundColor: '#F8F0E3',
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    addItemBox: {
+        backgroundColor: 'rgba(255,255,255,1)',
+        color:"#ec645b",
+        alignItems: 'center',
+        marginTop: 1,
+        marginBottom: 1,
+        borderRadius: 10,
+        padding: 5,
+
+    }
+
 });
