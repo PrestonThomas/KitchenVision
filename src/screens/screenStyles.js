@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { noCentroid } from 'react-native-mock-render/build/api/TouchHistoryMath';
 
 export const styles = StyleSheet.create({
     // container: {
@@ -88,4 +89,43 @@ export const styles = StyleSheet.create({
     contentItemExpiry: {
         top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '35%',
     },
+
+    //Styling for Add Item function
+    appBackground: {
+        backgroundColor: '#F8F0E3',
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    addItemBox: {
+        backgroundColor: 'rgba(255,255,255,1)',
+        color:"#ec645b",
+        alignItems: 'center',
+        marginTop: 1,
+        marginBottom: 1,
+        borderRadius: 10,
+        padding: 5,
+
+    },
+
+    addItemInput: {
+        backgroundColor: "transparent",
+        color: "#ec645b",
+        width: '50%',
+        height: 50,
+    },
+
+    itemList: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+
+    // itemContainer: {
+    //     flex: 1,
+    //     alignItems: 'center',
+    //     justifyContent: 'space-between',
+    //     padding: 20,
+    //     borderBottomColor: '#fbc1bb',
+    // },
+
 });
