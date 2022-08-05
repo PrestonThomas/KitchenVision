@@ -7,13 +7,24 @@ import HomeScreen from './src/screens/HomeScreen';
 import {useEffect} from 'react'
 import { PermissionsAndroid, View, Text, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Splash from './src/components/SplashAnimate';
 
 const Tab = createBottomTabNavigator();
 
 
 function MyTabs() {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator  screenOptions={({ route }) => ({
+            tabBarButton: [
+                "KITCHENVISION",
+            ].includes(route.name)
+                ? () => {
+                    return null;
+                }
+                : undefined,
+            })}>
+            <Tab.Screen name="KITCHENVISION" component={Splash} />
+
             <Tab.Screen name="Home" component={HomeScreen} options={{
                 tabBarIcon: ({ color, size }) => (
                     <Icon name="home" color={color} size={size} />
