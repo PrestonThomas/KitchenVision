@@ -14,10 +14,19 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		157D57E8288EF07700F82952 /* acme-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24891B20288A546B00548A75 /* acme-regular.ttf */; };
 		157D57E9288EF07C00F82952 /* roboto-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24891B21288A546B00548A75 /* roboto-regular.ttf */; };
+<<<<<<< HEAD
+<<<<<<< HEAD
+		6029F6B4899BE215BC6767B9 /* libPods-vision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5953D6EC61033622C0A5A7FF /* libPods-vision.a */; };
+		6A5D01B627C899B6ED7160BA /* libPods-vision-visionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E685A8EC2B8D4C5DC910A25C /* libPods-vision-visionTests.a */; };
+=======
 		15EDABEA28A25A7F00349418 /* VEGgYPERSONALUSE-SemiexpandedMe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15EDABE928A25A7F00349418 /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */; };
 		1B27631D31574F399F9133A7 /* SweetHipster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF35F6E2FC7240A49C4F6379 /* SweetHipster.ttf */; };
 		1C2B56E0D403464499AD3BA3 /* Glowbloom.otf in Resources */ = {isa = PBXBuildFile; fileRef = 344697D9ED7541C48010A068 /* Glowbloom.otf */; };
 		7699B88040F8A987B510C191 /* libPods-vision-visionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-vision-visionTests.a */; };
+>>>>>>> 00f15df28b8fc59d23e32c016beeed5514fc182e
+=======
+		7699B88040F8A987B510C191 /* libPods-vision-visionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-vision-visionTests.a */; };
+>>>>>>> parent of 6826d63 (minor changes)
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9360D371867C4D73927A0828 /* Amsterdam.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C84E48973F224DCDA63FB21A /* Amsterdam.ttf */; };
 		BFEDEDB19B564683920A604B /* Bulgatt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AEC6D20546D446BAEE33DF1 /* Bulgatt.ttf */; };
@@ -45,8 +54,18 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = vision/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = vision/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = vision/main.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
+<<<<<<< HEAD
+		13EE69ABB143776C2EED3CCA /* Pods-vision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.release.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.release.xcconfig"; sourceTree = "<group>"; };
+		157D57ED288EF3A600F82952 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+=======
 		15EDABE928A25A7F00349418 /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VEGgYPERSONALUSE-SemiexpandedMe.ttf"; path = "../src/assets/fonts/VEGgYPERSONALUSE-SemiexpandedMe.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-vision-visionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision-visionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+>>>>>>> 00f15df28b8fc59d23e32c016beeed5514fc182e
+=======
+		157D57ED288EF3A600F82952 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-vision-visionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision-visionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+>>>>>>> parent of 6826d63 (minor changes)
 		24891B20288A546B00548A75 /* acme-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "acme-regular.ttf"; path = "../src/assets/fonts/acme-regular.ttf"; sourceTree = "<group>"; };
 		24891B21288A546B00548A75 /* roboto-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roboto-regular.ttf"; path = "../src/assets/fonts/roboto-regular.ttf"; sourceTree = "<group>"; };
 		24891B22288A54D400548A75 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
@@ -64,6 +83,13 @@
 		24891B2E288A54D500548A75 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		24891B30288A54D500548A75 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		24891B31288A54D500548A75 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+<<<<<<< HEAD
+<<<<<<< HEAD
+		5953D6EC61033622C0A5A7FF /* libPods-vision.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7189DCA27D1187334B517C3A /* Pods-vision-visionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision-visionTests.release.xcconfig"; path = "Target Support Files/Pods-vision-visionTests/Pods-vision-visionTests.release.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = vision/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E685A8EC2B8D4C5DC910A25C /* libPods-vision-visionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision-visionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+=======
 		344697D9ED7541C48010A068 /* Glowbloom.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Glowbloom.otf; path = ../src/assets/fonts/Glowbloom.otf; sourceTree = "<group>"; };
 		3AEC6D20546D446BAEE33DF1 /* Bulgatt.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Bulgatt.ttf; path = ../src/assets/fonts/Bulgatt.ttf; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-vision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.debug.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,6 +104,15 @@
 		8CCE362FA2284106AE71AD78 /* Kake.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kake.otf; path = ../src/assets/fonts/Kake.otf; sourceTree = "<group>"; };
 		AF35F6E2FC7240A49C4F6379 /* SweetHipster.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SweetHipster.ttf; path = ../src/assets/fonts/SweetHipster.ttf; sourceTree = "<group>"; };
 		C84E48973F224DCDA63FB21A /* Amsterdam.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Amsterdam.ttf; path = ../src/assets/fonts/Amsterdam.ttf; sourceTree = "<group>"; };
+>>>>>>> 00f15df28b8fc59d23e32c016beeed5514fc182e
+=======
+		3B4392A12AC88292D35C810B /* Pods-vision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.debug.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-vision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.release.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-vision-visionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision-visionTests.debug.xcconfig"; path = "Target Support Files/Pods-vision-visionTests/Pods-vision-visionTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-vision.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = vision/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-vision-visionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision-visionTests.release.xcconfig"; path = "Target Support Files/Pods-vision-visionTests/Pods-vision-visionTests.release.xcconfig"; sourceTree = "<group>"; };
+>>>>>>> parent of 6826d63 (minor changes)
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
