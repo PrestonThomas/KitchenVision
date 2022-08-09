@@ -417,6 +417,7 @@ function ItemDetailsScreen({ navigation }) {
         console.log(item.brands);
         console.log(nf.state.value);
         console.log(nf.state.img);
+        console.log(nf.state.category);
         storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
         navigation.navigate('Inventory Home Screen');
     };
