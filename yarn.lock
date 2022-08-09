@@ -1726,6 +1726,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@monterosa/react-native-parallax-scroll@^1.8.0":
+  "integrity" "sha512-fFzJvMNN77d78haErRrZ/X64H0Vjz+5CvXSHBqxjlRQmhUB/R7BnqHwO3WFKGv2/Hv30LpL+0MSfHZeukglvDA=="
+  "resolved" "https://registry.npmjs.org/@monterosa/react-native-parallax-scroll/-/react-native-parallax-scroll-1.8.0.tgz"
+  "version" "1.8.0"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -8123,6 +8128,11 @@
   dependencies:
     "prop-types" "^15.6.1"
     "react-native-pixel-perfect" "^1.0.1"
+
+"react-native-parallax-header@^1.1.4":
+  "integrity" "sha512-7RnuBaZondC49G85JKEJvYrELjbrb/42MB6z4WbTeiF58HRHi8dq2aNa1HUwVLe2DS9GGp7hyZ7RkeEZG1wuzA=="
+  "resolved" "https://registry.npmjs.org/react-native-parallax-header/-/react-native-parallax-header-1.1.4.tgz"
+  "version" "1.1.4"
 
 "react-native-parallax-scroll-view@^0.21.3":
   "integrity" "sha512-oVbZPijNGYGcpU2z7k/ZOOnl0vYxch7qtVvaJpH4+wLVnEP49NC2diCzjFGz8PE0yEcgyeTdkpdUK8RTD3QEew=="

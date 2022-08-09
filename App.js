@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
     return (
-        <Tab.Navigator  screenOptions={({ route }) => ({
+        <Tab.Navigator screenOptions={({ route }) => ({
             tabBarButton: [
                 "KITCHENVISION",
             ].includes(route.name)
@@ -25,19 +25,26 @@ function MyTabs() {
             })}>
             <Tab.Screen name="KITCHENVISION" component={Splash} options={{ headerShown: false}}/>
 
-            <Tab.Screen name="Home" component={HomeScreen} options={{
+            <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false,
                 tabBarIcon: ({ color, size }) => (
-                    <Icon name="home" color={color} size={size} />
+                    <Icon name="home" color='orange' size={size} />
                 )
             }} />
-            <Tab.Screen name="Inventory" component={InventoryScreen} options={{
+            <Tab.Screen name="Inventory" component={InventoryScreen} options={{headerShown: false,
                 tabBarIcon: ({ color, size }) => (
-                    <Icon name="list" color={color} size={size} />
-                )
+                    <Icon name="list" color='orange' size={size} />
+                ),
+                tabBarOptions: {
+                    style: {
+                        borderWidth: 0,
+                        backgroundColor: '#000000', //need change this color code as per prop
+                        borderTopColor: '#000000',
+                      }
+                }
             }} />
-            <Tab.Screen name="Grocery" component={GroceryScreen} options={{
+            <Tab.Screen name="Grocery" component={GroceryScreen} options={{headerShown: false,
                 tabBarIcon: ({ color, size }) => (
-                    <Icon name="shopping-cart" color={color} size={size} />
+                    <Icon name="shopping-cart" color='orange' size={size} />
                 )
             }} />
         </Tab.Navigator>

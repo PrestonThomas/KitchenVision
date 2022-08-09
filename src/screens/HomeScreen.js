@@ -1,183 +1,256 @@
-import storage from '../api/storage';
-import { styles } from './liststyle';
-
 import React, { Component } from 'react';
 import {
-  Dimensions,
-  Image,
-  ListView,
-  PixelRatio,
+  Animated,
+  Platform,
+  StatusBar,
   StyleSheet,
   Text,
   View,
+  RefreshControl,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
+const HEADER_MAX_HEIGHT = 300;
+const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
+const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-class HomeScreen extends Component {
+export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state =  {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      }).cloneWithRows([
-        'Simplicity Matters',
-        'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database',
-        'Hammock Driven Development',
-        'Value of Values'
-      ])
+
+    this.state = {
+      scrollY: new Animated.Value(
+        // iOS has negative initial scroll value because content inset...
+        Platform.OS === 'ios' ? -HEADER_MAX_HEIGHT : 0,
+      ),
+      refreshing: false,
     };
   }
 
-  render() {
-    const { onScroll = () => {} } = this.props;
+  _renderScrollViewContent() {
+    const data = Array.from({ length: 30 });
     return (
-      <ListView
-        ref="ListView"
-        style={styles.container}
-        dataSource={ this.state.dataSource }
-        renderRow={(rowData) => (
-          <View key={rowData} style={ styles.row }>
-            <Text style={ styles.rowText }>
-              { rowData }
-            </Text>
+      <View style={styles.scrollViewContent}>
+        {/* {data.map((_, i) => ( */}
+        <View style={styles.sectionBreakTop}>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1000} style={{ textAlign: 'center', fontSize:25, margin:5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+        </View>
+          <View style={styles.rowFirst}>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:10 }}>Total Items</Animatable.Text>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize:40, fontFamily:"HelloKetta", color:"black", marginBottom:10 }}>You Have Recorded a Total of x Items</Animatable.Text>
+        {/*Format of text is subject to changes dependent on data passing by Preston*/}
           </View>
-         )}
-        renderScrollComponent={props => (
-          <ParallaxScrollView
-            onScroll={onScroll}
+          <View style={styles.row}>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:20 }}>Categories</Animatable.Text>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Meat</Animatable.Text>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Vegetables</Animatable.Text>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Drinks</Animatable.Text>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Others</Animatable.Text>
+        </View>
+        <View style={styles.sectionBreak}>
+        <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize:25, margin:5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+        </View>
+        <View style={styles.rowShort}>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1600} onScroll direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:20 }}>Latest Item Added</Animatable.Text>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1800} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Item Name Here</Animatable.Text>
+        </View>
+        <View style={styles.rowShort}>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:20 }}>It's Near Expiry</Animatable.Text>
+            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Item Name, Expiry Date</Animatable.Text>
+        </View>
+        <View style={styles.sectionBreakTop}>
+        <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize:25, margin:5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+        </View>
+        {/* ))} */}
+      </View>
+    );
+  }
 
-            headerBackgroundColor="#333"
-            stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
-            parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
-            backgroundSpeed={10}
+  render() {
+    // Because of content inset the scroll value will be negative on iOS so bring
+    // it back to 0.
+    const scrollY = Animated.add(
+      this.state.scrollY,
+      Platform.OS === 'ios' ? HEADER_MAX_HEIGHT : 0,
+    );
+    const headerTranslate = scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [0, -HEADER_SCROLL_DISTANCE],
+      extrapolate: 'clamp',
+    });
 
-            renderBackground={() => (
-              <View key="background">
-                <Image source={{uri: 'https://i.ytimg.com/vi/P-NZei5ANaQ/maxresdefault.jpg',
-                                width: window.width,
-                                height: PARALLAX_HEADER_HEIGHT}}/>
-                <View style={{position: 'absolute',
-                              top: 0,
-                              width: window.width,
-                              backgroundColor: 'rgba(0,0,0,.4)',
-                              height: PARALLAX_HEADER_HEIGHT}}/>
-              </View>
-            )}
+    const imageOpacity = scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+      outputRange: [0.8, 1, 0.6],
+      extrapolate: 'clamp',
+    });
+    const imageTranslate = scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [0, 100],
+      extrapolate: 'clamp',
+    });
 
-            renderForeground={() => (
-              <View key="parallax-header" style={ styles.parallaxHeader }>
-                <Image style={ styles.avatar } source={{
-                  uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
-                  width: AVATAR_SIZE,
-                  height: AVATAR_SIZE
-                }}/>
-                <Text style={ styles.sectionSpeakerText }>
-                  Talks by Rich Hickey
-                </Text>
-                <Text style={ styles.sectionTitleText }>
-                  CTO of Cognitec, Creator of Clojure
-                </Text>
-              </View>
-            )}
+    const titleScale = scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+      outputRange: [1, 1, 0.45],
+      extrapolate: 'clamp',
+    });
+    const titleTranslate = scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+      outputRange: [0, 0, -185],
+      extrapolate: 'clamp',
+    });
 
-            renderStickyHeader={() => (
-              <View key="sticky-header" style={styles.stickySection}>
-                <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
-              </View>
-            )}
-
-            renderFixedHeader={() => (
-              <View key="fixed-header" style={styles.fixedSection}>
-                <Text style={styles.fixedSectionText}
-                      onPress={() => this.refs.ListView.scrollTo({ x: 0, y: 0 })}>
-                  Scroll to top
-                </Text>
-              </View>
-            )}/>
-        )}
-      />
+    return (
+      <View style={styles.fill}>
+        <StatusBar
+          translucent
+          barStyle="light-content"
+          backgroundColor="rgba(0, 0, 0, 0.251)"
+        />
+        <Animated.ScrollView
+          style={styles.fill}
+          scrollEventThrottle={1}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+            { useNativeDriver: true },
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={() => {
+                this.setState({ refreshing: true });
+                setTimeout(() => this.setState({ refreshing: false }), 1000);
+              }}
+              // Android offset for RefreshControl
+              progressViewOffset={HEADER_MAX_HEIGHT}
+            />
+          }
+          // iOS offset for RefreshControl
+          contentInset={{
+            top: HEADER_MAX_HEIGHT,
+          }}
+          contentOffset={{
+            y: -HEADER_MAX_HEIGHT,
+          }}
+        >
+          {this._renderScrollViewContent()}
+        </Animated.ScrollView>
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.header,
+            { transform: [{ translateY: headerTranslate }] },
+          ]}
+        >
+          <Animated.Image
+            style={[
+              styles.backgroundImage,
+              {
+                opacity: imageOpacity,
+                transform: [{ translateY: imageTranslate }],
+              },
+            ]}
+            source={require('../assets/wavefo.jpg')}
+          />
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.bar,
+            {
+              transform: [
+                { scale: titleScale },
+                { translateY: titleTranslate },
+              ],
+            },
+          ]}
+        >
+        <Text style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'white'}}>My Kitchen Vision</Text>          
+        </Animated.View>
+      </View>
     );
   }
 }
 
-const window = Dimensions.get('window');
-
-const AVATAR_SIZE = 120;
-const ROW_HEIGHT = 60;
-const PARALLAX_HEADER_HEIGHT = 350;
-const STICKY_HEADER_HEIGHT = 70;
-
 const styles = StyleSheet.create({
-  container: {
+  fill: {
     flex: 1,
-    backgroundColor: 'black'
   },
-  background: {
+  content: {
+    flex: 1,
+  },
+  header: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: window.width,
-    height: PARALLAX_HEADER_HEIGHT
+    right: 0,
+    backgroundColor: 'rgba(255,150,79, 1)',
+    overflow: 'hidden',
+    height: HEADER_MAX_HEIGHT,
   },
-  stickySection: {
-    height: STICKY_HEADER_HEIGHT,
-    width: 300,
-    justifyContent: 'flex-end'
-  },
-  stickySectionText: {
-    color: 'white',
-    fontSize: 20,
-    margin: 10
-  },
-  fixedSection: {
+  backgroundImage: {
     position: 'absolute',
-    bottom: 10,
-    right: 10
+    top: 0,
+    left: 0,
+    right: 0,
+    width: null,
+    height: HEADER_MAX_HEIGHT,
+    resizeMode: 'cover',
   },
-  fixedSectionText: {
-    color: '#999',
-    fontSize: 20
-  },
-  parallaxHeader: {
+  bar: {
+    backgroundColor: 'transparent',
+    opacity:20,
+    marginTop: Platform.OS === 'ios' ? 28 : 38,
+    height: 150,
     alignItems: 'center',
-    flex: 1,
-    flexDirection: 'column',
-    paddingTop: 100
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 25,
+    left: 0,
+    right: 0,
   },
-  avatar: {
-    marginBottom: 10,
-    borderRadius: AVATAR_SIZE / 2
-  },
-  sectionSpeakerText: {
+  title: {
     color: 'white',
-    fontSize: 24,
-    paddingVertical: 5
+    fontSize: 70,
+    fontFamily: 'SweetHipster'
   },
-  sectionTitleText: {
-    color: 'white',
-    fontSize: 18,
-    paddingVertical: 5
+  scrollViewContent: {
+    // iOS uses content inset, which acts like padding.
+    paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
   },
   row: {
-    overflow: 'hidden',
-    paddingHorizontal: 10,
-    height: ROW_HEIGHT,
-    backgroundColor: 'white',
-    borderColor: '#ccc',
-    borderBottomWidth: 1,
-    justifyContent: 'center'
+    height: 250,
+    margin: 5,
+    marginTop: 80,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  rowText: {
-    fontSize: 20
-  }
+  rowFirst: {
+    height: 250,
+    margin: 5,
+    marginTop: 10,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  sectionBreak:{
+    height:50,
+    marginTop: 100,
+    marginBottom: 20,
+    backgroundColor: 'rgba(255,150,79, 0.4)',
+  },
+  sectionBreakTop:{
+    height:50,
+    margin:0,
+    backgroundColor: 'rgba(255,150,79, 0.4)',
+  },
+  rowShort: {
+    height:200,
+    margin: 5,
+    marginTop: 30,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
-
-export default HomeScreen;
