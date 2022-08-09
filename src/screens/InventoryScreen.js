@@ -41,6 +41,8 @@ let getInvItem = async () => {
         initialLoad = true;
         for (let i = 0; i < idList.length; i++) {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
+            console.log(itemArr.length)
+            initialArrLength = itemArr.length;
             // console.log(invItem + ' ' + idList[i]);
             // return invItem
     
@@ -59,13 +61,13 @@ let getInvItem = async () => {
                     duplicateCheck = true;
                 }
             }
-            if (duplicateCheck) {
+            if (duplicateCheck || itemArr.length !== initialArrLength) {
                 console.log(Object.keys(toMap));
                 console.log("Duplicates found"); 
                 console.log(itemArr[i].name);
                 for (let key in toMap) {
                     CONTENT.push({
-                        title: key,
+                        title: key.title,
                         customInnerItem: []
                     })
                     for (let j = 0; j < itemArr.length; j++) {
@@ -302,6 +304,10 @@ function InventoryHome({ navigation }) {
                     // style align to the bottom of the screen
                     onPress={() => console.log(CONTENT)}
                     title="Log Storage output" />
+                <Button
+                    // style align to the bottom of the screen
+                    onPress={() => console.log(storage.storage.clearMap())}
+                    title="Clear Storage" />
                 <Text>Pull down to Refresh</Text>
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View>
@@ -417,6 +423,7 @@ function ItemDetailsScreen({ navigation }) {
         console.log(item.brands);
         console.log(nf.state.value);
         console.log(nf.state.img);
+        console.log(nf.state.category);
         storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
         navigation.navigate('Inventory Home Screen');
     };

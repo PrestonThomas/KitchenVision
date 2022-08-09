@@ -23,7 +23,7 @@ function MyTabs() {
                 }
                 : undefined,
             })}>
-            <Tab.Screen name="KITCHENVISION" component={Splash} />
+            <Tab.Screen name="KITCHENVISION" component={Splash} options={{ headerShown: false}}/>
 
             <Tab.Screen name="Home" component={HomeScreen} options={{
                 tabBarIcon: ({ color, size }) => (

@@ -38,7 +38,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>To use the camera.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Our application needs permission to write photos...</string>
 	<key>UIAppFonts</key>
@@ -48,6 +48,13 @@
 		<string>roboto-regular.ttf</string>
 		<string>acme-regular.ttf</string>
 		<string>Ionicons.ttf</string>
+		<string>Amsterdam.ttf</string>
+		<string>VEGgYPERSONALUSE-SemiexpandedMe.ttf</string>
+		<string>Bulgatt.ttf</string>
+		<string>Glowbloom.otf</string>
+		<string>HelloKetta.ttf</string>
+		<string>Kake.otf</string>
+		<string>SweetHipster.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

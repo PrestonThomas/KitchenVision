@@ -258,6 +258,9 @@ const ItemDetailStyles = StyleSheet.create({
     scrollContainer: {
       flex: 1
     },
+    splashText: {
+      textAlign: 'center'
+    },
   });
 
   export default ItemDetailStyles;
