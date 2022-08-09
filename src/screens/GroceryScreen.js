@@ -247,25 +247,22 @@ function AddNewItem ({navigation}) {
                 <Icon name = 'add' onClick = { () => handleAddButtonClick()}  />  
             </View>
 
-            {/* <View style = {styles.itemList}>
+            <View style = {styles.itemList}>
                 {items.map((item,index) => (
-                    <View style ={styles.itemContainer}>
-                        <View style = {styles.itemName} onClick = {() => toggleComplete(index)}>
-                            {item.isSelected ? (
-                                <>
-                                <Icon name = {"check_circle"} />
-                                <View style = {styles.completed}> {items.itemName} </View>
-                                < />
-                                ) : (
-
-                                )
-                            )} 
-                    
-                    )
-
+                    <View style = {styles.itemContainer}>
+                        {/* <View style = {styles.itemName} onClick = {() => toggleComplete(index)} >
+                        </View> */}
+                        <TouchableOpacity onClick={() => toggleComplete(index)} >
+                            <Text key = {item.itemName} style = {styles.itemName} > {item.isSelected?(
+                            <Text style={{color: "red"}}>{"Not Selected"}</Text>
+                            ) : (
+                            <Text style={{color: "green"}}>{"Selected"}</Text>
+                            )}</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
                 )}
-
-            </View> */}
+            </View>
         </View>
 
     )
