@@ -64,10 +64,14 @@ export default class NameForm extends React.Component {
   }
   handleExpiry(event) { console.log('expiry'); }
   returnExpiry(event) { console.log('expiry'); }
+  handleCategory(input) { 
+    if(input !== null) {
+      this.state.category = input.title;
+    }
+  }
   render() {
     return this.detailsForm();
   }
-
 
   detailsForm() {
     return <SafeAreaView style={({ flex: 1 })}>
@@ -104,7 +108,29 @@ export default class NameForm extends React.Component {
             </View>
           {/* DROP DOWN LIST  */}
             <View style={{padding: 20}, Platform.select({ ios: { zIndex: 100 } })}>
-              <LocalCategories onChange={(selectedItem) => {this.state.category = selectedItem}}/>
+              {/* <LocalCategories onChange={(selectedItem) => {this.state.category = selectedItem}}/> */}
+                <View>
+                  <AutocompleteDropdown
+                    clearOnFocus={false}
+                    closeOnBlur={false}
+                    initialValue={{ id: '2' }} // or just '2'
+                    // onSelectItem={setSelectedItem}
+                    //  dataSet={dataSet}
+                    dataSet={[
+                      { id: '1', title: 'Meats' },
+                      { id: '2', title: 'Vegetables' },
+                      { id: '3', title: 'Drinks' }
+                    ]}
+                    ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
+                    getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
+                    // onChange={(selectedItem) => { NameForm.state.category = selectedItem }}
+                    onSelectItem={(selectedItem) => { this.handleCategory(selectedItem) }}
+                    onChange={(selectedItem) => { this.state.category = selectedItem.title }}
+                    onChangeText={(text) => {this.state.category = text }}
+                  />
+                  {/* <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text> */}
+
+                </View>
             </View>
           {/* DROP DOWN LIST  */}
         {/* </View> */}
