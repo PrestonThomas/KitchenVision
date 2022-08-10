@@ -13,6 +13,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		157D57E8288EF07700F82952 /* acme-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24891B20288A546B00548A75 /* acme-regular.ttf */; };
 		157D57E9288EF07C00F82952 /* roboto-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24891B21288A546B00548A75 /* roboto-regular.ttf */; };
+		158BD5B428A3C31B00031E10 /* Amsterdam.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158BD5B228A3C30200031E10 /* Amsterdam.ttf */; };
+		158BD5B528A3C31F00031E10 /* HelloKetta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158BD5B328A3C31800031E10 /* HelloKetta.ttf */; };
+		15EDABEE28A3BDF500349418 /* Sweet-Hipster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15EDABED28A3BDD100349418 /* Sweet-Hipster.ttf */; };
 		6E9E6DFDE0EEE7987D06BFFD /* libPods-vision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D42A561E48DE25DCB9A0A4F /* libPods-vision.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F72561375349A2CC75B53906 /* libPods-vision-visionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9017ECCF765AA9D39EACA2 /* libPods-vision-visionTests.a */; };
@@ -41,6 +44,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = vision/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = vision/main.m; sourceTree = "<group>"; };
 		157D57ED288EF3A600F82952 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		158BD5B228A3C30200031E10 /* Amsterdam.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Amsterdam.ttf; path = ../src/assets/fonts/Amsterdam.ttf; sourceTree = "<group>"; };
+		158BD5B328A3C31800031E10 /* HelloKetta.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelloKetta.ttf; path = ../src/assets/fonts/HelloKetta.ttf; sourceTree = "<group>"; };
+		15EDABED28A3BDD100349418 /* Sweet-Hipster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sweet-Hipster.ttf"; path = "../src/assets/fonts/Sweet-Hipster.ttf"; sourceTree = "<group>"; };
 		1A9017ECCF765AA9D39EACA2 /* libPods-vision-visionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision-visionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24891B20288A546B00548A75 /* acme-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "acme-regular.ttf"; path = "../src/assets/fonts/acme-regular.ttf"; sourceTree = "<group>"; };
 		24891B21288A546B00548A75 /* roboto-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roboto-regular.ttf"; path = "../src/assets/fonts/roboto-regular.ttf"; sourceTree = "<group>"; };
@@ -130,9 +136,12 @@
 				24891B22288A54D400548A75 /* FontAwesome5_Brands.ttf */,
 				24891B2A288A54D400548A75 /* FontAwesome5_Regular.ttf */,
 				24891B2E288A54D500548A75 /* FontAwesome5_Solid.ttf */,
+				158BD5B328A3C31800031E10 /* HelloKetta.ttf */,
 				24891B27288A54D400548A75 /* Fontisto.ttf */,
+				158BD5B228A3C30200031E10 /* Amsterdam.ttf */,
 				24891B23288A54D400548A75 /* Foundation.ttf */,
 				24891B29288A54D400548A75 /* MaterialCommunityIcons.ttf */,
+				15EDABED28A3BDD100349418 /* Sweet-Hipster.ttf */,
 				24891B28288A54D400548A75 /* MaterialIcons.ttf */,
 				24891B2C288A54D500548A75 /* Octicons.ttf */,
 				24891B31288A54D500548A75 /* SimpleLineIcons.ttf */,
@@ -289,7 +298,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				157D57E9288EF07C00F82952 /* roboto-regular.ttf in Resources */,
+				15EDABEE28A3BDF500349418 /* Sweet-Hipster.ttf in Resources */,
 				157D57E8288EF07700F82952 /* acme-regular.ttf in Resources */,
+				158BD5B528A3C31F00031E10 /* HelloKetta.ttf in Resources */,
+				158BD5B428A3C31B00031E10 /* Amsterdam.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -532,7 +544,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QD2RA82TUS;
+				DEVELOPMENT_TEAM = 5PN3PXN8G5;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = vision/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -544,7 +556,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = react.native.kitchenvision.agile;
+				PRODUCT_BUNDLE_IDENTIFIER = react.kitchenvision.agile;
 				PRODUCT_NAME = vision;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -559,7 +571,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QD2RA82TUS;
+				DEVELOPMENT_TEAM = 5PN3PXN8G5;
 				INFOPLIST_FILE = vision/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -570,7 +582,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = react.native.kitchenvision.agile;
+				PRODUCT_BUNDLE_IDENTIFIER = react.kitchenvision.agile;
 				PRODUCT_NAME = vision;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 70,
-    fontFamily: 'SweetHipster'
+    fontFamily: 'Sweet-Hipster'
   },
   scrollViewContent: {
     // iOS uses content inset, which acts like padding.
