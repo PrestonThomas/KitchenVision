@@ -117,9 +117,11 @@ export default class NameForm extends React.Component {
                     // onSelectItem={setSelectedItem}
                     //  dataSet={dataSet}
                     dataSet={[
-                      { id: '1', title: 'Meats' },
-                      { id: '2', title: 'Vegetables' },
-                      { id: '3', title: 'Drinks' }
+                      { id: '1', title: 'Meat' },
+                      { id: '2', title: 'Dairy' },
+                      { id: '3', title: 'Vegetables' },
+                      { id: '4', title: 'Drinks' },
+                      { id: '5', title: 'Other' },
                     ]}
                     ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
                     getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}

@@ -4,7 +4,6 @@ import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, Saf
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
-import Counter from 'react-native-counters';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
 import Barcode from '../api/barcode';
@@ -27,99 +26,91 @@ function useForceUpdate() {
     return () => setValue(value => value + 1);
 }
 
-const onChange = (number, type) => {
-    console.log(number, type) // 1, + or -
-};
-
 // let invItems = storage.storage.load({ key: 'barcode', id: '5449000000996' }).then(val => { invItems = val; });
-let idList = storage.getAllKeys().then(keys => { idList = keys});
+
 let initialLoad = false;
+let checkNewItem = false;
 let getInvItem = async () => {
+    // let idList = storage.getAllKeys().then(keys => { idList = keys });
+    let idList = await storage.getAllKeys();
     let itemArr = [];
     let idListLength = idList.length;
-    if (idListLength !== idList.length || initialLoad === false) {
+    if (!initialLoad || checkNewItem) {
         initialLoad = true;
-        for (let i = 0; i < idList.length; i++) {
-            itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
-            console.log(itemArr.length)
-            initialArrLength = itemArr.length;
-            // console.log(invItem + ' ' + idList[i]);
-            // return invItem
-    
-            // find duplicates in itemArr[i].category
-            let toMap = {}
-            let duplicateCheck = false;
-            for (let j = 0; j < itemArr.length; j++) {
-                if (itemArr[j].category in toMap) {
-                    toMap[itemArr[j].category] += 1;
-                } else {
-                    toMap[itemArr[j].category] = 1;
-                }
+        console.log(checkNewItem)
+        if(checkNewItem) {
+            itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[idList.length - 1] }));
+            switch (itemArr[itemArr.length - 1].category) {
+                case 'Drinks':
+                    CONTENT[3].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    break;
+                case 'Meat':
+                    CONTENT[0].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    break;
+                case 'Vegetables':
+                    CONTENT[1].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    break;
+                case 'Dairy':
+                    CONTENT[2].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    break;
+                default:
+                    CONTENT[4].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    break;
+        }
+            console.log("New item added");
+            checkNewItem = false;
+        } else {
+            for (let i = 0; i < idList.length; i++) {
+                itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
+                switch (itemArr[i].category) {
+                    case 'Drinks':
+                        CONTENT[3].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        break;
+                    case 'Meat':
+                        CONTENT[0].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        break;
+                    case 'Vegetables':
+                        CONTENT[1].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        break;
+                    case 'Dairy':
+                        CONTENT[2].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        break;
+                    default:
+                        CONTENT[4].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        break;
             }
-            for (let key in toMap) {
-                if (toMap[key] > 1) {
-                    duplicateCheck = true;
-                }
+                initialArrLength = itemArr.length;
             }
-            if (duplicateCheck || itemArr.length !== initialArrLength) {
-                console.log(Object.keys(toMap));
-                console.log("Duplicates found"); 
-                console.log(itemArr[i].name);
-                for (let key in toMap) {
-                    CONTENT.push({
-                        title: key.title,
-                        customInnerItem: []
-                    })
-                    for (let j = 0; j < itemArr.length; j++) {
-                        if (itemArr[j].category === key) {
-                            CONTENT[CONTENT.length - 1].customInnerItem.push(itemArr[j].name + " ---- " + itemArr[j].expiry + "\n");
-                        }
-                    }
-                }
-            }
-    
-            // CONTENT.push({
-            //     dynData: itemArr[i].value,
-            //     title: itemArr[i].category,
-            //     customInnerItem: (
-            //         <><View style={styles.contentContainer}>
-            //             <View style={styles.contentItem}>
-            //                 <Text style={styles.contentItemName}>{itemArr[i].value}</Text>
-            //                 <Text style={styles.contentItemExpiry}>{itemArr[i].expiry}</Text>
-            //             </View>
-            //         </View>
-            //             <View style={styles.contentContainer}>
-            //                 <View style={styles.contentItem}>
-            //                     <Text style={styles.contentItemName}>{itemArr[i].value}</Text>
-            //                     <Text style={styles.contentItemExpiry}>{itemArr[i].expiry}</Text>
-            //                 </View>
-            //             </View></>
-            //     )
-            // })
-    
-            // console.log(itemArr[i]);
-            // if (CONTENT[i].dynData !== itemArr[i].value) {
-            //     CONTENT.push({
-            //         dynData: itemArr[i].value,
-            //         title: itemArr[i].category,
-            //         customInnerItem: (<View style={styles.contentContainer}>
-            //             <View style={styles.contentItem}>
-            //                 <Text style={styles.contentItemName}>{itemArr[i].value}</Text>
-            //                 <Text style={styles.contentItemExpiry}>{itemArr[i].expiry}</Text>
-            //                 <View style={{ width: '40%', paddingVertical: 15, alignItems: 'center', }}>
-            //                 </View>
-            //             </View>
-            //         </View>)
-            //     });
-            // }
         }
         return itemArr;
     } else {
+        console.log(idList)
         return console.log("No new items to load");
     }
 }
 
-let CONTENT = [];
+let CONTENT = [
+    {
+        title: 'Meat',
+        customInnerItem: []
+    },
+    {
+        title: 'Dairy',
+        customInnerItem: []
+    },
+    {
+        title: 'Vegetables',
+        customInnerItem: []
+    },
+    {
+        title: 'Drinks',
+        customInnerItem: []
+    },
+    {
+        title: 'Other',
+        customInnerItem: []
+    }
+];
 
 // let CONTENT = [
 //     {
@@ -186,7 +177,7 @@ function InventoryHome({ navigation }) {
         console.log("Refreshing")
         // load inventory items from storage
         getInvItem().then((val) => {
-            
+
         }
         );
         wait(1000).then(() => setRefreshing(false));
@@ -308,6 +299,17 @@ function InventoryHome({ navigation }) {
                     // style align to the bottom of the screen
                     onPress={() => console.log(storage.storage.clearMap())}
                     title="Clear Storage" />
+                <Button
+                    onPress={() =>
+                        storage.getAllKeys().then(keys => {
+                            console.log(keys);
+                        }
+                        ).catch(err => {
+                            console.log(err);
+                        }
+                        )
+                    }
+                    title="Log stored barcodes" />
                 <Text>Pull down to Refresh</Text>
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View>
@@ -424,6 +426,7 @@ function ItemDetailsScreen({ navigation }) {
         console.log(nf.state.value);
         console.log(nf.state.img);
         console.log(nf.state.category);
+        checkNewItem = true;
         storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
         navigation.navigate('Inventory Home Screen');
     };
