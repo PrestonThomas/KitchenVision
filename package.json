@@ -38,6 +38,7 @@
     "react-native-gesture-handler": "^2.5.0",
     "react-native-image-picker": "^4.8.3",
     "react-native-image-resizer": "^1.4.5",
+    "react-native-masked-text": "^1.13.0",
     "react-native-mock-render": "^0.1.9",
     "react-native-numeric-input": "^1.9.1",
     "react-native-parallax-header": "^1.1.4",

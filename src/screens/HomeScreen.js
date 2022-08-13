@@ -9,57 +9,95 @@ import {
   RefreshControl,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import storage from '../api/storage';
 
 const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
+let getInventory = async () => {
+  return await storage.getAllKeys().then(keys => {
+    console.log(keys)
+    return keys;
+  }).catch(err => {
+    console.log(err);
+  }
+  );
+}
+
+const wait = (timeout) => {
+  return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+  });
+}
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       scrollY: new Animated.Value(
         // iOS has negative initial scroll value because content inset...
         Platform.OS === 'ios' ? -HEADER_MAX_HEIGHT : 0,
       ),
       refreshing: false,
+      invStats: {total: 0, numCategories: 0, latestItem: {name: '', barcode: 0, expiry: ''}},
+      isLoading: true,
     };
+  }
+
+  componentDidMount() {
+    getInventory().then((val) => {
+      this.state.invStats.total = val.length;
+      console.log(val);
+      storage.storage.load({key: 'barcode', id: val[val.length-1] }).then(ret => {
+        this.state.invStats.latestItem.name = ret.name;
+        this.state.invStats.latestItem.barcode = ret.value;
+        this.state.invStats.latestItem.expiry = ret.expiry;
+      }).catch(err => {
+        console.log(err);
+      }
+      );
+    }
+    );
   }
 
   _renderScrollViewContent() {
     const data = Array.from({ length: 30 });
+    wait(100).then(() => {
+      this.setState({ isLoading: false });
+    }
+    );
     return (
       <View style={styles.scrollViewContent}>
         {/* {data.map((_, i) => ( */}
         <View style={styles.sectionBreakTop}>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1000} style={{ textAlign: 'center', fontSize:25, margin:5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1000} style={{ textAlign: 'center', fontSize: 25, margin: 5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
-          <View style={styles.rowFirst}>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:10 }}>Total Items</Animatable.Text>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize:40, fontFamily:"HelloKetta", color:"black", marginBottom:10 }}>You Have Recorded a Total of x Items</Animatable.Text>
-        {/*Format of text is subject to changes dependent on data passing by Preston*/}
-          </View>
-          <View style={styles.row}>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:20 }}>Categories</Animatable.Text>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Meat</Animatable.Text>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Vegetables</Animatable.Text>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Drinks</Animatable.Text>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Others</Animatable.Text>
+        <View style={styles.rowFirst}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 10 }}>Total Items</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize: 40, fontFamily: "HelloKetta", color: "black", marginBottom: 10 }}>You Have Recorded a Total of {this.state.invStats.total} Items</Animatable.Text>
+          {/*Format of text is subject to changes dependent on data passing by Preston*/}
+        </View>
+        <View style={styles.row}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 20 }}>Categories</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Meat</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Dairy</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Vegetables</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Drinks</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Others</Animatable.Text>
         </View>
         <View style={styles.sectionBreak}>
-        <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize:25, margin:5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize: 25, margin: 5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         <View style={styles.rowShort}>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1600} onScroll direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:20 }}>Latest Item Added</Animatable.Text>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1800} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Item Name Here</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1600} onScroll direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 20 }}>Latest Item Added</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1800} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}> {this.state.invStats.latestItem.barcode} </Animatable.Text>
         </View>
         <View style={styles.rowShort}>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'rgba(255,150,79, 1)', marginBottom:20 }}>It's Near Expiry</Animatable.Text>
-            <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2200} direction="alternate" style={{ textAlign: 'left', fontSize:45, fontFamily:"HelloKetta", color:"black", marginBottom:20 }}>Item Name, Expiry Date</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 20 }}>It's Near Expiry</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>{this.state.invStats.latestItem.name}, {this.state.invStats.latestItem.expiry}</Animatable.Text>
         </View>
         <View style={styles.sectionBreakTop}>
-        <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize:25, margin:5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize: 25, margin: 5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         {/* ))} */}
       </View>
@@ -120,7 +158,11 @@ export default class HomeScreen extends Component {
               refreshing={this.state.refreshing}
               onRefresh={() => {
                 this.setState({ refreshing: true });
-                setTimeout(() => this.setState({ refreshing: false }), 1000);
+                setTimeout(() => this.setState({ refreshing: false }), 100);
+                getInventory().then((val) => {
+                  this.state.invStats.total = val.length;
+                }
+                );
               }}
               // Android offset for RefreshControl
               progressViewOffset={HEADER_MAX_HEIGHT}

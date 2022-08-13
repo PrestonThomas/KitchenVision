@@ -1,49 +1,18 @@
-import React, { memo, useState } from 'react';
+import React from 'react';
 import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions,  Platform, TouchableOpacity, Linking, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
 //import {LocalCategories} from '../components/dropdownList';
 import BarcodeForm from './BarcodeForm';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import NumericInput from 'react-native-numeric-input'
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NumericInput from 'react-native-numeric-input';
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import { TextInputMask } from 'react-native-masked-text';
 
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
 
 // Leaving this here so I don't have to search it up each time - https://world.openfoodfacts.org/api/v0/product/9002490100070.json
-
-//DROP DOWN LIST INTERNAL COMPONENT
-export const LocalCategories = memo(() => {
-  const [selectedItem, setSelectedItem] = useState(null)
-
-  const dataSet = new Array(450)
-    .fill({ id: '1', title: 'test' })
-    .map((item, i) => ({ ...item, id: i.toString(), title: item.title + i }))
-
-  return (
-    <View>
-      <AutocompleteDropdown
-        clearOnFocus={false}
-        closeOnBlur={false}
-        initialValue={{ id: '2' }} // or just '2'
-        onSelectItem={setSelectedItem}
-        //  dataSet={dataSet}
-        dataSet={[
-          { id: '1', title: 'Meats' },
-          { id: '2', title: 'Vegetables' },
-          { id: '3', title: 'Drinks' }
-        ]}
-        ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
-        getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
-        onChange={(selectedItem) => { NameForm.state.category = selectedItem }}
-      />
-      {/* <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text> */}
-      
-    </View>
-    
-  )
-})
 
 export default class NameForm extends React.Component {
   state = {};
@@ -59,13 +28,13 @@ export default class NameForm extends React.Component {
   handleChange(event) { this.setState({ value: event.target.value }); }
   handleCancel(event) { console.log('Cancel'); }
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
+    // alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
   handleExpiry(event) { console.log('expiry'); }
   returnExpiry(event) { console.log('expiry'); }
-  handleCategory(input) { 
-    if(input !== null) {
+  handleCategory(input) {
+    if (input !== null) {
       this.state.category = input.title;
     }
   }
@@ -165,11 +134,21 @@ export default class NameForm extends React.Component {
                 </TouchableOpacity>
             </View>
             <View style={[styles.inputContainer]}>
-                <TextInput
+                {/* <TextInput
                     placeholder="Scan or enter expiry date"
                     style={styles.inputStyle}
                     onChangeText={(text) => { this.state.expiry = text }}
-                />
+                /> */}
+                  <TextInputMask
+                    type={'datetime'}
+                    style={styles.inputStyle}
+                    placeholder="(DD/MM/YY) Scan/enter expiry date"
+                    options={{
+                      format: 'DD/MM/YY',
+                    }}
+                    value={this.state.dt}
+                    onChangeText={(text) => { this.state.expiry = text; }}
+                  />
             </View>
             <View style={styles.btnContainer}>
                 <TouchableOpacity onPress={this.returnExpiry} >
@@ -185,7 +164,7 @@ export default class NameForm extends React.Component {
           />
           <Button
             title="Learn More at openfoodfacts.org"
-            onPress={() => Linking.openURL("https://world.openfoodfacts.org/product/"+this.state.value)}
+            onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/'+this.state.value)}
           />
           <MaterialButtonSuccess
             function={this.handleSubmit}
@@ -199,7 +178,7 @@ export default class NameForm extends React.Component {
       </View>
     </ScrollView>
     </KeyboardAvoidingView>
-    </SafeAreaView>
+    </SafeAreaView>;
 
   }
 }

@@ -19,6 +19,10 @@
 		6E9E6DFDE0EEE7987D06BFFD /* libPods-vision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D42A561E48DE25DCB9A0A4F /* libPods-vision.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F72561375349A2CC75B53906 /* libPods-vision-visionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9017ECCF765AA9D39EACA2 /* libPods-vision-visionTests.a */; };
+		82B0BFF1E4824E0A812D40D6 /* Bulgatt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AFC038689134F9C8744C402 /* Bulgatt.ttf */; };
+		31C41AF8539A4C1887C66D4B /* Glowbloom.otf in Resources */ = {isa = PBXBuildFile; fileRef = A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */; };
+		B2A4C8C142734E6282E811F2 /* Kake.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0ECB732BCAFC48CDB541CAE1 /* Kake.otf */; };
+		7997E4502D6E468D9F0C50F7 /* VEGgYPERSONALUSE-SemiexpandedMe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +74,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = vision/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D223FDC86BFB5462E535CBFA /* Pods-vision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.debug.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		8AFC038689134F9C8744C402 /* Bulgatt.ttf */ = {isa = PBXFileReference; name = "Bulgatt.ttf"; path = "../src/assets/fonts/Bulgatt.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */ = {isa = PBXFileReference; name = "Glowbloom.otf"; path = "../src/assets/fonts/Glowbloom.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0ECB732BCAFC48CDB541CAE1 /* Kake.otf */ = {isa = PBXFileReference; name = "Kake.otf"; path = "../src/assets/fonts/Kake.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */ = {isa = PBXFileReference; name = "VEGgYPERSONALUSE-SemiexpandedMe.ttf"; path = "../src/assets/fonts/VEGgYPERSONALUSE-SemiexpandedMe.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +185,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				99ED774956824C4FAF94E4E6 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -202,6 +211,18 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		99ED774956824C4FAF94E4E6 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				8AFC038689134F9C8744C402 /* Bulgatt.ttf */,
+				A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */,
+				0ECB732BCAFC48CDB541CAE1 /* Kake.otf */,
+				8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -304,6 +325,10 @@
 				158BD5B428A3C31B00031E10 /* Amsterdam.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				82B0BFF1E4824E0A812D40D6 /* Bulgatt.ttf in Resources */,
+				31C41AF8539A4C1887C66D4B /* Glowbloom.otf in Resources */,
+				B2A4C8C142734E6282E811F2 /* Kake.otf in Resources */,
+				7997E4502D6E468D9F0C50F7 /* VEGgYPERSONALUSE-SemiexpandedMe.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

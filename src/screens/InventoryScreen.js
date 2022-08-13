@@ -38,78 +38,77 @@ let getInvItem = async () => {
     if (!initialLoad || checkNewItem) {
         initialLoad = true;
         console.log(checkNewItem)
-        if(checkNewItem) {
+        if (checkNewItem) {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[idList.length - 1] }));
             switch (itemArr[itemArr.length - 1].category) {
                 case 'Drinks':
-                    CONTENT[3].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    CONTENT[3].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
                     break;
                 case 'Meat':
-                    CONTENT[0].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    CONTENT[0].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
                     break;
                 case 'Vegetables':
-                    CONTENT[1].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    CONTENT[1].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
                     break;
                 case 'Dairy':
-                    CONTENT[2].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    CONTENT[2].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
                     break;
                 default:
-                    CONTENT[4].customInnerItem.push(itemArr[itemArr.length - 1].name + " ---- " + itemArr[itemArr.length - 1].expiry + "\n");
+                    CONTENT[4].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
                     break;
-        }
-            console.log("New item added");
+            }
+            console.log('New item added');
             checkNewItem = false;
         } else {
             for (let i = 0; i < idList.length; i++) {
                 itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
                 switch (itemArr[i].category) {
                     case 'Drinks':
-                        CONTENT[3].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        CONTENT[3].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
                         break;
                     case 'Meat':
-                        CONTENT[0].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        CONTENT[0].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
                         break;
                     case 'Vegetables':
-                        CONTENT[1].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        CONTENT[1].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
                         break;
                     case 'Dairy':
-                        CONTENT[2].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        CONTENT[2].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
                         break;
                     default:
-                        CONTENT[4].customInnerItem.push(itemArr[i].name + " ---- " + itemArr[i].expiry + "\n");
+                        CONTENT[4].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
                         break;
-            }
-                initialArrLength = itemArr.length;
+                }
             }
         }
         return itemArr;
     } else {
         console.log(idList)
-        return console.log("No new items to load");
+        return console.log('No new items to load');
     }
 }
 
 let CONTENT = [
     {
         title: 'Meat',
-        customInnerItem: []
+        customInnerItem: [],
     },
     {
         title: 'Dairy',
-        customInnerItem: []
+        customInnerItem: [],
     },
     {
         title: 'Vegetables',
-        customInnerItem: []
+        customInnerItem: [],
     },
     {
         title: 'Drinks',
-        customInnerItem: []
+        customInnerItem: [],
     },
     {
         title: 'Other',
-        customInnerItem: []
-    }
+        customInnerItem: [],
+    },
 ];
 
 // let CONTENT = [
@@ -174,7 +173,7 @@ function InventoryHome({ navigation }) {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        console.log("Refreshing")
+        console.log('Refreshing')
         // load inventory items from storage
         getInvItem().then((val) => {
 
@@ -347,7 +346,7 @@ function BcScreenModal({ navigation }) {
 
 function queryItem(barcode) {
     let url = 'https://world.openfoodfacts.org/api/v0/product/' + barcode + '.json';
-    return fetch(url)
+    return fetch(url);
 }
 
 function extractDate(string) {
@@ -373,15 +372,15 @@ function ItemDetailsScreen({ navigation }) {
                             setLoading(false);
                             setItem(json);
                             navigation.navigate('Item Details');
-                        }
+                        },
                     },
                     {
                         text: 'No', onPress: () => {
                             setLoading(false);
                             setItem(json);
                             navigation.navigate('Inventory Home Screen');
-                        }
-                    }
+                        },
+                    },
                 ]);
             } else {
                 setItem(json.product);
@@ -413,6 +412,7 @@ function ItemDetailsScreen({ navigation }) {
         let rawText = scanner.returnScannedText();
         let convertedDate = extractDate(rawText);
         nf.state.expiry = convertedDate;
+        console.log(nf.state.expiry);
         return nf.state.expiry;
     };
     nf.handleCancel = () => {
