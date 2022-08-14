@@ -119,7 +119,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
     },
-
     // itemContainer: {
     //     flex: 1,
     //     alignItems: 'center',

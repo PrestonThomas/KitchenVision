@@ -67,37 +67,37 @@ export default class HomeScreen extends Component {
     }
     );
     return (
-      <View style={styles.scrollViewContent}>
+      <View style={styles.homescreenScrollViewContent}>
         {/* {data.map((_, i) => ( */}
-        <View style={styles.sectionBreakTop}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1000} style={{ textAlign: 'center', fontSize: 25, margin: 5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+        <View style={styles.homescreenSectionBreakTop}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
-        <View style={styles.rowFirst}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 10 }}>Total Items</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={{ textAlign: 'left', fontSize: 40, fontFamily: "HelloKetta", color: "black", marginBottom: 10 }}>You Have Recorded a Total of {this.state.invStats.total} Items</Animatable.Text>
+        <View style={styles.homescreenRowFirst}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={styles.homescreenSubHeaderText}>Total Items</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={styles.homescreenContentTextLong}>You Have Recorded a Total of {this.state.invStats.total} Items</Animatable.Text>
           {/*Format of text is subject to changes dependent on data passing by Preston*/}
         </View>
-        <View style={styles.row}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 20 }}>Categories</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Meat</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Dairy</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Vegetables</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Drinks</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>Others</Animatable.Text>
+        <View style={styles.homescreenRow}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1000} onScroll direction="alternate" style={styles.homescreenSubHeaderText}>Categories</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Meat</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Dairy</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Vegetables</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Drinks</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Others</Animatable.Text>
         </View>
-        <View style={styles.sectionBreak}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize: 25, margin: 5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+        <View style={styles.homescreenSectionBreak}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
-        <View style={styles.rowShort}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1600} onScroll direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 20 }}>Latest Item Added</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1800} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}> {this.state.invStats.latestItem.barcode} </Animatable.Text>
+        <View style={styles.homescreenRowShort}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1600} onScroll direction="alternate" style={styles.homescreenSubHeaderText}>Latest Item Added</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1800} direction="alternate" style={styles.homescreenContentText}> {this.state.invStats.latestItem.barcode} </Animatable.Text>
         </View>
-        <View style={styles.rowShort}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2000} onScroll direction="alternate" style={{ textAlign: 'left', fontSize: 25, fontFamily: "Amsterdam", color: 'rgba(255,150,79, 1)', marginBottom: 20 }}>It's Near Expiry</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2200} direction="alternate" style={{ textAlign: 'left', fontSize: 45, fontFamily: "HelloKetta", color: "black", marginBottom: 20 }}>{this.state.invStats.latestItem.name}, {this.state.invStats.latestItem.expiry}</Animatable.Text>
+        <View style={styles.homescreenRowShort}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2000} onScroll direction="alternate" style={styles.homescreenSubHeaderText}>It's Near Expiry</Animatable.Text>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2200} direction="alternate" style={styles.homescreenContentText}>{this.state.invStats.latestItem.name}, {this.state.invStats.latestItem.expiry}</Animatable.Text>
         </View>
-        <View style={styles.sectionBreakTop}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={{ textAlign: 'center', fontSize: 25, margin: 5 }}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+        <View style={styles.homescreenSectionBreakTop}>
+          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         {/* ))} */}
       </View>
@@ -140,14 +140,14 @@ export default class HomeScreen extends Component {
     });
 
     return (
-      <View style={styles.fill}>
+      <View style={styles.homescreenFill}>
         <StatusBar
           translucent
           barStyle="light-content"
           backgroundColor="rgba(0, 0, 0, 0.251)"
         />
         <Animated.ScrollView
-          style={styles.fill}
+          style={styles.homescreenFill}
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
@@ -181,13 +181,13 @@ export default class HomeScreen extends Component {
         <Animated.View
           pointerEvents="none"
           style={[
-            styles.header,
+            styles.homescreenHeader,
             { transform: [{ translateY: headerTranslate }] },
           ]}
         >
           <Animated.Image
             style={[
-              styles.backgroundImage,
+              styles.homescreenBackgroundImage,
               {
                 opacity: imageOpacity,
                 transform: [{ translateY: imageTranslate }],
@@ -198,7 +198,7 @@ export default class HomeScreen extends Component {
         </Animated.View>
         <Animated.View
           style={[
-            styles.bar,
+            styles.homescreenBar,
             {
               transform: [
                 { scale: titleScale },
@@ -207,7 +207,7 @@ export default class HomeScreen extends Component {
             },
           ]}
         >
-        <Text style={{ textAlign: 'left', fontSize:25, fontFamily:"Amsterdam", color:'white'}}>My Kitchen Vision</Text>          
+        <Text style={styles.homescreenHeadText}>My Kitchen Vision</Text>          
         </Animated.View>
       </View>
     );
@@ -215,13 +215,13 @@ export default class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  fill: {
+  homescreenFill: {
     flex: 1,
   },
-  content: {
+  homescreenContent: {
     flex: 1,
   },
-  header: {
+  homescreenHeader: {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     height: HEADER_MAX_HEIGHT,
   },
-  backgroundImage: {
+  homescreenBackgroundImage: {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     height: HEADER_MAX_HEIGHT,
     resizeMode: 'cover',
   },
-  bar: {
+  homescreenBar: {
     backgroundColor: 'transparent',
     opacity:20,
     marginTop: Platform.OS === 'ios' ? 28 : 38,
@@ -251,16 +251,16 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  title: {
+  homescreenTitle: {
     color: 'white',
     fontSize: 70,
     fontFamily: 'Sweet-Hipster'
   },
-  scrollViewContent: {
+  homescreenScrollViewContent: {
     // iOS uses content inset, which acts like padding.
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
   },
-  row: {
+  homescreenRow: {
     height: 250,
     margin: 5,
     marginTop: 80,
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rowFirst: {
+  homescreenRowFirst: {
     height: 250,
     margin: 5,
     marginTop: 10,
@@ -276,23 +276,55 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  sectionBreak:{
+  homescreenSectionBreak:{
     height:50,
     marginTop: 100,
     marginBottom: 20,
     backgroundColor: 'rgba(255,150,79, 0.4)',
   },
-  sectionBreakTop:{
+  homescreenSectionBreakTop:{
     height:50,
     margin:0,
     backgroundColor: 'rgba(255,150,79, 0.4)',
   },
-  rowShort: {
+  homescreenRowShort: {
     height:200,
     margin: 5,
     marginTop: 30,
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  homescreenBreadPos: {
+    textAlign: 'center', 
+    fontSize: 25,
+    margin: 5,
+  },
+  homescreenSubHeaderText: {
+    textAlign: 'left',
+    fontSize: 25,
+    fontFamily: "Amsterdam",
+    color: 'rgba(255,150,79, 1)',
+    marginBottom: 10,
+  },
+  homescreenContentTextLong: {
+    textAlign: 'left',
+    fontSize: 40,
+    fontFamily: "HelloKetta",
+    color: "black",
+    marginBottom: 10,
+  },
+  homescreenContentText: {
+    textAlign: 'left',
+    fontSize: 45,
+    fontFamily: "HelloKetta",
+    color: "black",
+    marginBottom: 20,
+  },
+  homescreenHeadText: {
+    textAlign: 'left',
+    fontSize:25,
+    fontFamily:"Amsterdam",
+    color:'white',
   },
 });
