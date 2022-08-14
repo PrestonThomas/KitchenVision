@@ -70,34 +70,104 @@ export default class HomeScreen extends Component {
       <View style={styles.homescreenScrollViewContent}>
         {/* {data.map((_, i) => ( */}
         <View style={styles.homescreenSectionBreakTop}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          duration={1400} 
+          style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         <View style={styles.homescreenRowFirst}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={styles.homescreenSubHeaderText}>Total Items</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={800} direction="alternate" style={styles.homescreenContentTextLong}>You Have Recorded a Total of {this.state.invStats.total} Items</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={800} 
+          direction="alternate" 
+          style={styles.homescreenSubHeaderText}>Total Items</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={800} 
+          direction="alternate" 
+          style={styles.homescreenContentTextLong}>You Have Recorded a Total of {this.state.invStats.total} Items</Animatable.Text>
           {/*Format of text is subject to changes dependent on data passing by Preston*/}
         </View>
         <View style={styles.homescreenRow}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1000} onScroll direction="alternate" style={styles.homescreenSubHeaderText}>Categories</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Meat</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Dairy</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Vegetables</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Drinks</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1200} direction="alternate" style={styles.homescreenContentText}>Others</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" delay={1000} 
+          onScroll direction="alternate" 
+          style={styles.homescreenSubHeaderText}>Categories</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={1200} 
+          direction="alternate" 
+          style={styles.homescreenContentText}>Meat</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={1200} 
+          direction="alternate" 
+          style={styles.homescreenContentText}>Dairy</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={1200} 
+          direction="alternate" 
+          style={styles.homescreenContentText}>Vegetables</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={1200} 
+          direction="alternate" 
+          style={styles.homescreenContentText}>Drinks</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={1200} 
+          direction="alternate" 
+          style={styles.homescreenContentText}>Others</Animatable.Text>
         </View>
         <View style={styles.homescreenSectionBreak}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          duration={1400} 
+          style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         <View style={styles.homescreenRowShort}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1600} onScroll direction="alternate" style={styles.homescreenSubHeaderText}>Latest Item Added</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={1800} direction="alternate" style={styles.homescreenContentText}> {this.state.invStats.latestItem.barcode} </Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={1600} 
+          onScroll direction="alternate" 
+          style={styles.homescreenSubHeaderText}>Latest Item Added</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={1800} 
+          direction="alternate" 
+          style={styles.homescreenContentText}> {this.state.invStats.latestItem.barcode} </Animatable.Text>
         </View>
         <View style={styles.homescreenRowShort}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2000} onScroll direction="alternate" style={styles.homescreenSubHeaderText}>It's Near Expiry</Animatable.Text>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" delay={2200} direction="alternate" style={styles.homescreenContentText}>{this.state.invStats.latestItem.name}, {this.state.invStats.latestItem.expiry}</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={2000} 
+          onScroll direction="alternate" 
+          style={styles.homescreenSubHeaderText}>It's Near Expiry</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          delay={2200} 
+          direction="alternate" 
+          style={styles.homescreenContentText}>{this.state.invStats.latestItem.name}, {this.state.invStats.latestItem.expiry}</Animatable.Text>
         </View>
         <View style={styles.homescreenSectionBreakTop}>
-          <Animatable.Text animation="bounceInUp" easing="ease-in" duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
+          <Animatable.Text 
+          animation="bounceInUp" 
+          easing="ease-in" 
+          duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         {/* ))} */}
       </View>
