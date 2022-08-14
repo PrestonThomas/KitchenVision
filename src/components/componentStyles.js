@@ -259,7 +259,23 @@ const ItemDetailStyles = StyleSheet.create({
       flex: 1
     },
     splashText: {
-      textAlign: 'center'
+      textAlign: 'center',
+      fontSize:65,
+      fontFamily:"Sweet-Hipster",
+      color:"black",
+      marginBottom:30
+    },
+    splashView: {
+      flex: 1,
+      backgroundColor: '#FAC898'
+    },
+    splashViewInner: {
+      flex: 0.5,
+      backgroundColor: '#FAC898'
+    },
+    splashBreadIcon: {
+      textAlign: 'center',
+      fontSize:32
     },
   });
 

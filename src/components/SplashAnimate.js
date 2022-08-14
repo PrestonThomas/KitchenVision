@@ -5,6 +5,7 @@ import * as Animatable from 'react-native-animatable';
 import componentStyles from '../components/componentStyles';
 import AwesomeButton from "react-native-really-awesome-button";
 import { useNavigation } from '@react-navigation/native';
+import styles from '../components/componentStyles';
 
 export default class Splash extends Component {
     constructor(props) {
@@ -12,16 +13,8 @@ export default class Splash extends Component {
     }
     render() {
         return (
-        <View style={{
-            flex: 1,
-            backgroundColor: '#FAC898'
-        }}>
-            <View
-                style={{
-                    flex: 1,
-                    backgroundColor: '#FAC898'
-                }}
-            >
+        <View style={styles.splashView}>
+            <View style={styles.splashView}>
                 <LottieView
                     source={require('../assets/splash.json')}
                     autoPlay
@@ -29,12 +22,20 @@ export default class Splash extends Component {
                     speed={1}
                 />
             </View>
-            <View style={{
-                    flex: 0.5,
-                    backgroundColor: '#FAC898'
-                }}>
-                <Animatable.Text animation="pulse" easing="ease-in" duration={2000} iterationCount="infinite" direction="alternate" style={{ textAlign: 'center', fontSize:65, fontFamily:"Sweet-Hipster", color:"black", marginBottom:30 }}>KITCHENVISION</Animatable.Text>
-                <Animatable.Text animation="jello" easing="ease-in" duration={2000} iterationCount="infinite" style={{ textAlign: 'center', fontSize:32 }}>🍞🍞🍞</Animatable.Text>
+            <View style={styles.splashViewInner}>
+                <Animatable.Text 
+                animation="pulse" 
+                easing="ease-in" 
+                duration={2000} 
+                iterationCount="infinite" 
+                direction="alternate" 
+                style={styles.splashText}>KITCHENVISION</Animatable.Text>
+                <Animatable.Text 
+                animation="jello" 
+                easing="ease-in" 
+                duration={2000} 
+                iterationCount="infinite" 
+                style={styles.splashBreadIcon}>🍞🍞🍞</Animatable.Text>
             </View>
             {/* <View style={{
                     flex: 0.4,
