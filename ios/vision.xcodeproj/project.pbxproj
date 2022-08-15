@@ -16,13 +16,13 @@
 		158BD5B428A3C31B00031E10 /* Amsterdam.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158BD5B228A3C30200031E10 /* Amsterdam.ttf */; };
 		158BD5B528A3C31F00031E10 /* HelloKetta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158BD5B328A3C31800031E10 /* HelloKetta.ttf */; };
 		15EDABEE28A3BDF500349418 /* Sweet-Hipster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15EDABED28A3BDD100349418 /* Sweet-Hipster.ttf */; };
-		6E9E6DFDE0EEE7987D06BFFD /* libPods-vision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D42A561E48DE25DCB9A0A4F /* libPods-vision.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F72561375349A2CC75B53906 /* libPods-vision-visionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9017ECCF765AA9D39EACA2 /* libPods-vision-visionTests.a */; };
-		82B0BFF1E4824E0A812D40D6 /* Bulgatt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AFC038689134F9C8744C402 /* Bulgatt.ttf */; };
 		31C41AF8539A4C1887C66D4B /* Glowbloom.otf in Resources */ = {isa = PBXBuildFile; fileRef = A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */; };
-		B2A4C8C142734E6282E811F2 /* Kake.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0ECB732BCAFC48CDB541CAE1 /* Kake.otf */; };
+		6E9E6DFDE0EEE7987D06BFFD /* libPods-vision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D42A561E48DE25DCB9A0A4F /* libPods-vision.a */; };
 		7997E4502D6E468D9F0C50F7 /* VEGgYPERSONALUSE-SemiexpandedMe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		82B0BFF1E4824E0A812D40D6 /* Bulgatt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AFC038689134F9C8744C402 /* Bulgatt.ttf */; };
+		B2A4C8C142734E6282E811F2 /* Kake.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0ECB732BCAFC48CDB541CAE1 /* Kake.otf */; };
+		F72561375349A2CC75B53906 /* libPods-vision-visionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9017ECCF765AA9D39EACA2 /* libPods-vision-visionTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +40,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* visionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = visionTests.m; sourceTree = "<group>"; };
 		0D42A561E48DE25DCB9A0A4F /* libPods-vision.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ECB732BCAFC48CDB541CAE1 /* Kake.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Kake.otf; path = ../src/assets/fonts/Kake.otf; sourceTree = "<group>"; };
 		113970B5CEB8542E70505434 /* Pods-vision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.release.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* vision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = vision/AppDelegate.h; sourceTree = "<group>"; };
@@ -72,12 +73,11 @@
 		3909FDA8DA0F40DADE07ED28 /* Pods-vision-visionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision-visionTests.release.xcconfig"; path = "Target Support Files/Pods-vision-visionTests/Pods-vision-visionTests.release.xcconfig"; sourceTree = "<group>"; };
 		5B5408F66E4E509C34A59153 /* Pods-vision-visionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision-visionTests.debug.xcconfig"; path = "Target Support Files/Pods-vision-visionTests/Pods-vision-visionTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = vision/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8AFC038689134F9C8744C402 /* Bulgatt.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Bulgatt.ttf; path = ../src/assets/fonts/Bulgatt.ttf; sourceTree = "<group>"; };
+		8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VEGgYPERSONALUSE-SemiexpandedMe.ttf"; path = "../src/assets/fonts/VEGgYPERSONALUSE-SemiexpandedMe.ttf"; sourceTree = "<group>"; };
+		A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Glowbloom.otf; path = ../src/assets/fonts/Glowbloom.otf; sourceTree = "<group>"; };
 		D223FDC86BFB5462E535CBFA /* Pods-vision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.debug.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		8AFC038689134F9C8744C402 /* Bulgatt.ttf */ = {isa = PBXFileReference; name = "Bulgatt.ttf"; path = "../src/assets/fonts/Bulgatt.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */ = {isa = PBXFileReference; name = "Glowbloom.otf"; path = "../src/assets/fonts/Glowbloom.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0ECB732BCAFC48CDB541CAE1 /* Kake.otf */ = {isa = PBXFileReference; name = "Kake.otf"; path = "../src/assets/fonts/Kake.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */ = {isa = PBXFileReference; name = "VEGgYPERSONALUSE-SemiexpandedMe.ttf"; path = "../src/assets/fonts/VEGgYPERSONALUSE-SemiexpandedMe.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +201,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		99ED774956824C4FAF94E4E6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8AFC038689134F9C8744C402 /* Bulgatt.ttf */,
+				A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */,
+				0ECB732BCAFC48CDB541CAE1 /* Kake.otf */,
+				8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,18 +223,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		99ED774956824C4FAF94E4E6 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				8AFC038689134F9C8744C402 /* Bulgatt.ttf */,
-				A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */,
-				0ECB732BCAFC48CDB541CAE1 /* Kake.otf */,
-				8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

@@ -1,35 +1,30 @@
 import React, { Component } from 'react';
-import {
-  Animated,
-  Platform,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  RefreshControl,
-} from 'react-native';
+import { Animated, Platform, StatusBar, Text, View, RefreshControl } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import storage from '../api/storage';
+import { styles } from './screenStyles';
 
-const HEADER_MAX_HEIGHT = 300;
+
+export const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 let getInventory = async () => {
   return await storage.getAllKeys().then(keys => {
-    console.log(keys)
+    console.log(keys);
     return keys;
   }).catch(err => {
     console.log(err);
   }
   );
-}
+};
 
 const wait = (timeout) => {
   return new Promise(resolve => {
       setTimeout(resolve, timeout);
   });
-}
+};
+
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +43,7 @@ export default class HomeScreen extends Component {
     getInventory().then((val) => {
       this.state.invStats.total = val.length;
       console.log(val);
-      storage.storage.load({key: 'barcode', id: val[val.length-1] }).then(ret => {
+      storage.storage.load({key: 'barcode', id: val[val.length - 1] }).then(ret => {
         this.state.invStats.latestItem.name = ret.name;
         this.state.invStats.latestItem.barcode = ret.value;
         this.state.invStats.latestItem.expiry = ret.expiry;
@@ -61,7 +56,6 @@ export default class HomeScreen extends Component {
   }
 
   _renderScrollViewContent() {
-    const data = Array.from({ length: 30 });
     wait(100).then(() => {
       this.setState({ isLoading: false });
     }
@@ -70,103 +64,103 @@ export default class HomeScreen extends Component {
       <View style={styles.homescreenScrollViewContent}>
         {/* {data.map((_, i) => ( */}
         <View style={styles.homescreenSectionBreakTop}>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          duration={1400} 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          duration={1400}
           style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         <View style={styles.homescreenRowFirst}>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={800} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={800}
+          direction="alternate"
           style={styles.homescreenSubHeaderText}>Total Items</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={800} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={800}
+          direction="alternate"
           style={styles.homescreenContentTextLong}>You Have Recorded a Total of {this.state.invStats.total} Items</Animatable.Text>
           {/*Format of text is subject to changes dependent on data passing by Preston*/}
         </View>
         <View style={styles.homescreenRow}>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" delay={1000} 
-          onScroll direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in" delay={1000}
+          onScroll direction="alternate"
           style={styles.homescreenSubHeaderText}>Categories</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={1200} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={1200}
+          direction="alternate"
           style={styles.homescreenContentText}>Meat</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={1200} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={1200}
+          direction="alternate"
           style={styles.homescreenContentText}>Dairy</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={1200} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={1200}
+          direction="alternate"
           style={styles.homescreenContentText}>Vegetables</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={1200} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={1200}
+          direction="alternate"
           style={styles.homescreenContentText}>Drinks</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={1200} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={1200}
+          direction="alternate"
           style={styles.homescreenContentText}>Others</Animatable.Text>
         </View>
         <View style={styles.homescreenSectionBreak}>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          duration={1400} 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          duration={1400}
           style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         <View style={styles.homescreenRowShort}>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={1600} 
-          onScroll direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={1600}
+          onScroll direction="alternate"
           style={styles.homescreenSubHeaderText}>Latest Item Added</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={1800} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={1800}
+          direction="alternate"
           style={styles.homescreenContentText}> {this.state.invStats.latestItem.barcode} </Animatable.Text>
         </View>
         <View style={styles.homescreenRowShort}>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={2000} 
-          onScroll direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={2000}
+          onScroll direction="alternate"
           style={styles.homescreenSubHeaderText}>It's Near Expiry</Animatable.Text>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
-          delay={2200} 
-          direction="alternate" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
+          delay={2200}
+          direction="alternate"
           style={styles.homescreenContentText}>{this.state.invStats.latestItem.name}, {this.state.invStats.latestItem.expiry}</Animatable.Text>
         </View>
         <View style={styles.homescreenSectionBreakTop}>
-          <Animatable.Text 
-          animation="bounceInUp" 
-          easing="ease-in" 
+          <Animatable.Text
+          animation="bounceInUp"
+          easing="ease-in"
           duration={1400} style={styles.homescreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Animatable.Text>
         </View>
         {/* ))} */}
@@ -277,124 +271,11 @@ export default class HomeScreen extends Component {
             },
           ]}
         >
-        <Text style={styles.homescreenHeadText}>My Kitchen Vision</Text>          
+        <Text style={styles.homescreenHeadText}>My Kitchen Vision</Text>
         </Animated.View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  homescreenFill: {
-    flex: 1,
-  },
-  homescreenContent: {
-    flex: 1,
-  },
-  homescreenHeader: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(255,150,79, 1)',
-    overflow: 'hidden',
-    height: HEADER_MAX_HEIGHT,
-  },
-  homescreenBackgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    width: null,
-    height: HEADER_MAX_HEIGHT,
-    resizeMode: 'cover',
-  },
-  homescreenBar: {
-    backgroundColor: 'transparent',
-    opacity:20,
-    marginTop: Platform.OS === 'ios' ? 28 : 38,
-    height: 150,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 25,
-    left: 0,
-    right: 0,
-  },
-  homescreenTitle: {
-    color: 'white',
-    fontSize: 70,
-    fontFamily: 'Sweet-Hipster'
-  },
-  homescreenScrollViewContent: {
-    // iOS uses content inset, which acts like padding.
-    paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
-  },
-  homescreenRow: {
-    height: 250,
-    margin: 5,
-    marginTop: 80,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  homescreenRowFirst: {
-    height: 250,
-    margin: 5,
-    marginTop: 10,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  homescreenSectionBreak:{
-    height:50,
-    marginTop: 100,
-    marginBottom: 20,
-    backgroundColor: 'rgba(255,150,79, 0.4)',
-  },
-  homescreenSectionBreakTop:{
-    height:50,
-    margin:0,
-    backgroundColor: 'rgba(255,150,79, 0.4)',
-  },
-  homescreenRowShort: {
-    height:200,
-    margin: 5,
-    marginTop: 30,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  homescreenBreadPos: {
-    textAlign: 'center', 
-    fontSize: 25,
-    margin: 5,
-  },
-  homescreenSubHeaderText: {
-    textAlign: 'left',
-    fontSize: 25,
-    fontFamily: "Amsterdam",
-    color: 'rgba(255,150,79, 1)',
-    marginBottom: 10,
-  },
-  homescreenContentTextLong: {
-    textAlign: 'left',
-    fontSize: 40,
-    fontFamily: "HelloKetta",
-    color: "black",
-    marginBottom: 10,
-  },
-  homescreenContentText: {
-    textAlign: 'left',
-    fontSize: 45,
-    fontFamily: "HelloKetta",
-    color: "black",
-    marginBottom: 20,
-  },
-  homescreenHeadText: {
-    textAlign: 'left',
-    fontSize:25,
-    fontFamily:"Amsterdam",
-    color:'white',
-  },
-});
+
