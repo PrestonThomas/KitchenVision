@@ -119,9 +119,9 @@ function GroceryHome({ navigation }) {
         return (
             <Animatable.View
             duration={400}
-            style={[styles.header, isActive ? styles.active :styles.inactive]}
+            style={[styles.categoryTitle, isActive ? styles.active :styles.inactive]}
             transition ="backgroundColor">
-                <Text style = {styles.headerText} > {section.title}</Text>
+                <Text style = {styles.categoryTitleText} > {section.title}</Text>
             </Animatable.View>
         );
     };

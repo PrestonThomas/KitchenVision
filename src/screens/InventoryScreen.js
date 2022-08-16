@@ -205,12 +205,14 @@ function InventoryHome({ navigation }) {
 
     const renderHeader = (section, _, isActive) => {
         //Accordion Header view
+        //category name of the items in the inventory list
+        //such as (Meat, Dairy, Vegetables, Drinks, Other)
         return (
             <Animatable.View
                 duration={400}
-                style={[styles.header, isActive ? styles.active : styles.inactive]}
+                style={[styles.categoryTitle, isActive ? styles.active : styles.inactive]}
                 transition="backgroundColor">
-                <Text style={styles.headerText}>{section.title}</Text>
+                <Text style={styles.categoryTitleText}>{section.title}</Text>
             </Animatable.View>
         );
     };
@@ -236,11 +238,12 @@ function InventoryHome({ navigation }) {
         return (
             <Animatable.View
                 duration={400}
-                style={[styles.content, isActive ? styles.active : styles.inactive]}
+                style={[styles.inventoryListcontent, isActive ? styles.active : styles.inactive]}
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}
-                    style={{ textAlign: 'center' }}>
+                    style={styles.contentItem}>
+                    {/* <Text style={styles.contentItemName}>{section.customInnerItem} </Text> */}
                     {section.customInnerItem}
                 </Animatable.Text>
             </Animatable.View>
@@ -256,6 +259,13 @@ function InventoryHome({ navigation }) {
                             refreshing={refreshing}
                             onRefresh={onRefresh} />
                     }>
+                    <Animatable.Text
+                        animation="bounceInUp"
+                        easing="ease-in"
+                        delay={50}
+                        direction="alternate"
+                        style={styles.inventoryPageTitle}>Inventory List
+                    </Animatable.Text>
                     <View style={styles.multipleToggle}>
                         <Text style={styles.multipleToggle__title}>
                             Multiple Expand Allowed?
@@ -265,8 +275,12 @@ function InventoryHome({ navigation }) {
                             onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
                     </View>
                     <Text style={styles.selectTitle}>
-                        Please select below option to expand
+                        *Please select below option to expand
                     </Text>
+                    <View style={styles.inventoryscreenSectionBreakTop}>
+                        <Text
+                        style={styles.inventoryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
+                    </View>
 
                     {/*Code for Accordion/Expandable List starts here*/}
                     <Accordion
@@ -290,15 +304,20 @@ function InventoryHome({ navigation }) {
                         onChange={setSections} />
                     {/*Code for Accordion/Expandable List ends here*/}
                 </ScrollView>
+                <Text style={styles.refreshText}>*Pull down to Refresh</Text>
                 <Button
+                    title="Log Storage output"
+                    color="rgba(104,102,89,255)"
                     // style align to the bottom of the screen
-                    onPress={() => console.log(CONTENT)}
-                    title="Log Storage output" />
+                    onPress={() => console.log(CONTENT)}/>
                 <Button
+                    title="Clear Storage" 
+                    color="rgba(104,102,89,255)"
                     // style align to the bottom of the screen
-                    onPress={() => console.log(storage.storage.clearMap())}
-                    title="Clear Storage" />
+                    onPress={() => console.log(storage.storage.clearMap())}/>
                 <Button
+                    title="Log stored barcodes"
+                    color="rgba(104,102,89,255)"
                     onPress={() =>
                         storage.getAllKeys().then(keys => {
                             console.log(keys);
@@ -307,9 +326,7 @@ function InventoryHome({ navigation }) {
                             console.log(err);
                         }
                         )
-                    }
-                    title="Log stored barcodes" />
-                <Text>Pull down to Refresh</Text>
+                    }/>
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View>
         </SafeAreaView>
@@ -337,7 +354,7 @@ function BcScreenModal({ navigation }) {
                         navigation.navigate('Inventory Home Screen');
                     }
                 }}>
-                    <Text style={styles.text}>Scan Barcode</Text>
+                    <Text style={styles.bcScanButtonText}>Scan Barcode</Text>
                 </Pressable>
             </View>
         </View>

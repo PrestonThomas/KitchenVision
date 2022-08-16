@@ -8,10 +8,21 @@ export const styles = StyleSheet.create({
     //     width: 375,
     //     height: 65,
     // },
-    name: {
-        fontSize: 20,
-        margin: 18,
+    // name: {
+    //     fontSize: 20,
+    //     margin: 18,
+    // },
+    /*InventoryScreen styles*/
+    inventoryPageTitle:{
+        textAlign: 'center',
+        fontSize: 25,
+        fontFamily: 'Amsterdam',
+        color: 'rgba(255,150,79, 1)',
+        // marginBottom: 50,
+        marginTop: 50,
     },
+
+    //Barcode scanner button
     bcScanButton: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -21,7 +32,9 @@ export const styles = StyleSheet.create({
         backgroundColor: 'blue',
         height: 50,
     },
-    text: {
+
+    //barcode scanner button text
+    bcScanButtonText: {
         fontSize: 16,
         lineHeight: 21,
         fontWeight: 'bold',
@@ -32,64 +45,97 @@ export const styles = StyleSheet.create({
     // collapsible list styling
     containerA: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'transparent',
         paddingTop: '5%',
-    },
-    header: {
-        backgroundColor: '#F5FCFF',
-        padding: 10,
-    },
-    headerText: {
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: '500',
-    },
-    content: {
-        padding: 20,
-        backgroundColor: '#fff',
-    },
-    active: {
-        backgroundColor: 'rgba(255,255,255,1)',
-    },
-    inactive: {
-        backgroundColor: 'rgba(245,252,255,1)',
     },
     selectTitle: {
         fontSize: 14,
         fontWeight: '500',
-        padding: 10,
+        paddingBottom: 10,
         textAlign: 'center',
+        color:'rgba(150, 179, 90,1)',
     },
     multipleToggle: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginVertical: 30,
+        marginVertical: 20,
         alignItems: 'center',
     },
     multipleToggle__title: {
+        color: 'rgba(179, 139, 90,1)',
+        // color: 'rgba(250, 137, 60, 1)',
         fontSize: 16,
         marginRight: 8,
     },
+    inventoryscreenSectionBreakTop: {
+        backgroundColor: 'rgba(255,150,79, 0.4)',
+        borderWidth: 2,
+        borderColor: 'rgba(179, 118, 90,1)',
+    },
+    inventoryscreenBreadPos: {
+        textAlign: 'center',
+        fontSize: 25,
+        margin: 5,
+    },
+    categoryTitle: {
+        padding: 10,
+    },
+    categoryTitleText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: '500',
+        color:'rgba(110, 73, 56,1)'
+    },
+    inventoryListcontent: {
+        width:'100%',
+        padding: 15
+    },
+    active: {
+        backgroundColor: 'transparent',
+    },
+    inactive: {
+        backgroundColor: 'rgba(255,150,79, 0.4)',
+    },
+    refreshText:{
+        fontSize: 14,
+        fontWeight: '500',
+        textAlign: 'left',
+        paddingLeft:5,
+        color:'rgba(150, 179, 90,1)',
+    },
     // Styling for Content Array
-    contentContainer: {
-        backgroundColor: '#E6E6E6',
-        width: '100%',
-        height: 65,
-    },
+    // contentContainer: {
+    //     backgroundColor: 'rgba(255,150,79, 0.2)',
+    //     width: '100%',
+    //     height: 65,
+    // },
+    // contentItem: {
+    //     backgroundColor: 'rgba(255,150,79, 0.2)',
+    //     width: '100%',
+    //     // height: 66,
+    //     borderWidth: 1,
+    //     borderColor: '#000000',
+    //     flexDirection: 'row',
+    // },
     contentItem: {
-        width: 370,
-        height: 66,
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderWidth: 1,
-        borderColor: '#000000',
-        flexDirection: 'row',
+        paddingTop:13,
+        textAlign:'center', 
+        // fontFamily: 'roboto-regular', 
+        fontFamily: 'HelloKetta',
+        fontSize: 35, 
+        color: '#121212', 
+        width: '100%',
+        height:65,
+        backgroundColor: 'rgba(222, 199, 155,1)',
     },
-    contentItemName: {
-        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '65%',
-    },
-    contentItemExpiry: {
-        top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '35%',
-    },
+    // contentItemExpiry: {
+    //     top: 15, 
+    //     left: 15, 
+    //     fontFamily: 'roboto-regular', 
+    //     color: '#121212', 
+    //     fontSize: 22, 
+    //     width: '35%',
+    // },
 
     //Styling for Add Item function
     appBackground: {
