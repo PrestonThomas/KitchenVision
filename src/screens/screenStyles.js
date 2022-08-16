@@ -63,7 +63,6 @@ export const styles = StyleSheet.create({
     },
     multipleToggle__title: {
         color: 'rgba(179, 139, 90,1)',
-        // color: 'rgba(250, 137, 60, 1)',
         fontSize: 16,
         marginRight: 8,
     },
