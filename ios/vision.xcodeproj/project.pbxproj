@@ -40,7 +40,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* visionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = visionTests.m; sourceTree = "<group>"; };
 		0D42A561E48DE25DCB9A0A4F /* libPods-vision.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vision.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0ECB732BCAFC48CDB541CAE1 /* Kake.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Kake.otf; path = ../src/assets/fonts/Kake.otf; sourceTree = "<group>"; };
+		0ECB732BCAFC48CDB541CAE1 /* Kake.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kake.otf; path = ../src/assets/fonts/Kake.otf; sourceTree = "<group>"; };
 		113970B5CEB8542E70505434 /* Pods-vision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.release.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* vision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = vision/AppDelegate.h; sourceTree = "<group>"; };
@@ -73,9 +73,9 @@
 		3909FDA8DA0F40DADE07ED28 /* Pods-vision-visionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision-visionTests.release.xcconfig"; path = "Target Support Files/Pods-vision-visionTests/Pods-vision-visionTests.release.xcconfig"; sourceTree = "<group>"; };
 		5B5408F66E4E509C34A59153 /* Pods-vision-visionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision-visionTests.debug.xcconfig"; path = "Target Support Files/Pods-vision-visionTests/Pods-vision-visionTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = vision/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8AFC038689134F9C8744C402 /* Bulgatt.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Bulgatt.ttf; path = ../src/assets/fonts/Bulgatt.ttf; sourceTree = "<group>"; };
-		8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VEGgYPERSONALUSE-SemiexpandedMe.ttf"; path = "../src/assets/fonts/VEGgYPERSONALUSE-SemiexpandedMe.ttf"; sourceTree = "<group>"; };
-		A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Glowbloom.otf; path = ../src/assets/fonts/Glowbloom.otf; sourceTree = "<group>"; };
+		8AFC038689134F9C8744C402 /* Bulgatt.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Bulgatt.ttf; path = ../src/assets/fonts/Bulgatt.ttf; sourceTree = "<group>"; };
+		8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "VEGgYPERSONALUSE-SemiexpandedMe.ttf"; path = "../src/assets/fonts/VEGgYPERSONALUSE-SemiexpandedMe.ttf"; sourceTree = "<group>"; };
+		A0B3A3B4D9CC4D2687920800 /* Glowbloom.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Glowbloom.otf; path = ../src/assets/fonts/Glowbloom.otf; sourceTree = "<group>"; };
 		D223FDC86BFB5462E535CBFA /* Pods-vision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vision.debug.xcconfig"; path = "Target Support Files/Pods-vision/Pods-vision.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -210,7 +210,6 @@
 				8F2FF775148C48FE8FA0A90E /* VEGgYPERSONALUSE-SemiexpandedMe.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -569,7 +568,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5PN3PXN8G5;
+				DEVELOPMENT_TEAM = QD2RA82TUS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = vision/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -581,7 +580,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = react.kitchenvision.agile;
+				PRODUCT_BUNDLE_IDENTIFIER = reactnative.kitchenvision.agile;
 				PRODUCT_NAME = vision;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -596,7 +595,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5PN3PXN8G5;
+				DEVELOPMENT_TEAM = QD2RA82TUS;
 				INFOPLIST_FILE = vision/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -607,7 +606,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = react.kitchenvision.agile;
+				PRODUCT_BUNDLE_IDENTIFIER = reactnative.kitchenvision.agile;
 				PRODUCT_NAME = vision;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
