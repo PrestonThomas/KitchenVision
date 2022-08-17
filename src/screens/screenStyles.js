@@ -119,14 +119,7 @@ export const styles = StyleSheet.create({
         height:'100%',
         backgroundColor: 'rgba(222, 199, 155,1)',
     },
-    // contentItemExpiry: {
-    //     top: 15, 
-    //     left: 15, 
-    //     fontFamily: 'roboto-regular', 
-    //     color: '#121212', 
-    //     fontSize: 22, 
-    //     width: '35%',
-    // },
+
 
     
     /*
