@@ -3,15 +3,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { HEADER_MAX_HEIGHT } from './HomeScreen';
 
 export const styles = StyleSheet.create({
-    // container: {
-    //     backgroundColor: '#E6E6E6',
-    //     width: 375,
-    //     height: 65,
-    // },
-    // name: {
-    //     fontSize: 20,
-    //     margin: 18,
-    // },
+    
     /*InventoryScreen styles*/
     inventoryPageTitle:{
         textAlign: 'center',
@@ -68,7 +60,7 @@ export const styles = StyleSheet.create({
     },
     inventoryscreenSectionBreakTop: {
         backgroundColor: 'rgba(255,150,79, 0.4)',
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: 'rgba(179, 118, 90,1)',
     },
     inventoryscreenBreadPos: {
@@ -136,43 +128,7 @@ export const styles = StyleSheet.create({
     //     width: '35%',
     // },
 
-    //Styling for Add Item function
-    appBackground: {
-        backgroundColor: '#F8F0E3',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    addItemBox: {
-        backgroundColor: 'rgba(255,255,255,1)',
-        color: '#ec645b',
-        alignItems: 'center',
-        marginTop: 1,
-        marginBottom: 1,
-        borderRadius: 10,
-        padding: 5,
-
-    },
-
-    addItemInput: {
-        backgroundColor: 'transparent',
-        color: '#ec645b',
-        width: '50%',
-        height: 50,
-    },
-
-    itemList: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-    // itemContainer: {
-    //     flex: 1,
-    //     alignItems: 'center',
-    //     justifyContent: 'space-between',
-    //     padding: 20,
-    //     borderBottomColor: '#fbc1bb',
-    // },
-
+    
     /*
     HomeScreen styles
     */
@@ -288,4 +244,64 @@ export const styles = StyleSheet.create({
         fontFamily: 'Amsterdam',
         color: 'white',
     },
+
+    /* GroceryScreen Styles */
+    groceryPageTitle : {
+        textAlign: 'center',
+        fontSize: 25,
+        fontFamily: 'Amsterdam',
+        color: 'rgba(255,150,79, 1)',
+        // marginBottom: 50,
+        marginTop: 50,
+    },
+    groceryscreenSectionBreakTop: {
+        height: 50,
+        margin: 0,
+        backgroundColor: 'rgba(255,150,79, 0.4)',
+        borderWidth: 1,
+        borderColor: 'rgba(179, 118, 90,1)',
+    },
+    groceryscreenBreadPos: {
+        textAlign: 'center',
+        fontSize: 25,
+        margin: 5,
+    },
+
+    //Styling for Add Item function
+    appBackground: {
+        backgroundColor: '#F8F0E3',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    addItemBox: {
+        backgroundColor: 'rgba(255,255,255,1)',
+        color: '#ec645b',
+        alignItems: 'center',
+        marginTop: 1,
+        marginBottom: 1,
+        borderRadius: 10,
+        padding: 5,
+
+    },
+
+    addItemInput: {
+        backgroundColor: 'transparent',
+        color: '#ec645b',
+        width: '50%',
+        height: 50,
+    },
+
+    itemList: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    // itemContainer: {
+    //     flex: 1,
+    //     alignItems: 'center',
+    //     justifyContent: 'space-between',
+    //     padding: 20,
+    //     borderBottomColor: '#fbc1bb',
+    // },
+
 });

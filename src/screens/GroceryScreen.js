@@ -23,6 +23,18 @@ let getInvItem = async () => {
     }
 };
 
+const wait = (timeout) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
+
+function useForceUpdate() {
+    const [value, setValue] = useState(0);
+    return () => setValue(value => value + 1);
+}
+
+
 const RootStack = createStackNavigator();
 class GroceryScreen extends React.Component {
     render() {
@@ -61,14 +73,16 @@ function GroceryHome({ navigation }) {
     const [multipleSelect, setMultipleSelect] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
+    const forceUpdate = useForceUpdate();
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         console.log('Refreshing')
         // load inventory items from storage
-        getInvItem().then((val) => {
+        // getInvItem().then((val) => {
             
-        }
-        );
+        // }
+        // );
         storage.wait(1000).then(() => setRefreshing(false));
     }, []);
 
@@ -133,6 +147,13 @@ function GroceryHome({ navigation }) {
                             refreshing={refreshing}
                             onRefresh={onRefresh} />
                     }>
+                        <Animatable.Text
+                            animation="bounceInUp"
+                            easing="ease-in"
+                            delay={50}
+                            direction="alternate"
+                            style={styles.groceryPageTitle}>Grocery List
+                        </Animatable.Text>
 
                     <View style={styles.multipleToggle}>
                         <Text style={styles.multipleToggle__title}>
@@ -145,6 +166,10 @@ function GroceryHome({ navigation }) {
                     <Text style={styles.selectTitle}>
                         Please select below option to expand
                     </Text>
+                    <View style={styles.groceryscreenSectionBreakTop}>
+                        <Text
+                        style={styles.groceryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
+                    </View>
 
 
                     {/*Code for Accordion/Expandable List starts here*/}
@@ -234,26 +259,6 @@ function AddNewItem({ navigation }) {
 
                 <Icon name='add' onClick={() => handleAddButtonClick()} />
             </View>
-
-            {/* <View style = {styles.itemList}>
-                {items.map((item,index) => (
-                    <View style ={styles.itemContainer}>
-                        <View style = {styles.itemName} onClick = {() => toggleComplete(index)}>
-                            {item.isSelected ? (
-                                <>
-                                <Icon name = {"check_circle"} />
-                                <View style = {styles.completed}> {items.itemName} </View>
-                                < />
-                                ) : (
-
-                                )
-                            )} 
-                    
-                    )
-
-                )}
-
-            </View> */}
         </View>
 
     )
