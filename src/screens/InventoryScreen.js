@@ -262,14 +262,17 @@ function InventoryHome({ navigation }) {
                     </Animatable.Text>
                     <View style={styles.multipleToggle}>
                         <Text style={styles.multipleToggle__title}>
-                            Multiple Expand Allowed?
+                            Allow Multiple Expansions
                         </Text>
                         <Switch
                             value={multipleSelect}
                             onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
                     </View>
                     <Text style={styles.selectTitle}>
-                        *Please select below option to expand
+                        Tap to Expand Categories
+                    </Text>
+                    <Text style={styles.selectTitle}>
+                        Pull down to Refresh Inventory
                     </Text>
                     <View style={styles.inventoryscreenSectionBreakTop}>
                         <Text
@@ -298,8 +301,7 @@ function InventoryHome({ navigation }) {
                         onChange={setSections} />
                     {/*Code for Accordion/Expandable List ends here*/}
                 </ScrollView>
-                <Text style={styles.refreshText}>*Pull down to Refresh</Text>
-                <Button
+                {/* <Button
                     title="Log Storage output"
                     color="rgba(104,102,89,255)"
                     // style align to the bottom of the screen
@@ -320,7 +322,7 @@ function InventoryHome({ navigation }) {
                             console.log(err);
                         }
                         )
-                    }/>
+                    }/> */}
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View>
         </SafeAreaView>
