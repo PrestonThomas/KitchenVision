@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
         marginRight: 8,
     },
     inventoryscreenSectionBreakTop: {
-        backgroundColor: 'rgba(255,150,79, 0.4)',
+        backgroundColor: 'rgba(255,150,79, 0)',
         borderWidth: 1,
         borderColor: 'rgba(179, 118, 90,1)',
     },
@@ -82,10 +82,10 @@ export const styles = StyleSheet.create({
         padding: 15
     },
     active: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(242,242,242,255)',
     },
     inactive: {
-        backgroundColor: 'rgba(255,150,79, 0.4)',
+        backgroundColor: 'rgba(255,150,79, 0)',
     },
     refreshText:{
         fontSize: 14,
@@ -116,7 +116,7 @@ export const styles = StyleSheet.create({
         fontSize: 35, 
         color: '#121212', 
         width: '100%',
-        height:65,
+        height:'100%',
         backgroundColor: 'rgba(222, 199, 155,1)',
     },
     // contentItemExpiry: {

@@ -247,12 +247,7 @@ function InventoryHome({ navigation }) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.containerA}>
-                <ScrollView
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={onRefresh} />
-                    }>
+                <View>
                     <Animatable.Text
                         animation="bounceInUp"
                         easing="ease-in"
@@ -274,32 +269,41 @@ function InventoryHome({ navigation }) {
                     <Text style={styles.selectTitle}>
                         Pull down to Refresh Inventory
                     </Text>
-                    <View style={styles.inventoryscreenSectionBreakTop}>
-                        <Text
-                        style={styles.inventoryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
-                    </View>
+                </View>
+                <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh} />} 
+                style={{backgroundColor:'rgba(255,150,79, 0.4)'}}>
+                    <View>
+                        <View style={styles.inventoryscreenSectionBreakTop}>
+                            <Text
+                            style={styles.inventoryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
+                        </View>
 
-                    {/*Code for Accordion/Expandable List starts here*/}
-                    <Accordion
-                        activeSections={activeSections}
-                        //for any default active section
-                        sections={CONTENT}
-                        //title and content of accordion
-                        touchableComponent={TouchableOpacity}
-                        //which type of touchable component you want
-                        //It can be the following Touchables
-                        //TouchableHighlight, TouchableNativeFeedback
-                        //TouchableOpacity , TouchableWithoutFeedback
-                        expandMultiple={multipleSelect}
-                        //Do you want to expand mutiple at a time or single at a time
-                        renderHeader={renderHeader}
-                        //Header Component(View) to render
-                        renderContent={renderContent}
-                        //Content Component(View) to render
-                        duration={400}
-                        //Duration for Collapse and expand
-                        onChange={setSections} />
-                    {/*Code for Accordion/Expandable List ends here*/}
+                        {/*Code for Accordion/Expandable List starts here*/}
+                        <Accordion
+                            activeSections={activeSections}
+                            //for any default active section
+                            sections={CONTENT}
+                            //title and content of accordion
+                            touchableComponent={TouchableOpacity}
+                            //which type of touchable component you want
+                            //It can be the following Touchables
+                            //TouchableHighlight, TouchableNativeFeedback
+                            //TouchableOpacity , TouchableWithoutFeedback
+                            expandMultiple={multipleSelect}
+                            //Do you want to expand mutiple at a time or single at a time
+                            renderHeader={renderHeader}
+                            //Header Component(View) to render
+                            renderContent={renderContent}
+                            //Content Component(View) to render
+                            duration={400}
+                            //Duration for Collapse and expand
+                            onChange={setSections} />
+                        {/*Code for Accordion/Expandable List ends here*/}
+                    </View>
                 </ScrollView>
                 {/* <Button
                     title="Log Storage output"
