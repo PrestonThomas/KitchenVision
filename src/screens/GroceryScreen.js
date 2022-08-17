@@ -1,27 +1,27 @@
 import { useNavigationBuilder } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet,TouchableOpacity, ActivityIndicator, Pressable,SafeAreaView,Switch, ScrollView, Alert, TextInputComponent } from 'react-native';
+import { Text, View, Button, StyleSheet, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, TextInputComponent, RefreshControl } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
 import Counter from 'react-native-counters';
-// import QuantityFormLabel from '../components/QuantityFormLabel';
-import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
-import Barcode from '../api/barcode';
-import barcode from '../api/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import NameForm from '../components/ItemDetail';
-import dayjs from 'dayjs';
-import storage from '../api/storage';
 import { TextInput } from 'react-native-gesture-handler';
 import { styles } from './screenStyles';
-import react from 'react';
-import { style } from 'react-native-mock-render/build/propTypes/ViewPropTypes';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import storage from '../api/storage';
 
+let initialLoad = false;
+let getInvItem = async () => {
+    let itemArr = [];
+    let idList = await storage.getAllKeys();
+    if (!initialLoad) {
+        
+    }
+};
 
 const RootStack = createStackNavigator();
 class GroceryScreen extends React.Component {
@@ -43,66 +43,48 @@ class GroceryScreen extends React.Component {
         );
     }
 }
-// counter button onchange function
-const onChange = (number,type) => {
-    console.log(number, type) // 1, + or -
-};
-
-//Dummy content to show
-//You can also use dynamic data by calling web service
-const CONTENT = [
+let CONTENT = [
     {
-        title: 'Dairy',
-        customInnerItem: (
-                <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-                    <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}>
-                            <Counter start={1} onChange={onChange} />
-                        </View>
-                    </View>
-                </View>
-                <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-                    <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '40%', }}>Item&#39;s Name</Text>
-                        <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '20%', }}>Date</Text>
-                        <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}> 
-                            <Counter start={1} onChange={onChange} />
-                        </View>
-                    </View>
-                </View></>
-          ),
-        // content:
-        // 'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).',
+        title: 'Expired',
+        customInnerItem: [],
     },
     {
-        title: 'Fridge',
-        customInnerItem: (
-            <View style={{backgroundColor: '#E6E6E6', width: '100%',height: 65,}}>
-                <View style={{width: 370,height: 66,backgroundColor: 'rgba(255,255,255,1)',borderWidth: 1,borderColor: '#000000',flexDirection: 'row',}}>
-                    <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'40%',}}>Item&#39;s Name</Text>
-                    <Text style={{ top: 15,left: 15,fontFamily: 'roboto-regular',color: '#121212',fontSize: 22,width:'20%',}}>Date</Text>
-                    <View style={{ width:'40%',paddingVertical: 15, alignItems: 'center',}}>
-                        <Counter start={1} onChange={onChange} />
-                    </View>
-                </View>
-            </View>
-      ),
+        title: 'Soon to expire',
+        customInnerItem: [],
     },
 ];
 
-
-
 function GroceryHome({ navigation }) {
-    // Ddefault active selector
+    const [refreshing, setRefreshing] = React.useState(false);
     const [activeSections, setActiveSections] = useState([]);
-    // Collapsed condition for the single collapsible
     const [collapsed, setCollapsed] = useState(true);
-    // MultipleSelect is for the Multiple Expand allowed
-    // True: Expand multiple at a time
-    // False: One can be expand at a time
     const [multipleSelect, setMultipleSelect] = useState(false);
+    const [isLoading, setLoading] = useState(true);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        console.log('Refreshing')
+        // load inventory items from storage
+        getInvItem().then((val) => {
+            
+        }
+        );
+        storage.wait(1000).then(() => setRefreshing(false));
+    }, []);
+
+    useEffect(() => {
+        getInvItem().then((val) => {
+            // console.log(val[0].category);
+        }
+        );
+        storage.wait(100).then(() => setLoading(false));
+    }
+        , [navigation]);
+    if (isLoading) {
+        return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+        </View>;
+    };
 
     const toggleExpanded = () => {
         //Toggling the state of single Collapsible
@@ -126,41 +108,47 @@ function GroceryHome({ navigation }) {
         );
     };
 
-    const renderContent  = (section, _ , isActive) => {
+    const renderContent = (section, _, isActive) => {
         //Accordion Content View
         return (
             <Animatable.View
-            duration = {400}
-            style = {[styles.content, isActive ? styles.active : styles.inactive]}
-            transition ="backgroundColor">
-            <Animatable.Text
-                animation = {isActive ? 'bounceIn' : undefined}
-                style = {{textAlign: 'center'}}>
-                {section.customInnerItem}
-            </Animatable.Text>
+                duration={400}
+                style={[styles.content, isActive ? styles.active : styles.inactive]}
+                transition="backgroundColor">
+                <Animatable.Text
+                    animation={isActive ? 'bounceIn' : undefined}
+                    style={{ textAlign: 'center' }}>
+                    {section.customInnerItem}
+                </Animatable.Text>
             </Animatable.View>
-        )
-    }
+        );
+    };
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.containerA}>
-            <ScrollView>
-                <View style={styles.multipleToggle}>
-                    <Text style={styles.multipleToggle__title}>
-                        Multiple Expand Allowed?
+            <View style={styles.containerA}>
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh} />
+                    }>
+
+                    <View style={styles.multipleToggle}>
+                        <Text style={styles.multipleToggle__title}>
+                            Multiple Expand Allowed?
+                        </Text>
+                        <Switch
+                            value={multipleSelect}
+                            onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
+                    </View>
+                    <Text style={styles.selectTitle}>
+                        Please select below option to expand
                     </Text>
-                    <Switch
-                        value={multipleSelect}
-                        onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
-                </View>
-                <Text style={styles.selectTitle}>
-                    Please select below option to expand
-                </Text>
 
 
-                {/*Code for Accordion/Expandable List starts here*/}
-                <Accordion
+                    {/*Code for Accordion/Expandable List starts here*/}
+                    <Accordion
                         activeSections={activeSections}
                         //for any default active section
                         sections={CONTENT}
@@ -179,19 +167,19 @@ function GroceryHome({ navigation }) {
                         duration={400}
                         //Duration for Collapse and expand
                         onChange={setSections} />
-                        {/*Code for Accordion/Expandable List ends here*/}
-                        </ScrollView>
-                        <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
-                        </View>
-                </SafeAreaView>
+                    {/*Code for Accordion/Expandable List ends here*/}
+                </ScrollView>
+                <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
+            </View>
+        </SafeAreaView>
     )
 }
 
 
 // Add New Item function 
-function AddNewItem ({navigation}) {
-    const [items,setItems] = useState([
-        {itemName: "item1", quantity: 1, isSelected: false},
+function AddNewItem({ navigation }) {
+    const [items, setItems] = useState([
+        { itemName: "item1", quantity: 1, isSelected: false },
     ]);
 
     const [inputValue, setInputValue] = useState('');
@@ -205,11 +193,11 @@ function AddNewItem ({navigation}) {
             isSelected: false,
         };
 
-        const newItems = [...items,newItem];
+        const newItems = [...items, newItem];
 
         setItems(newItems);
         setInputValue(''),
-        calculateTotal();
+            calculateTotal();
     };
 
     const handleQuantityIncrease = (index) => {
@@ -233,18 +221,18 @@ function AddNewItem ({navigation}) {
     }
 
     const calculateTotal = () => {
-        const totalItemCount = items.reduce((total,item) => {
+        const totalItemCount = items.reduce((total, item) => {
             return total + item.quantity;
         }, 0);
         setTotalItemCount(totalItemCount);
     };
 
     return (
-        <View style = {styles.appBackground}>
-            <View style = {styles.addItemBox}>
-                <TextInput value = {inputValue} onChange = {(event) => setInputValue(event.target.value)} placeholder = 'Add an item...' />
-                
-                <Icon name = 'add' onClick = { () => handleAddButtonClick()}  />  
+        <View style={styles.appBackground}>
+            <View style={styles.addItemBox}>
+                <TextInput value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder='Add an item...' />
+
+                <Icon name='add' onClick={() => handleAddButtonClick()} />
             </View>
 
             {/* <View style = {styles.itemList}>

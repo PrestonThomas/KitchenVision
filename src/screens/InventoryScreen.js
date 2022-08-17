@@ -15,12 +15,6 @@ import dayjs from 'dayjs';
 import storage from '../api/storage';
 import { styles } from './screenStyles';
 
-const wait = (timeout) => {
-    return new Promise(resolve => {
-        setTimeout(resolve, timeout);
-    });
-}
-
 function useForceUpdate() {
     const [value, setValue] = useState(0);
     return () => setValue(value => value + 1);
@@ -179,7 +173,7 @@ function InventoryHome({ navigation }) {
 
         }
         );
-        wait(1000).then(() => setRefreshing(false));
+        storage.wait(1000).then(() => setRefreshing(false));
     }, []);
 
 
@@ -224,7 +218,7 @@ function InventoryHome({ navigation }) {
             // console.log(val[0].category);
         }
         );
-        wait(100).then(() => setLoading(false));
+        storage.wait(100).then(() => setLoading(false));
     }
         , [navigation]);
     if (isLoading) {
@@ -426,11 +420,17 @@ function ItemDetailsScreen({ navigation }) {
         scanner.onCameraPress();
     };
     nf.returnExpiry = () => {
-        let rawText = scanner.returnScannedText();
-        let convertedDate = extractDate(rawText);
-        nf.state.expiry = convertedDate;
-        console.log(nf.state.expiry);
-        return nf.state.expiry;
+        console.log(scanner.returnScannedText());
+        if (scanner.returnScannedText() !== 'No text found') {
+            let rawText = scanner.returnScannedText();
+            let convertedDate = extractDate(rawText);
+            nf.state.expiry = convertedDate;
+            console.log(nf.state.expiry);
+            return nf.state.expiry;
+        } else {
+            Alert.alert('No Expiry Date Detected', 'Please scan the expiry date of the item or enter it manually');
+        }
+
     };
     nf.handleCancel = () => {
         navigation.navigate('Inventory Home Screen');
@@ -444,8 +444,12 @@ function ItemDetailsScreen({ navigation }) {
         console.log(nf.state.img);
         console.log(nf.state.category);
         checkNewItem = true;
-        storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
-        navigation.navigate('Inventory Home Screen');
+        if (nf.validateDate(nf.state.expiry)) {
+            storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
+            navigation.navigate('Inventory Home Screen');
+        } else {
+            Alert.alert('Invalid Expiry Date', 'Please enter a valid expiry date');
+        }
     };
     return (
         nf.render()

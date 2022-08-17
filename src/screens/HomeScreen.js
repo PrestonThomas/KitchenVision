@@ -19,12 +19,6 @@ let getInventory = async () => {
   );
 };
 
-const wait = (timeout) => {
-  return new Promise(resolve => {
-      setTimeout(resolve, timeout);
-  });
-};
-
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +50,7 @@ export default class HomeScreen extends Component {
   }
 
   _renderScrollViewContent() {
-    wait(100).then(() => {
+    storage.wait(100).then(() => {
       this.setState({ isLoading: false });
     }
     );

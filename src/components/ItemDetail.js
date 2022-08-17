@@ -24,6 +24,7 @@ export default class NameForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleExpiry = this.handleExpiry.bind(this);
     this.returnExpiry = this.returnExpiry.bind(this);
+    this.validateDate = this.validateDate.bind(this);
   }
   handleChange(event) { this.setState({ value: event.target.value }); }
   handleCancel(event) { console.log('Cancel'); }
@@ -38,6 +39,28 @@ export default class NameForm extends React.Component {
       this.state.category = input.title;
     }
   }
+
+  validateDate(input) {
+    // validate date as DD/MM/YY
+    const date = input.split('/');
+    if (date.length !== 3) {
+      return false;
+    }
+    const day = parseInt(date[0], 10);
+    const month = parseInt(date[1], 10);
+    const year = parseInt(date[2], 10);
+    if (day < 1 || day > 31) {
+      return false;
+    }
+    if (month < 1 || month > 12) {
+      return false;
+    }
+    if (year < 22 || year > 24) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
     return this.detailsForm();
   }
