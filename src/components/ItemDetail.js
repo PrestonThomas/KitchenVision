@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NumericInput from 'react-native-numeric-input';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import TextInputMask from 'react-native-text-input-mask';
+import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/rick';
 
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
@@ -66,7 +67,7 @@ export default class NameForm extends React.Component {
   }
 
   detailsForm() {
-    return <SafeAreaView style={({ flex: 1 })}>
+    return <SafeAreaView style={({ flex: 1 }), {height: screenHeight}}>
     <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -74,27 +75,35 @@ export default class NameForm extends React.Component {
     <ScrollView nestedScrollEnabled
     keyboardDismissMode="on-drag"
     keyboardShouldPersistTaps="handled"
-    contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ paddingBottom: 200 }}
+    contentInsetAdjustmentBehavior="automatic"
     style={styles.scrollContainer}>
-
       <View style={{height: screenHeight}}>
-        <View style={styles.container}>
+        <View style={styles.itemDetailcontainer}>
           <View style={styles.imageBox}>
             <Image source={{ uri: this.state.img }} style={{ width: 100, height: 100 }} />
           </View>
           <View style={styles.twoItem}>
             <View style={styles.labelContainer}>
-              <Text style={styles.labelStyle}>Name</Text>
+              <Text style={styles.labelStyle}>Name:</Text>
             </View>
             <View style={[styles.inputContainer]}>
               <TextInput
-                  placeholder='This will be a manual entry'
+                  placeholder='Enter Product Name'
                   onChangeText={(text) => {this.state.name = text }}
                   style={styles.inputStyle}
               />
+              <AwesomeButtonCartman
+              type="primary"
+              backgroundColor='rgba(255,0,0,0)'
+              backgroundActive="rgba(225,0,0,0)"
+              activeOpacity={0.5}
+              textColor="#FFFFFF"
+              // width={128}
+              height={40}
+              onPress={this.handleCancel}>Auto</AwesomeButtonCartman>
             </View>
           </View>
-          {/* <View style={styles.twoItem}> */}
+          <View style={styles.twoItemDropDown}>
             <View style={styles.labelContainer}>
                 <Text style={styles.labelStyle}>Category:</Text>
             </View>
@@ -126,8 +135,8 @@ export default class NameForm extends React.Component {
 
                 </View>
             </View>
+          </View>
           {/* DROP DOWN LIST  */}
-        {/* </View> */}
         <View style={styles.twoItem}>
             <View style={styles.labelContainer}>
                 <Text style={styles.labelStyle}>Quantity:</Text>
@@ -164,7 +173,7 @@ export default class NameForm extends React.Component {
                 /> */}
                   <TextInputMask
                     style={styles.inputStyle}
-                    placeholder="(DD/MM/YY) Scan/enter expiry date"
+                    placeholder="(DD/MM/YY) Expiry date"
                     onChangeText={(text) => { this.state.expiry = text }}
                     value={this.state.expiry}
                     mask={'[00]/[00]/[00]'}
@@ -183,23 +192,34 @@ export default class NameForm extends React.Component {
               borderBottomWidth: StyleSheet.hairlineWidth,
             }}
           />
-          <Button
-            title="Learn More at openfoodfacts.org"
-            onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/'+this.state.value)}
-          />
-          <MaterialButtonSuccess
-            function={this.handleSubmit}
-            button="SUBMIT"
-            style={styles.materialButtonSuccess}
-          />
-          <Button
-          title="Cancel"
-          onPress={this.handleCancel}/>
+            <MaterialButtonSuccess
+              function={this.handleSubmit}
+              button="SUBMIT"
+              style={styles.materialButtonSuccess}
+            />
+            <View style={styles.ItemDetailButtonBottoms}>
+              <AwesomeButtonCartman
+              type="primary"
+              backgroundColor='rgba(255,0,0,0)'
+              backgroundActive="rgba(225,0,0,0)"
+              activeOpacity={0.5}
+              textColor="#FFFFFF"
+              width={128}
+              height={50}
+              onPress={this.handleCancel}>CANCEL</AwesomeButtonCartman>
+            </View>
+          <View style={styles.ItemDetailButtonLast}>
+            <MaterialButtonSuccess
+              button="Get More Item Details"
+              style= {{height: 40}}
+              onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/'+this.state.value)}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
     </KeyboardAvoidingView>
-    </SafeAreaView>;
+    </SafeAreaView>
 
   }
 }

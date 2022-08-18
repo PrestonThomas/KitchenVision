@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 // Item Detail Component
-const ItemDetailStyles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
     //1 item per row container 
-    container: {
+    itemDetailcontainer: {
       flex: 1,
-      backgroundColor: 'rgba(139,175,229,1)',
+      backgroundColor: 'rgba(255,150,79, 1)',
       opacity: 0.87,
       borderWidth: 1,
       borderColor: '#000000',
@@ -83,6 +83,13 @@ const ItemDetailStyles = StyleSheet.create({
       borderBottomLeftRadius: 4,
       marginTop: 27,
       marginLeft: 114,
+    },
+    ItemDetailButtonBottoms: {
+      marginTop: 27,
+      marginLeft: 114,
+    },
+    ItemDetailButtonLast: {
+      marginTop: 20,
     },
     loremIpsum: {
       fontFamily: 'roboto-regular',
@@ -194,8 +201,16 @@ const ItemDetailStyles = StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 110
     },
+    twoItemDropDown: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      // justifyContent: 'space-between',
+      marginBottom: 10,
+      paddingLeft: 15,
+      paddingRight: 90,
+  },
     labelContainer: {
-        width: 100,
+        width: 90,
         fontSize: 18,
         fontWeight: 'bold',
     },
@@ -279,4 +294,4 @@ const ItemDetailStyles = StyleSheet.create({
     },
   });
 
-  export default ItemDetailStyles;
+  export default componentStyles;
