@@ -5,7 +5,6 @@ import { Text, View, Button, StyleSheet, TouchableOpacity, ActivityIndicator, Pr
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
-import Counter from 'react-native-counters';
 import FAB from 'react-native-fab';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -32,12 +31,14 @@ let getInvItem = async () => {
     dateToday();
     let idList = await storage.getAllKeys();
     if (!initialLoad) {
+        initialLoad = true;
         for (let i = 0; i < idList.length; i++) {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
             // compare the date of the item to the date of the current day
             if (Date.parse(20 + itemArr[i].expiry) < dateToday()) {
                 // itemArr[i].expired = true;
-                console.log("This item has expired: " + itemArr[i].name + " on " + itemArr[i].expiry);
+                console.log('This item has expired: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
+                CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);
             }
         }
         console.log(dateToday());
@@ -101,7 +102,7 @@ function GroceryHome({ navigation }) {
             
         // }
         // );
-        storage.wait(1000).then(() => setRefreshing(false));
+        storage.wait(100).then(() => setRefreshing(false));
     }, []);
 
     useEffect(() => {
@@ -173,14 +174,14 @@ function GroceryHome({ navigation }) {
                             style={styles.groceryPageTitle}>Grocery List
                         </Animatable.Text>
 
-                    <View style={styles.multipleToggle}>
+                    {/* <View style={styles.multipleToggle}>
                         <Text style={styles.multipleToggle__title}>
                             Multiple Expand Allowed?
                         </Text>
                         <Switch
                             value={multipleSelect}
                             onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
-                    </View>
+                    </View> */}
                     <Text style={styles.selectTitle}>
                         Please select below option to expand
                     </Text>
@@ -222,7 +223,7 @@ function GroceryHome({ navigation }) {
 // Add New Item function 
 function AddNewItem({ navigation }) {
     const [items, setItems] = useState([
-        { itemName: "item1", quantity: 1, isSelected: false },
+        { itemName: 'item1', quantity: 1, isSelected: false },
     ]);
 
     const [inputValue, setInputValue] = useState('');
