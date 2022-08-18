@@ -14,12 +14,34 @@ import { styles } from './screenStyles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import storage from '../api/storage';
 
+let dateToday = () => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    // format as dd-mm-yy
+    // today = dd + '/' + mm + '/' + String(yyyy).substring(2);
+    today = yyyy + '-' + mm + '-' + dd;
+    console.log(today);
+    return Date.parse(String(today));
+};
+
 let initialLoad = false;
 let getInvItem = async () => {
     let itemArr = [];
+    dateToday();
     let idList = await storage.getAllKeys();
     if (!initialLoad) {
-        
+        for (let i = 0; i < idList.length; i++) {
+            itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
+            // compare the date of the item to the date of the current day
+            if (Date.parse(20 + itemArr[i].expiry) < dateToday()) {
+                // itemArr[i].expired = true;
+                console.log("This item has expired: " + itemArr[i].name + " on " + itemArr[i].expiry);
+            }
+        }
+        console.log(dateToday());
+        console.log(Date.parse(20 + itemArr[0].expiry));
     }
 };
 
@@ -58,10 +80,6 @@ class GroceryScreen extends React.Component {
 let CONTENT = [
     {
         title: 'Expired',
-        customInnerItem: [],
-    },
-    {
-        title: 'Soon to expire',
         customInnerItem: [],
     },
 ];

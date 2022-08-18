@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions,  Platform, TouchableOpacity, Linking, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions,  Platform, TouchableOpacity, Linking, SafeAreaView, KeyboardAvoidingView, Alert } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
 //import {LocalCategories} from '../components/dropdownList';
@@ -42,24 +42,37 @@ export default class NameForm extends React.Component {
 
   validateDate(input) {
     // validate date as DD/MM/YY
-    const date = input.split('/');
-    if (date.length !== 3) {
-      return false;
+    let date;
+    if (input === '') {
+      Alert.alert('Date', 'Please enter a valid date in the format DD/MM/YY');
+    } else {
+      date = input.split('/');
+      if (date.length !== 3) {
+        return false;
+      }
+      const year = parseInt(date[0], 10);
+      const month = parseInt(date[1], 10);
+      const day = parseInt(date[2], 10);
+      if (year < 0 || year > 99) {
+        return false;
+      }
+      if (month > 12) {
+        return false;
+      }
+      if (day < 1 || day > 31) {
+        return false;
+      }
+      return true;
     }
-    const day = parseInt(date[0], 10);
-    const month = parseInt(date[1], 10);
-    const year = parseInt(date[2], 10);
-    if (day < 1 || day > 31) {
-      return false;
-    }
-    if (month < 1 || month > 12) {
-      return false;
-    }
-    if (year < 22 || year > 24) {
-      return false;
-    }
-    return true;
   }
+
+  // convertDate(input) {
+  //     const date = input.split('/');
+  //     const day = parseInt(date[0], 10);
+  //     const month = parseInt(date[1], 10);
+  //     const year = parseInt(date[2], 10);
+  //     return new Date(year, month - 1, day);
+  // }
 
   render() {
     return this.detailsForm();
@@ -88,8 +101,8 @@ export default class NameForm extends React.Component {
             </View>
             <View style={[styles.inputContainer]}>
               <TextInput
-                  placeholder='This will be a manual entry'
-                  onChangeText={(text) => {this.state.name = text }}
+                  placeholder="This will be a manual entry"
+                  onChangeText={(text) => {this.state.name = text; }}
                   style={styles.inputStyle}
               />
             </View>
@@ -118,9 +131,9 @@ export default class NameForm extends React.Component {
                     ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
                     getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
                     // onChange={(selectedItem) => { NameForm.state.category = selectedItem }}
-                    onSelectItem={(selectedItem) => { this.handleCategory(selectedItem) }}
-                    onChange={(selectedItem) => { this.state.category = selectedItem.title }}
-                    onChangeText={(text) => {this.state.category = text }}
+                    onSelectItem={(selectedItem) => { this.handleCategory(selectedItem); }}
+                    onChange={(selectedItem) => { this.state.category = selectedItem.title; }}
+                    onChangeText={(text) => {this.state.category = text; }}
                   />
                   {/* <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text> */}
 
@@ -134,13 +147,13 @@ export default class NameForm extends React.Component {
             </View>
             <View style={[styles.inputContainer]}>
                 <NumericInput
-                    onChange={value => {this.state.quantity = value}}
+                    onChange={value => {this.state.quantity = value;}}
                     rounded
-                    valueType='real'
+                    valueType="real"
                     minValue={1}
                     iconStyle={{ color: 'black' }}
-                    rightButtonBackgroundColor='#EA3788'
-                    leftButtonBackgroundColor='#E56B70' />
+                    rightButtonBackgroundColor="#EA3788"
+                    leftButtonBackgroundColor="#E56B70" />
             </View>
         </View>
           <View
@@ -164,8 +177,8 @@ export default class NameForm extends React.Component {
                 /> */}
                   <TextInputMask
                     style={styles.inputStyle}
-                    placeholder="(DD/MM/YY) Scan/enter expiry date"
-                    onChangeText={(text) => { this.state.expiry = text }}
+                    placeholder="(YY/MM/DD) Scan/enter expiry date"
+                    onChangeText={(text) => { this.state.expiry = text; }}
                     value={this.state.expiry}
                     mask={'[00]/[00]/[00]'}
                     keyboardType="numeric"

@@ -13,7 +13,7 @@ const wait = (timeout) => {
     return new Promise(resolve => {
         setTimeout(resolve, timeout);
     });
-}
+};
 
 const getAllKeys = async () => {
     return await storage.getIdsForKey('barcode').then(ids => {
@@ -23,6 +23,6 @@ const getAllKeys = async () => {
         console.log(err);
     }
     );
-}
+};
 
 export default {storage, getAllKeys, wait};
