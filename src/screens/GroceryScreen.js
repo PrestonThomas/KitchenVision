@@ -40,9 +40,11 @@ let getInvItem = async () => {
                 console.log('This item has expired: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
                 CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);
             }
+            
         }
         console.log(dateToday());
         console.log(Date.parse(20 + itemArr[0].expiry));
+        
     }
 };
 
@@ -150,7 +152,7 @@ function GroceryHome({ navigation }) {
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}
-                    style={{ textAlign: 'center' }}>
+                    style={styles.contentGroceryItem}>
                     {section.customInnerItem}
                 </Animatable.Text>
             </Animatable.View>
@@ -160,19 +162,34 @@ function GroceryHome({ navigation }) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.containerA}>
-                <ScrollView
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={onRefresh} />
-                    }>
-                        <Animatable.Text
+                <View>
+                    <Animatable.Text
                             animation="bounceInUp"
                             easing="ease-in"
                             delay={50}
                             direction="alternate"
                             style={styles.groceryPageTitle}>Grocery List
                         </Animatable.Text>
+                        <Text style={styles.selectTitle}>
+                        Tap to Expand Categories
+                        </Text>
+                        <Text style={styles.selectTitle}>
+                        Pull down to Refresh Grocery
+                        </Text>
+                        </View>
+
+                    <ScrollView 
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh} />}
+                            style={{backgroundColor:'rgba(255,150,79, 0.4)'}}>  
+                    <View>
+                    <View style={styles.groceryscreenSectionBreakTop}>
+                        <Text
+                        style={styles.groceryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
+                    </View>
+                    
 
                     {/* <View style={styles.multipleToggle}>
                         <Text style={styles.multipleToggle__title}>
@@ -182,15 +199,6 @@ function GroceryHome({ navigation }) {
                             value={multipleSelect}
                             onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
                     </View> */}
-                    <Text style={styles.selectTitle}>
-                        Please select below option to expand
-                    </Text>
-                    <View style={styles.groceryscreenSectionBreakTop}>
-                        <Text
-                        style={styles.groceryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
-                    </View>
-
-
                     {/*Code for Accordion/Expandable List starts here*/}
                     <Accordion
                         activeSections={activeSections}
@@ -212,7 +220,8 @@ function GroceryHome({ navigation }) {
                         //Duration for Collapse and expand
                         onChange={setSections} />
                     {/*Code for Accordion/Expandable List ends here*/}
-                </ScrollView>
+                    </View>
+               </ScrollView>
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
             </View>
         </SafeAreaView>

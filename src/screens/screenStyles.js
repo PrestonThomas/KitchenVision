@@ -70,6 +70,7 @@ export const styles = StyleSheet.create({
     },
     categoryTitle: {
         padding: 10,
+        
     },
     categoryTitleText: {
         textAlign: 'center',
@@ -244,13 +245,13 @@ export const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'Amsterdam',
         color: 'rgba(255,150,79, 1)',
-        // marginBottom: 50,
+        marginBottom: 50,
         marginTop: 50,
     },
     groceryscreenSectionBreakTop: {
         height: 50,
         margin: 0,
-        backgroundColor: 'rgba(255,150,79, 0.4)',
+        backgroundColor: 'rgba(255,150,79, 0)',
         borderWidth: 1,
         borderColor: 'rgba(179, 118, 90,1)',
     },
@@ -258,6 +259,18 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 25,
         margin: 5,
+    },
+
+    contentGroceryItem: {
+        paddingTop:13,
+        textAlign: 'center', 
+        fontFamily: 'HelloKetta', 
+        fontSize: 30,
+        color: '#121212', 
+        width: '100%',
+        height:'100%',
+        backgroundColor: 'rgba(222, 199, 155,1)',
+        
     },
 
     //Styling for Add Item function
