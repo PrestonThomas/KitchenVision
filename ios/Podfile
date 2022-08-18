@@ -4,6 +4,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '11.0'
 install! 'cocoapods', :deterministic_uuids => false
 pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text', :modular_headers => true
 target 'vision' do
   config = use_native_modules!
 

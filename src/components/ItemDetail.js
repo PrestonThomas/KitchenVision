@@ -7,7 +7,7 @@ import BarcodeForm from './BarcodeForm';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NumericInput from 'react-native-numeric-input';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
-import { TextInputMask } from 'react-native-masked-text';
+import TextInputMask from 'react-native-text-input-mask';
 
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
@@ -163,15 +163,13 @@ export default class NameForm extends React.Component {
                     onChangeText={(text) => { this.state.expiry = text }}
                 /> */}
                   <TextInputMask
-                    type={'datetime'}
                     style={styles.inputStyle}
                     placeholder="(DD/MM/YY) Scan/enter expiry date"
-                    options={{
-                      format: 'DD/MM/YY',
-                    }}
-                    value={this.state.dt}
-                    onChangeText={(text) => { this.state.expiry = text; }}
-                  />
+                    onChangeText={(text) => { this.state.expiry = text }}
+                    value={this.state.expiry}
+                    mask={'[00]/[00]/[00]'}
+                    keyboardType="numeric"
+                    />
             </View>
             <View style={styles.btnContainer}>
                 <TouchableOpacity onPress={this.returnExpiry} >
