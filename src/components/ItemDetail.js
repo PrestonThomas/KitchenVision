@@ -26,6 +26,7 @@ export default class NameForm extends React.Component {
     this.handleExpiry = this.handleExpiry.bind(this);
     this.returnExpiry = this.returnExpiry.bind(this);
     this.validateDate = this.validateDate.bind(this);
+    this.pullName = this.pullName.bind(this);
   }
   handleChange(event) { this.setState({ value: event.target.value }); }
   handleCancel(event) { console.log('Cancel'); }
@@ -67,6 +68,9 @@ export default class NameForm extends React.Component {
     }
   }
 
+  pullName(event) { console.log('pullName'); }
+      
+
   // convertDate(input) {
   //     const date = input.split('/');
   //     const day = parseInt(date[0], 10);
@@ -101,19 +105,12 @@ export default class NameForm extends React.Component {
             </View>
             <View style={[styles.inputContainer]}>
               <TextInput
-                  placeholder='This will be a manual entry'
+                  placeholder='Input product name'
+                  defaultValue={this.state.name}
                   onChangeText={(text) => {this.state.name = text }}
+                  onChange={(text) => {this.state.name = text }}
                   style={styles.inputStyle}
               />
-              <AwesomeButtonCartman
-              type="primary"
-              backgroundColor='rgba(255,0,0,0)'
-              backgroundActive="rgba(225,0,0,0)"
-              activeOpacity={0.5}
-              textColor="#FFFFFF"
-              // width={128}
-              height={40}
-              onPress={this.handleCancel}>Auto</AwesomeButtonCartman>
             </View>
           </View>
           <View style={styles.twoItemDropDown}>
@@ -222,17 +219,18 @@ export default class NameForm extends React.Component {
               onPress={this.handleCancel}>CANCEL</AwesomeButtonCartman>
             </View>
           <View style={styles.ItemDetailButtonLast}>
-            <MaterialButtonSuccess
+            {/* <MaterialButtonSuccess
               button="Get More Item Details"
               style= {{height: 40}}
-              onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/'+this.state.value)}
-            />
+              onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/' + this.state.value)}
+            /> */}
+            <Button title='Get More Item Details' onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/' + this.state.value)}></Button>
           </View>
         </View>
       </View>
     </ScrollView>
     </KeyboardAvoidingView>
     </SafeAreaView>
-
+  
   }
 }

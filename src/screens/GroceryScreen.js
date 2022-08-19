@@ -40,6 +40,12 @@ let getInvItem = async () => {
                 console.log('This item has expired: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
                 CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);
             }
+            // Else if the item is 3 days or less from expiry, add a warning to the item
+            else if (Date.parse(20 + itemArr[i].expiry) - dateToday() < 2592000000) {
+                // itemArr[i].warning = true;
+                console.log('This item is about to expire: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
+                CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);
+            }
             
         }
         console.log(dateToday());
@@ -83,6 +89,9 @@ class GroceryScreen extends React.Component {
 let CONTENT = [
     {
         title: 'Expired',
+        customInnerItem: [],
+    },
+    {   title: 'Near Expiry',
         customInnerItem: [],
     },
 ];

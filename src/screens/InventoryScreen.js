@@ -382,10 +382,11 @@ function ItemDetailsScreen({ navigation }) {
     }
     nf.state.value = barcodeOutput[0].barcodeText;
     nf.state.json = item;
-    if (item === undefined || item.image_url === undefined) {
+    if (item === undefined || item.image_url === undefined || item.product_name === undefined) {
         nf.state.img = 'https://i.imgur.com/YYIRUdf.jpeg';
     } else {
         nf.state.img = item.image_url;
+        nf.state.name = item.product_name;
     }
     nf.handleExpiry = () => {
         scanner.onCameraPress();
@@ -408,6 +409,10 @@ function ItemDetailsScreen({ navigation }) {
     };
     nf.updateName = (input) => {
         nf.state.name = input;
+    };
+    nf.pullName = () => {
+        console.log(nf.state.json.product_name);
+        nf.state.name = nf.state.json.product_name;
     };
     nf.handleSubmit = () => {
         console.log(item.brands);
