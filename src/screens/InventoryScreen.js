@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl } from 'react-native';
+//import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
+//import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
