@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl } from 'react-native';
+import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl, LogBox } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
@@ -14,6 +14,8 @@ import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
 import storage from '../api/storage';
 import { styles } from './screenStyles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+LogBox.ignoreLogs(['Each child in a list should have a unique "key" prop.']);
 
 function useForceUpdate() {
     const [value, setValue] = useState(0);
@@ -36,19 +38,29 @@ let getInvItem = async () => {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[idList.length - 1] }));
             switch (itemArr[itemArr.length - 1].category) {
                 case 'Drinks':
-                    CONTENT[3].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
+                    CONTENT[3].customInnerItem.push((
+                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                    ));
                     break;
                 case 'Meat':
-                    CONTENT[0].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
+                    CONTENT[0].customInnerItem.push((
+                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                    ));
                     break;
                 case 'Vegetables':
-                    CONTENT[1].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
+                    CONTENT[1].customInnerItem.push((
+                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                    ));
                     break;
                 case 'Dairy':
-                    CONTENT[2].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
+                    CONTENT[2].customInnerItem.push((
+                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                    ));
                     break;
                 default:
-                    CONTENT[4].customInnerItem.push(itemArr[itemArr.length - 1].name + ' ---- ' + itemArr[itemArr.length - 1].expiry + '\n');
+                    CONTENT[4].customInnerItem.push((
+                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                    ));
                     break;
             }
             console.log('New item added');
@@ -58,19 +70,29 @@ let getInvItem = async () => {
                 itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
                 switch (itemArr[i].category) {
                     case 'Drinks':
-                        CONTENT[3].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
+                        CONTENT[3].customInnerItem.push((
+                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
+                        ));
                         break;
                     case 'Meat':
-                        CONTENT[0].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
+                        CONTENT[0].customInnerItem.push((
+                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
+                        ));
                         break;
                     case 'Vegetables':
-                        CONTENT[1].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
+                        CONTENT[1].customInnerItem.push((
+                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
+                        ));
                         break;
                     case 'Dairy':
-                        CONTENT[2].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
+                        CONTENT[2].customInnerItem.push((
+                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
+                        ));
                         break;
                     default:
-                        CONTENT[4].customInnerItem.push(itemArr[i].name + ' ---- ' + itemArr[i].expiry + '\n');
+                        CONTENT[4].customInnerItem.push((
+                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
+                        ));
                         break;
                 }
             }
@@ -127,6 +149,20 @@ class InventoryScreen extends React.Component {
             </NavigationContainer>
         );
     }
+}
+
+function listItem(itemName, itemExpiry, itemKey) {
+    return <><View>
+        <View style={{ width: 370, height: 70, borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+            <View style={styles.contentBtnContainer}>
+                <TouchableOpacity onPress={() => console.log(itemKey)}>
+                    <Icon name="magnify" style={styles.contentIcon} />
+                </TouchableOpacity>
+            </View>
+            <Text key={itemKey} style={styles.contentItem}>{itemName} --- {itemExpiry}</Text>
+            {/* <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 18, width: '40%', }}>{itemExpiry}</Text> */}
+        </View>
+    </View></>;
 }
 
 function InventoryHome({ navigation }) {
@@ -204,7 +240,7 @@ function InventoryHome({ navigation }) {
         return (
             <Animatable.View
                 duration={400}
-                style={[styles.inventoryListcontent, isActive ? styles.active : styles.inactive]}
+                // style={[styles.inventoryListcontent, isActive ? styles.active : styles.inactive]}
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}

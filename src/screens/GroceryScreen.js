@@ -46,6 +46,9 @@ let getInvItem = async () => {
                 console.log('This item is about to expire: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
                 CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);
             }
+            else {
+                return;
+            }
             
         }
         console.log(dateToday());
