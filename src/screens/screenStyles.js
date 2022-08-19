@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         fontFamily: 'Amsterdam',
         color: 'rgba(255,150,79, 1)',
         // marginBottom: 50,
-        marginTop: 50,
+        marginTop: 20,
     },
     //Barcode scanner button
     bcScanButton: {
@@ -236,8 +236,8 @@ export const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'Amsterdam',
         color: 'rgba(255,150,79, 1)',
-        marginBottom: 50,
-        marginTop: 50,
+        marginBottom: 40,
+        marginTop: 20,
     },
     groceryscreenSectionBreakTop: {
         height: 50,
@@ -252,53 +252,31 @@ export const styles = StyleSheet.create({
         margin: 5,
     },
 
-    contentGroceryItem: {
+    // contentGroceryItem: {
+    //     paddingTop:13,
+    //     textAlign: 'center', 
+    //     fontFamily: 'HelloKetta', 
+    //     fontSize: 35,
+    //     color: '#121212', 
+    //     width: '100%',
+    //     height:'100%',
+    //     backgroundColor: 'rgba(222, 199, 155,1)',
+        
+    // },
+
+    customInnerItem : {
         paddingTop:13,
         textAlign: 'center', 
         fontFamily: 'HelloKetta', 
-        fontSize: 30,
+        fontSize: 35,
         color: '#121212', 
         width: '100%',
         height:'100%',
         backgroundColor: 'rgba(222, 199, 155,1)',
-        
-    },
-
-    //Styling for Add Item function
-    appBackground: {
-        backgroundColor: '#F8F0E3',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    addItemBox: {
-        backgroundColor: 'rgba(255,255,255,1)',
-        color: '#ec645b',
-        alignItems: 'center',
-        marginTop: 1,
-        marginBottom: 1,
-        borderRadius: 10,
-        padding: 5,
+        borderWidth: 1,
+        borderColor: 'rgba(179, 118, 90,1)',
 
     },
 
-    addItemInput: {
-        backgroundColor: 'transparent',
-        color: '#ec645b',
-        width: '50%',
-        height: 50,
-    },
-
-    itemList: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-    // itemContainer: {
-    //     flex: 1,
-    //     alignItems: 'center',
-    //     justifyContent: 'space-between',
-    //     padding: 20,
-    //     borderBottomColor: '#fbc1bb',
-    // },
 
 });

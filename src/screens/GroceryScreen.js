@@ -1,6 +1,7 @@
 import { useNavigationBuilder } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
 import { Text, View, Button, StyleSheet, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, TextInputComponent, RefreshControl } from 'react-native';
+import Counter from 'react-native-counters';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
@@ -44,7 +45,7 @@ let getInvItem = async () => {
             else if (Date.parse(20 + itemArr[i].expiry) - dateToday() < 2592000000) {
                 // itemArr[i].warning = true;
                 console.log('This item is about to expire: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
-                CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);
+                CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);    
             }
             
         }
@@ -75,12 +76,6 @@ class GroceryScreen extends React.Component {
                     <RootStack.Group>
                         <RootStack.Screen name="Grocery Home Screen" options={{ headerShown: false }} component={GroceryHome} />
                     </RootStack.Group>
-                    <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
-                        <RootStack.Screen name="Add New Item" component={AddNewItem} />
-                    </RootStack.Group>
-                    {/* <RootStack.Group presentationStyle="pageSheet" screenOptions={{ presentation: 'fullscreenModal' }}>
-                        <RootStack.Screen name="Item Details" component={ItemDetailsScreen} />
-                    </RootStack.Group> */}
                 </RootStack.Navigator>
             </NavigationContainer>
         );
@@ -161,7 +156,7 @@ function GroceryHome({ navigation }) {
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}
-                    style={styles.contentGroceryItem}>
+                    style={styles.customInnerItem}>
                     {section.customInnerItem}
                 </Animatable.Text>
             </Animatable.View>
@@ -200,14 +195,6 @@ function GroceryHome({ navigation }) {
                     </View>
                     
 
-                    {/* <View style={styles.multipleToggle}>
-                        <Text style={styles.multipleToggle__title}>
-                            Multiple Expand Allowed?
-                        </Text>
-                        <Switch
-                            value={multipleSelect}
-                            onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
-                    </View> */}
                     {/*Code for Accordion/Expandable List starts here*/}
                     <Accordion
                         activeSections={activeSections}
@@ -231,73 +218,8 @@ function GroceryHome({ navigation }) {
                     {/*Code for Accordion/Expandable List ends here*/}
                     </View>
                </ScrollView>
-                <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Add New Item') }} visible={true} />
             </View>
         </SafeAreaView>
-    )
-}
-
-
-// Add New Item function 
-function AddNewItem({ navigation }) {
-    const [items, setItems] = useState([
-        { itemName: 'item1', quantity: 1, isSelected: false },
-    ]);
-
-    const [inputValue, setInputValue] = useState('');
-    const [totalItemCount, setTotalItemCount] = useState(0);
-
-
-    const handleAddButtonClick = () => {
-        const newItem = {
-            newItem: inputValue,
-            quantity: 1,
-            isSelected: false,
-        };
-
-        const newItems = [...items, newItem];
-
-        setItems(newItems);
-        setInputValue(''),
-            calculateTotal();
-    };
-
-    const handleQuantityIncrease = (index) => {
-        const newItems = [...items];
-        newItems[index].quantity++;
-        setItems(newItems);
-        calculateTotal();
-    };
-
-    const handleQuantityDecrease = (index) => {
-        const newItems = [...items];
-        newItems[index].quantity--;
-        setItems(newItems);
-        calculateTotal();
-    };
-
-    const toggleComplete = (index) => {
-        const newItems = [...items];
-        newItems[index].isSelected = !newItems[index].isSelected;
-        setItems(newItems);
-    }
-
-    const calculateTotal = () => {
-        const totalItemCount = items.reduce((total, item) => {
-            return total + item.quantity;
-        }, 0);
-        setTotalItemCount(totalItemCount);
-    };
-
-    return (
-        <View style={styles.appBackground}>
-            <View style={styles.addItemBox}>
-                <TextInput value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder='Add an item...' />
-
-                <Icon name='add' onClick={() => handleAddButtonClick()} />
-            </View>
-        </View>
-
     )
 }
 
