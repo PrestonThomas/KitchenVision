@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         fontFamily: 'Amsterdam',
         color: 'rgba(255,150,79, 1)',
         // marginBottom: 50,
-        marginTop: 20,
+        marginTop: 50,
     },
     //Barcode scanner button
     bcScanButton: {
@@ -86,10 +86,10 @@ export const styles = StyleSheet.create({
     //content inside the collapsible list
     inventoryListcontent: {
         width:'100%',
-        padding: 15
+        padding: 10,
     },
     active: {
-        backgroundColor: 'rgba(242,242,242,255)',
+        // backgroundColor: 'rgba(242,242,242,255)',
     },
     inactive: {
         backgroundColor: 'rgba(255,150,79, 0)',
@@ -112,8 +112,30 @@ export const styles = StyleSheet.create({
         height:'100%',
         backgroundColor: 'rgba(222, 199, 155,1)',
     },
-    
-    
+    contentIcon: {
+        color: "#fff",
+        fontSize: 24,
+        alignSelf: "center"
+      },
+    contentBtnContainer: {
+        backgroundColor: "rgba(225,82,100,1)",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 28,
+        shadowColor: "#111",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.2,
+        elevation: 2,
+        minWidth: 30,
+        maxWidth: 30,
+        minHeight: 30,
+        maxHeight: 30,
+        opacity: 0.9
+    },
     /*
     HomeScreen styles
     */
@@ -273,9 +295,14 @@ export const styles = StyleSheet.create({
         width: '100%',
         height:'100%',
         backgroundColor: 'rgba(222, 199, 155,1)',
-        borderWidth: 1,
-        borderColor: 'rgba(179, 118, 90,1)',
+        
+    },
 
+    //Styling for Add Item function
+    appBackground: {
+        backgroundColor: '#F8F0E3',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 
