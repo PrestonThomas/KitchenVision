@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
         // marginBottom: 50,
         marginTop: 50,
     },
-
     //Barcode scanner button
     bcScanButton: {
         alignItems: 'center',
@@ -24,7 +23,6 @@ export const styles = StyleSheet.create({
         backgroundColor: 'blue',
         height: 50,
     },
-
     //barcode scanner button text
     bcScanButtonText: {
         fontSize: 16,
@@ -35,18 +33,21 @@ export const styles = StyleSheet.create({
     },
 
     // collapsible list styling
+    //inventory page container (whole screen)
     containerA: {
         flex: 1,
         backgroundColor: 'transparent',
         paddingTop: '5%',
     },
-    selectTitle: {
+    //function explanation text
+    functionGuide: {
         fontSize: 14,
         fontWeight: '500',
         paddingBottom: 10,
         textAlign: 'center',
         color:'rgba(150, 179, 90,1)',
     },
+    //multiple toggle button
     multipleToggle: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -58,19 +59,23 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         marginRight: 8,
     },
+    //section break top 
+    //bread emoji header
     inventoryscreenSectionBreakTop: {
         backgroundColor: 'rgba(255,150,79, 0)',
         borderWidth: 1,
         borderColor: 'rgba(179, 118, 90,1)',
     },
+    //bread emoji css
     inventoryscreenBreadPos: {
         textAlign: 'center',
         fontSize: 25,
         margin: 5,
     },
+    //category title of the collapsible list
+    //(Meat, Dairy, Vegetables, Drinks, Others)
     categoryTitle: {
         padding: 10,
-        
     },
     categoryTitleText: {
         textAlign: 'center',
@@ -78,6 +83,7 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
         color:'rgba(110, 73, 56,1)'
     },
+    //content inside the collapsible list
     inventoryListcontent: {
         width:'100%',
         padding: 15
@@ -95,24 +101,10 @@ export const styles = StyleSheet.create({
         paddingLeft:5,
         color:'rgba(150, 179, 90,1)',
     },
-    // Styling for Content Array
-    // contentContainer: {
-    //     backgroundColor: 'rgba(255,150,79, 0.2)',
-    //     width: '100%',
-    //     height: 65,
-    // },
-    // contentItem: {
-    //     backgroundColor: 'rgba(255,150,79, 0.2)',
-    //     width: '100%',
-    //     // height: 66,
-    //     borderWidth: 1,
-    //     borderColor: '#000000',
-    //     flexDirection: 'row',
-    // },
+    //content item inside the collapsible list (name & date)
     contentItem: {
         paddingTop:13,
         textAlign:'center', 
-        // fontFamily: 'roboto-regular', 
         fontFamily: 'HelloKetta',
         fontSize: 35, 
         color: '#121212', 
@@ -120,8 +112,7 @@ export const styles = StyleSheet.create({
         height:'100%',
         backgroundColor: 'rgba(222, 199, 155,1)',
     },
-
-
+    
     
     /*
     HomeScreen styles

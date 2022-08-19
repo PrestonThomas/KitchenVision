@@ -82,59 +82,29 @@ let getInvItem = async () => {
     }
 }
 
+// content in the collapsible list
 let CONTENT = [
     {
-        title: 'Meat',
+        title: 'Meat 🍖',
         customInnerItem: [],
     },
     {
-        title: 'Dairy',
+        title: 'Dairy 🐄',
         customInnerItem: [],
     },
     {
-        title: 'Vegetables',
+        title: 'Vegetables 🥦',
         customInnerItem: [],
     },
     {
-        title: 'Drinks',
+        title: 'Drinks 🍹',
         customInnerItem: [],
     },
     {
-        title: 'Other',
+        title: 'Other 🍪',
         customInnerItem: [],
     },
 ];
-
-// let CONTENT = [
-//     {
-//         title: 'Dairy',
-//         customInnerItem: (
-//             <><View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-//                 <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
-//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
-//                 </View>
-//             </View>
-//                 <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-//                     <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-//                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
-//                         <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
-//                     </View>
-//                 </View></>
-//         ),
-//     },
-//     {
-//         title: 'Fridge',
-//         customInnerItem: (
-//             <View style={{ backgroundColor: '#E6E6E6', width: '100%', height: 65, }}>
-//                 <View style={{ width: 370, height: 66, backgroundColor: 'rgba(255,255,255,1)', borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
-//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '70%', }}>Item&#39;s Name</Text>
-//                     <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 22, width: '30%', }}>Date</Text>
-//                 </View>
-//             </View>
-//         ),
-//     },
-// ];
 
 let barcodeOutput;
 
@@ -182,8 +152,8 @@ function InventoryHome({ navigation }) {
     // Collapsed condition for the single collapsible
     const [collapsed, setCollapsed] = useState(true);
     // MultipleSelect is for the Multiple Expand allowed
-    // True: Expand multiple at a time
-    // False: One can be expand at a time
+    // Expand multiple at a time (True)
+    // One can be expand at a time (False)
     const [multipleSelect, setMultipleSelect] = useState(false);
 
     const toggleExpanded = () => {
@@ -229,6 +199,8 @@ function InventoryHome({ navigation }) {
 
     let renderContent = (section, _, isActive) => {
         //Accordion Content view
+        //content inside the collapsible list
+        //name of the items and date of expiry date
         return (
             <Animatable.View
                 duration={400}
@@ -237,7 +209,6 @@ function InventoryHome({ navigation }) {
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}
                     style={styles.contentItem}>
-                    {/* <Text style={styles.contentItemName}>{section.customInnerItem} </Text> */}
                     {section.customInnerItem}
                 </Animatable.Text>
             </Animatable.View>
@@ -263,10 +234,10 @@ function InventoryHome({ navigation }) {
                             value={multipleSelect}
                             onValueChange={(multipleSelect) => setMultipleSelect(multipleSelect)} />
                     </View>
-                    <Text style={styles.selectTitle}>
+                    <Text style={styles.functionGuide}>
                         Tap to Expand Categories
                     </Text>
-                    <Text style={styles.selectTitle}>
+                    <Text style={styles.functionGuide}>
                         Pull down to Refresh Inventory
                     </Text>
                 </View>
@@ -282,27 +253,17 @@ function InventoryHome({ navigation }) {
                             style={styles.inventoryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
                         </View>
 
-                        {/*Code for Accordion/Expandable List starts here*/}
+                        {/*Accordion/Expandable List*/}
                         <Accordion
                             activeSections={activeSections}
-                            //for any default active section
                             sections={CONTENT}
-                            //title and content of accordion
                             touchableComponent={TouchableOpacity}
-                            //which type of touchable component you want
-                            //It can be the following Touchables
-                            //TouchableHighlight, TouchableNativeFeedback
-                            //TouchableOpacity , TouchableWithoutFeedback
                             expandMultiple={multipleSelect}
-                            //Do you want to expand mutiple at a time or single at a time
                             renderHeader={renderHeader}
-                            //Header Component(View) to render
                             renderContent={renderContent}
-                            //Content Component(View) to render
-                            duration={400}
                             //Duration for Collapse and expand
+                            duration={400}
                             onChange={setSections} />
-                        {/*Code for Accordion/Expandable List ends here*/}
                     </View>
                 </ScrollView>
                 {/* <Button
@@ -327,12 +288,16 @@ function InventoryHome({ navigation }) {
                         }
                         )
                     }/> */}
+
+                {/* float button at the right button 
+                add new items button */}
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View>
         </SafeAreaView>
     );
 }
 
+//scan barcode pop-up page code
 function BcScreenModal({ navigation }) {
     // let bc = new Barcode.BarcodeScanner();
     return (

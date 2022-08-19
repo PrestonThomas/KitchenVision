@@ -170,10 +170,10 @@ function GroceryHome({ navigation }) {
                             direction="alternate"
                             style={styles.groceryPageTitle}>Grocery List
                         </Animatable.Text>
-                        <Text style={styles.selectTitle}>
+                        <Text style={styles.functionGuide}>
                         Tap to Expand Categories
                         </Text>
-                        <Text style={styles.selectTitle}>
+                        <Text style={styles.functionGuide}>
                         Pull down to Refresh Grocery
                         </Text>
                         </View>
