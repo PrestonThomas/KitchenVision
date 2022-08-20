@@ -8,6 +8,7 @@ import {useEffect} from 'react'
 import { PermissionsAndroid, View, Text, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Splash from './src/components/SplashAnimate';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,9 +67,11 @@ export default function App() {
 
 
     return (
-        <NavigationContainer>
-            <MyTabs />
-        </NavigationContainer>
+        <MenuProvider>
+            <NavigationContainer>
+                <MyTabs />
+            </NavigationContainer>
+        </MenuProvider>
     );
 
 }

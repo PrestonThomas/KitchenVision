@@ -25,4 +25,14 @@ const getAllKeys = async () => {
     );
 };
 
-export default {storage, getAllKeys, wait};
+const deleteItem = async (id) => {
+    return await storage.remove({ key: 'barcode', id: id }).then(() => {
+        return;
+    }
+    ).catch(err => {
+        console.log(err);
+    }
+    );
+};
+
+export default {storage, getAllKeys, wait, deleteItem};
