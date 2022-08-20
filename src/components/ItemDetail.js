@@ -69,7 +69,6 @@ export default class NameForm extends React.Component {
   }
 
   pullName(event) { console.log('pullName'); }
-      
 
   // convertDate(input) {
   //     const date = input.split('/');
@@ -183,7 +182,7 @@ export default class NameForm extends React.Component {
                 /> */}
                   <TextInputMask
                     style={styles.inputStyle}
-                    placeholder="(DD/MM/YY) Scan/enter expiry date"
+                    placeholder="(YY/MM/DD) Scan/enter expiry date"
                     onChangeText={(text) => { this.state.expiry = text }}
                     value={this.state.expiry}
                     mask={'[00]/[00]/[00]'}

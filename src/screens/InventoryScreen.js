@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl, LogBox } from 'react-native';
+import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl, LogBox, Linking } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
@@ -15,6 +15,9 @@ import dayjs from 'dayjs';
 import storage from '../api/storage';
 import { styles } from './screenStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { Menu, MenuOptions, MenuOption, MenuTrigger, } from 'react-native-popup-menu';
+
 LogBox.ignoreLogs(['Each child in a list should have a unique "key" prop.']);
 
 function useForceUpdate() {
@@ -25,83 +28,54 @@ function useForceUpdate() {
 // let invItems = storage.storage.load({ key: 'barcode', id: '5449000000996' }).then(val => { invItems = val; });
 
 let initialLoad = false;
-let checkNewItem = false;
+let checkChange = false;
 let getInvItem = async () => {
     // let idList = storage.getAllKeys().then(keys => { idList = keys });
     let idList = await storage.getAllKeys();
     let itemArr = [];
     let idListLength = idList.length;
-    if (!initialLoad || checkNewItem) {
+    if (!initialLoad || checkChange) {
         initialLoad = true;
-        console.log(checkNewItem)
-        if (checkNewItem) {
-            itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[idList.length - 1] }));
-            switch (itemArr[itemArr.length - 1].category) {
+        if (checkChange) {
+            for (let i = 0; i < CONTENT.length; i++) {
+                CONTENT[i].customInnerItem = [];
+            }
+            console.log('Item list updated');
+            checkChange = false;
+        }
+        console.log('Item list loaded');
+        for (let i = 0; i < idList.length; i++) {
+            itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
+            switch (itemArr[i].category) {
                 case 'Drinks':
                     CONTENT[3].customInnerItem.push((
-                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                        listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
                 case 'Meat':
                     CONTENT[0].customInnerItem.push((
-                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                        listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
                 case 'Vegetables':
                     CONTENT[1].customInnerItem.push((
-                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                        listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
                 case 'Dairy':
                     CONTENT[2].customInnerItem.push((
-                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                        listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
                 default:
                     CONTENT[4].customInnerItem.push((
-                        listItem(itemArr[itemArr.length - 1].name, itemArr[itemArr.length - 1].expiry, itemArr[itemArr.length - 1].value)
+                        listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
             }
-            console.log('New item added');
-            checkNewItem = false;
-        } else {
-            for (let i = 0; i < idList.length; i++) {
-                itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
-                switch (itemArr[i].category) {
-                    case 'Drinks':
-                        CONTENT[3].customInnerItem.push((
-                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
-                        ));
-                        break;
-                    case 'Meat':
-                        CONTENT[0].customInnerItem.push((
-                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
-                        ));
-                        break;
-                    case 'Vegetables':
-                        CONTENT[1].customInnerItem.push((
-                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
-                        ));
-                        break;
-                    case 'Dairy':
-                        CONTENT[2].customInnerItem.push((
-                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
-                        ));
-                        break;
-                    default:
-                        CONTENT[4].customInnerItem.push((
-                            listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
-                        ));
-                        break;
-                }
-            }
         }
-        return itemArr;
-    } else {
-        console.log(idList)
-        return console.log('No new items to load');
     }
+    return itemArr;
 }
 
 // content in the collapsible list
@@ -151,13 +125,46 @@ class InventoryScreen extends React.Component {
     }
 }
 
+//ItemContextMenu
+
+const deletePrompt = (itemKey) => {
+    Alert.alert(
+        'Delete Item',
+        'Are you sure you want to delete this item?',
+        [
+            { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: 'OK', onPress: () => storage.deleteItem(itemKey).then(checkChange = true) },
+        ],
+        { cancelable: false }
+    );
+};
+
+const ItemPopup = (itemKey) => {
+    return (
+        <Menu onSelect={value => alert(`Selected number: ${value}`)}>
+            <MenuTrigger text="Select option" customStyles={{
+                TriggerTouchableComponent: Button,
+                triggerTouchable: { title: '' },
+            }} />
+            <MenuOptions>
+                <MenuOption onSelect={() => console.log(itemKey.itemKey.itemKey)} text="Save" />
+                <MenuOption value={2} onSelect={() => Linking.openURL('https://world.openfoodfacts.org/product/' + itemKey.itemKey.itemKey)} text="More info"/>
+                <MenuOption value={3} onSelect={() => deletePrompt(itemKey.itemKey.itemKey)}>
+                    <Text style={{ color: 'red' }}>Delete Item</Text>
+                </MenuOption>
+            </MenuOptions>
+        </Menu>
+    );
+};
+
 function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
         <View style={{ width:340, height:'100%',padding:10,borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
             <View style={styles.contentBtnContainer}>
-                <TouchableOpacity onPress={() => console.log(itemKey)}>
+                {/* <TouchableOpacity onPress={ItemPopup.MenuTrigger}>
                     <Icon name="magnify" style={styles.contentIcon} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <ItemPopup itemKey={{itemKey}} />
             </View>
             <Text key={itemKey} style={styles.contentItem}>{itemName} --- {itemExpiry}</Text>
             {/* <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 18, width: '40%', }}>{itemExpiry}</Text> */}
@@ -455,7 +462,7 @@ function ItemDetailsScreen({ navigation }) {
         console.log(nf.state.value);
         console.log(nf.state.img);
         console.log(nf.state.category);
-        checkNewItem = true;
+        checkChange = true;
         if (nf.validateDate(nf.state.expiry)) {
             storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
             navigation.navigate('Inventory Home Screen');
