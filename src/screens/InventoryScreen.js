@@ -153,7 +153,7 @@ class InventoryScreen extends React.Component {
 
 function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
-        <View style={{ width:340, height:'100%',padding:10,borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+        <View style={styles.contentItemContainer}>
             <View style={styles.contentBtnContainer}>
                 <TouchableOpacity onPress={() => console.log(itemKey)}>
                     <Icon name="magnify" style={styles.contentIcon} />

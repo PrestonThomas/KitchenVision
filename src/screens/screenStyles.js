@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         fontFamily: 'Amsterdam',
         color: 'rgba(255,150,79, 1)',
         // marginBottom: 50,
-        marginTop: 50,
+        marginTop: 30,
     },
     //Barcode scanner button
     bcScanButton: {
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     containerA: {
         flex: 1,
         backgroundColor: 'transparent',
-        paddingTop: '5%',
+        // paddingTop: '5%',
     },
     //function explanation text
     functionGuide: {
@@ -103,9 +103,18 @@ export const styles = StyleSheet.create({
     },
     //content inside the collapsible list css
     contentContainer: {
-        padding:13,
+        padding:'5%',
         backgroundColor: 'rgba(222, 199, 155,1)',
         textAlign:"center"
+    },
+    contentItemContainer:{
+        width:350, 
+        padding:10,
+        // height:'100%',
+        // marginBottom:10,
+        borderWidth: 1, 
+        borderColor: '#000000', 
+        flexDirection: 'row'
     },
     //content item inside the collapsible list (name & date)
     contentItem: {
