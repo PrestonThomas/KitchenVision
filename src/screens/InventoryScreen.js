@@ -111,7 +111,7 @@ let CONTENT = [
         customInnerItem: [],
     },
     {
-        title: 'Dairy 🐄',
+        title: 'Dairy 🥛',
         customInnerItem: [],
     },
     {
@@ -153,7 +153,7 @@ class InventoryScreen extends React.Component {
 
 function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
-        <View style={{ width: 370, height: 70, borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
+        <View style={{ width:340, height:'100%',padding:10,borderWidth: 1, borderColor: '#000000', flexDirection: 'row', }}>
             <View style={styles.contentBtnContainer}>
                 <TouchableOpacity onPress={() => console.log(itemKey)}>
                     <Icon name="magnify" style={styles.contentIcon} />
@@ -244,7 +244,7 @@ function InventoryHome({ navigation }) {
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}
-                    style={styles.contentItem}>
+                    style={styles.contentContainer}>
                     {section.customInnerItem}
                 </Animatable.Text>
             </Animatable.View>
