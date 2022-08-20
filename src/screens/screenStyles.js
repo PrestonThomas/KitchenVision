@@ -274,20 +274,8 @@ export const styles = StyleSheet.create({
         margin: 5,
     },
 
-    // contentGroceryItem: {
-    //     paddingTop:13,
-    //     textAlign: 'center', 
-    //     fontFamily: 'HelloKetta', 
-    //     fontSize: 35,
-    //     color: '#121212', 
-    //     width: '100%',
-    //     height:'100%',
-    //     backgroundColor: 'rgba(222, 199, 155,1)',
-        
-    // },
-
     customInnerItem : {
-        paddingTop:13,
+        // paddingTop:13,
         textAlign: 'center', 
         fontFamily: 'HelloKetta', 
         fontSize: 35,

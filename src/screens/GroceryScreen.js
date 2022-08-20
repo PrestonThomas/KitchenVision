@@ -39,24 +39,47 @@ let getInvItem = async () => {
             if (Date.parse(20 + itemArr[i].expiry) < dateToday()) {
                 // itemArr[i].expired = true;
                 console.log('This item has expired: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
-                CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);
+                CONTENT[i].customInnerItem.push((
+                    itemList(itemArr[i].name + ' on ' + itemArr[i].expiry)
+                    ));
             }
             // Else if the item is 3 days or less from expiry, add a warning to the item
             else if (Date.parse(20 + itemArr[i].expiry) - dateToday() < 2592000000) {
                 // itemArr[i].warning = true;
                 console.log('This item is about to expire: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
-                CONTENT[i].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry);    
+                CONTENT[i].customInnerItem.push((
+                    itemList(itemArr[i].name + ' on ' + itemArr[i].expiry)
+                    ));    
             }
             else {
                 return;
             }
-            
+
         }
         console.log(dateToday());
         console.log(Date.parse(20 + itemArr[0].expiry));
         
     }
 };
+
+//Counter button onchange function
+const onChange = (number, type) => {
+    console.log(number,type)
+};
+
+function itemList(itemName, itemExpiry) {
+    return <><View>
+         <View style={{width: '100%',flexDirection: 'row', height: '100%',borderWidth: 1, borderColor: '#000000' }}>
+         <View style= {styles.customInnerItem}>
+            <Text style = {styles.customInnerItem}>{itemName}{itemExpiry}
+            <View style = {{ width:'40%', alignItems: 'center', paddingHorizontal: 25,}}>
+                <Counter start = {1} onChange = {onChange} />
+            </View>
+            </Text>
+        </View>      
+        </View>
+        </View></>;
+}
 
 const wait = (timeout) => {
     return new Promise(resolve => {
