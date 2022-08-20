@@ -101,22 +101,26 @@ export const styles = StyleSheet.create({
         paddingLeft:5,
         color:'rgba(150, 179, 90,1)',
     },
+    //content inside the collapsible list css
+    contentContainer: {
+        padding:13,
+        backgroundColor: 'rgba(222, 199, 155,1)',
+        textAlign:"center"
+    },
     //content item inside the collapsible list (name & date)
     contentItem: {
-        paddingTop:13,
-        textAlign:'center', 
+        paddingLeft:15,
         fontFamily: 'HelloKetta',
         fontSize: 35, 
         color: '#121212', 
-        width: '100%',
-        height:'100%',
-        backgroundColor: 'rgba(222, 199, 155,1)',
     },
+    //magnifying glass icon
     contentIcon: {
         color: "#fff",
         fontSize: 24,
-        alignSelf: "center"
-      },
+        alignSelf:"flex-start"
+    },
+    //search button(magnifying glass) container
     contentBtnContainer: {
         backgroundColor: "rgba(225,82,100,1)",
         alignItems: "center",
@@ -136,6 +140,7 @@ export const styles = StyleSheet.create({
         maxHeight: 30,
         opacity: 0.9
     },
+
     /*
     HomeScreen styles
     */
