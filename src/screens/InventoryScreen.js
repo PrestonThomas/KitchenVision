@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl, LogBox, Linking } from 'react-native';
-//import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
-//import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
 import scanner from '../components/Scanner';
 import FAB from 'react-native-fab';
@@ -14,7 +12,6 @@ import NameForm from '../components/ItemDetail';
 import dayjs from 'dayjs';
 import storage from '../api/storage';
 import { styles } from './screenStyles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, } from 'react-native-popup-menu';
 import checkExpiryChange from './GroceryScreen';
 
@@ -38,7 +35,6 @@ let getInvItem = async () => {
     let dairyCount;
     let vegCount;
     let otherCount;
-    let idListLength = idList.length;
     if (!initialLoad || checkChange || checkExpiryChange) {
         initialLoad = true;
         if (checkChange || checkExpiryChange) {
@@ -265,7 +261,7 @@ function InventoryHome({ navigation }) {
 
     useEffect(() => {
         getInvItem().then((val) => {
-            // console.log(val[0].category);
+
         }
         );
         storage.wait(100).then(() => setLoading(false));
@@ -346,7 +342,6 @@ function InventoryHome({ navigation }) {
                             onChange={setSections} />
                     </View>
                 </ScrollView>
-                <Button title='Test' onPress={() => (storage.storage.load({ key: 'barcode', id: '644216179084' }).then(val => { console.log(val); }))}/>
                 {/* <Button
                     title="Log Storage output"
                     color="rgba(104,102,89,255)"
@@ -380,7 +375,6 @@ function InventoryHome({ navigation }) {
 
 //scan barcode pop-up page code
 function BcScreenModal({ navigation }) {
-    // let bc = new Barcode.BarcodeScanner();
     return (
         <View style={{ flex: 1 }}>
             <Barcode.BarcodeScanner />

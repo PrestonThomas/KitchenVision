@@ -1,19 +1,14 @@
-import { useNavigationBuilder } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, TextInputComponent, RefreshControl } from 'react-native';
-import Counter from 'react-native-counters';
+import { Text, View, Button, TouchableOpacity, ActivityIndicator, SafeAreaView, ScrollView, Alert, RefreshControl } from 'react-native';
 //import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
 //import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
-import FAB from 'react-native-fab';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { TextInput } from 'react-native-gesture-handler';
 import { styles } from './screenStyles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import storage from '../api/storage';
-import { Menu, MenuOptions, MenuOption, MenuTrigger, } from 'react-native-popup-menu';
+import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
 import Dialog from 'react-native-dialog';
 import TextInputMask from 'react-native-text-input-mask';
 import NumericInput from 'react-native-numeric-input';
@@ -91,7 +86,6 @@ const deletePrompt = (itemKey) => {
 };
 
 const infoPrompt = (itemKey) => {
-    // retrieve item from storage using itemKey
     let itemInfo = storage.storage.load({ key: 'barcode', id: itemKey }).then(val => { itemInfo = val; });
     storage.wait(100).then(() => {
         Alert.alert(
@@ -133,7 +127,7 @@ const ItemPopup = (itemKey) => {
         setVisible(false);
     };
     return (
-        <Menu onSelect={value => alert(`Selected number: ${value}`)}>
+        <Menu>
             <MenuTrigger text="Select option" customStyles={{
                 TriggerTouchableComponent: Button,
                 triggerTouchable: { title: '' },
@@ -182,47 +176,12 @@ function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
         <View style={styles.contentItemContainer}>
             <View style={styles.contentBtnContainer}>
-                {/* <TouchableOpacity onPress={ItemPopup.MenuTrigger}>
-                    <Icon name="magnify" style={styles.contentIcon} />
-                </TouchableOpacity> */}
                 <ItemPopup itemKey={{itemKey}} />
             </View>
             <Text key={itemKey} style={styles.contentItem}>{itemName} --- {itemExpiry}</Text>
-            {/* <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 18, width: '40%', }}>{itemExpiry}</Text> */}
         </View>
     </View></>;
 }
-
-//Counter button onchange function
-const onChange = (number, type) => {
-    console.log(number,type)
-};
-
-// function itemList(itemName, itemExpiry) {
-//     return <><View>
-//          <View style={{width: '100%',flexDirection: 'row', height: '100%',borderWidth: 1, borderColor: '#000000' }}>
-//          <View style= {styles.customInnerItem}>
-//             <Text style = {styles.customInnerItem}>{itemName}{itemExpiry}
-//             <View style = {{ width:'40%', alignItems: 'center', paddingHorizontal: 25,}}>
-//                 <Counter start = {1} onChange = {onChange} />
-//             </View>
-//             </Text>
-//         </View>      
-//         </View>
-//         </View></>;
-// }
-
-const wait = (timeout) => {
-    return new Promise(resolve => {
-        setTimeout(resolve, timeout);
-    });
-}
-
-function useForceUpdate() {
-    const [value, setValue] = useState(0);
-    return () => setValue(value => value + 1);
-}
-
 
 const RootStack = createStackNavigator();
 class GroceryScreen extends React.Component {
@@ -255,14 +214,12 @@ function GroceryHome({ navigation }) {
     const [multipleSelect, setMultipleSelect] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
-    const forceUpdate = useForceUpdate();
-
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         console.log('Refreshing')
         // load inventory items from storage
         getInvItem().then((val) => {
-            
+
         }
         );
         storage.wait(100).then(() => setRefreshing(false));
@@ -350,7 +307,6 @@ function GroceryHome({ navigation }) {
                         <Text
                         style={styles.groceryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
                     </View>
-                    
 
                     {/*Code for Accordion/Expandable List starts here*/}
                     <Accordion

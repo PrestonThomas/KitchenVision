@@ -3,7 +3,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { HEADER_MAX_HEIGHT } from './HomeScreen';
 
 export const styles = StyleSheet.create({
-    
+
     /*InventoryScreen styles*/
     inventoryPageTitle:{
         textAlign: 'center',
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         marginRight: 8,
     },
-    //section break top 
+    //section break top
     //bread emoji header
     inventoryscreenSectionBreakTop: {
         backgroundColor: 'rgba(255,150,79, 0)',
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         fontWeight: '500',
-        color:'rgba(110, 73, 56,1)'
+        color:'rgba(110, 73, 56,1)',
     },
     //content inside the collapsible list
     inventoryListcontent: {
@@ -105,40 +105,40 @@ export const styles = StyleSheet.create({
     contentContainer: {
         padding:'5%',
         backgroundColor: 'rgba(222, 199, 155,1)',
-        textAlign:"center"
+        textAlign:'center',
     },
     contentItemContainer:{
-        width:350, 
+        width:350,
         padding:10,
         // height:'100%',
         // marginBottom:10,
-        borderWidth: 1, 
-        borderColor: '#000000', 
-        flexDirection: 'row'
+        borderWidth: 1,
+        borderColor: '#000000',
+        flexDirection: 'row',
     },
     //content item inside the collapsible list (name & date)
     contentItem: {
         paddingLeft:15,
         fontFamily: 'HelloKetta',
-        fontSize: 35, 
-        color: '#121212', 
+        fontSize: 35,
+        color: '#121212',
     },
     //magnifying glass icon
     contentIcon: {
-        color: "#fff",
+        color: '#fff',
         fontSize: 24,
-        alignSelf:"flex-start"
+        alignSelf:'flex-start',
     },
     //search button(magnifying glass) container
     contentBtnContainer: {
-        backgroundColor: "rgba(225,82,100,1)",
-        alignItems: "center",
-        justifyContent: "center",
+        backgroundColor: 'rgba(225,82,100,1)',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 28,
-        shadowColor: "#111",
+        shadowColor: '#111',
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 2,
         },
         shadowOpacity: 0.2,
         shadowRadius: 1.2,
@@ -147,7 +147,7 @@ export const styles = StyleSheet.create({
         maxWidth: 30,
         minHeight: 30,
         maxHeight: 30,
-        opacity: 0.9
+        opacity: 0.9,
     },
 
     /*
@@ -290,14 +290,14 @@ export const styles = StyleSheet.create({
 
     customInnerItem : {
         // paddingTop:13,
-        textAlign: 'center', 
-        fontFamily: 'HelloKetta', 
+        textAlign: 'center',
+        fontFamily: 'HelloKetta',
         fontSize: 35,
-        color: '#121212', 
+        color: '#121212',
         width: '100%',
         height:'100%',
         backgroundColor: 'rgba(222, 199, 155,1)',
-        
+
     },
 
     //Styling for Add Item function
