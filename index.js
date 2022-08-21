@@ -11,6 +11,7 @@ if (__DEV__) {
     const ignoreWarns = [
       "ViewPropTypes will be removed from React Native",
       "exported from 'deprecated-react-native-prop-types'.",
+      "Require cycle",
     ];
   
     const warn = console.warn;

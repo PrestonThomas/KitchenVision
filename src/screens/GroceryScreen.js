@@ -27,7 +27,7 @@ let dateToday = () => {
     // format as dd-mm-yy
     // today = dd + '/' + mm + '/' + String(yyyy).substring(2);
     today = yyyy + '-' + mm + '-' + dd;
-    console.log(today);
+    // console.log(today);
     return Date.parse(String(today));
 };
 
@@ -36,11 +36,16 @@ let initialLoad = false;
 let getInvItem = async () => {
     let itemArr = [];
     dateToday();
+    let expiredCount;
+    let nearExpiryCount;
     let idList = await storage.getAllKeys();
     if (!initialLoad || checkExpiryChange || checkChange) {
         initialLoad = true;
         if (checkExpiryChange || checkChange) {
             for (let i = 0; i < CONTENT.length; i++) {
+                CONTENT[i].title = CONTENT[i].title.replace(/\s+/g, '');
+                expiredCount = 0;
+                nearExpiryCount = 0;
                 CONTENT[i].customInnerItem = [];
             }
             console.log('Grocery list updated');
@@ -54,6 +59,8 @@ let getInvItem = async () => {
                 // itemArr[i].expired = true;
                 console.log('This item has expired: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
                 // CONTENT[0].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry + '\n');
+                expiredCount++;
+                CONTENT[0].title = 'Expired ⛔ (' + expiredCount + ')';
                 CONTENT[0].customInnerItem.push(listItem(itemArr[i].name, itemArr[i].expiry, idList[i]));
             }
             // Else if the item is 3 days or less from expiry, add a warning to the item
@@ -61,6 +68,8 @@ let getInvItem = async () => {
                 // itemArr[i].warning = true;
                 console.log('This item is about to expire: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
                 // CONTENT[1].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry + '\n');
+                nearExpiryCount++;
+                CONTENT[1].title = 'Near Expiry ⚠️ (' + nearExpiryCount + ')';
                 CONTENT[1].customInnerItem.push(listItem(itemArr[i].name, itemArr[i].expiry, idList[i]));
             }
         }
@@ -130,8 +139,9 @@ const ItemPopup = (itemKey) => {
                 triggerTouchable: { title: '' },
             }} />
             <MenuOptions>
-                <MenuOption value={1} onSelect={() => {showDialog()}} text="Modify" />
-                <MenuOption value={2} onSelect={() => deletePrompt(itemKey.itemKey.itemKey)}>
+                <MenuOption value={1} onSelect={() => infoPrompt(itemKey.itemKey.itemKey)} text="More info" />
+                <MenuOption value={2} onSelect={() => {showDialog()}} text="Modify" />
+                <MenuOption value={3} onSelect={() => deletePrompt(itemKey.itemKey.itemKey)}>
                     <Text style={{ color: 'red' }}>Delete Item</Text>
                 </MenuOption>
             </MenuOptions>
@@ -230,10 +240,10 @@ class GroceryScreen extends React.Component {
 }
 let CONTENT = [
     {
-        title: 'Expired',
+        title: 'Expired ⛔',
         customInnerItem: [],
     },
-    {   title: 'Near Expiry',
+    {   title: 'Near Expiry ⚠️',
         customInnerItem: [],
     },
 ];

@@ -123,7 +123,6 @@ export default class NameForm extends React.Component {
                   <AutocompleteDropdown
                     clearOnFocus={false}
                     closeOnBlur={false}
-                    initialValue={{ id: '2' }} // or just '2'
                     // onSelectItem={setSelectedItem}
                     //  dataSet={dataSet}
                     dataSet={[

@@ -33,11 +33,22 @@ let getInvItem = async () => {
     // let idList = storage.getAllKeys().then(keys => { idList = keys });
     let idList = await storage.getAllKeys();
     let itemArr = [];
+    let drinkCount;
+    let meatCount;
+    let dairyCount;
+    let vegCount;
+    let otherCount;
     let idListLength = idList.length;
     if (!initialLoad || checkChange || checkExpiryChange) {
         initialLoad = true;
         if (checkChange || checkExpiryChange) {
             for (let i = 0; i < CONTENT.length; i++) {
+                CONTENT[i].title = CONTENT[i].title.replace(/\s+/g, '');
+                drinkCount = 0;
+                meatCount = 0;
+                dairyCount = 0;
+                vegCount = 0;
+                otherCount = 0;
                 CONTENT[i].customInnerItem = [];
             }
             console.log('Item list updated');
@@ -48,26 +59,37 @@ let getInvItem = async () => {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
             switch (itemArr[i].category) {
                 case 'Drinks':
+                    // count the number of drinks in the list
+                    drinkCount++;
+                    CONTENT[3].title = 'Drinks 🍹' + ' (' + drinkCount + ')';
                     CONTENT[3].customInnerItem.push((
                         listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
                 case 'Meat':
+                    meatCount++;
+                    CONTENT[0].title = 'Meat 🍖' + ' (' + meatCount + ')';
                     CONTENT[0].customInnerItem.push((
                         listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
                 case 'Vegetables':
-                    CONTENT[1].customInnerItem.push((
-                        listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
-                    ));
-                    break;
-                case 'Dairy':
+                    vegCount++;
+                    CONTENT[2].title = 'Vegetables 🥦' + ' (' + vegCount + ')';
                     CONTENT[2].customInnerItem.push((
                         listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
                     break;
+                case 'Dairy':
+                    dairyCount++;
+                    CONTENT[1].title = 'Dairy 🥛' + ' (' + dairyCount + ')';
+                    CONTENT[1].customInnerItem.push((
+                        listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
+                    ));
+                    break;
                 default:
+                    otherCount++;
+                    CONTENT[4].title = 'Other 🍪' + ' (' + otherCount + ')';
                     CONTENT[4].customInnerItem.push((
                         listItem(itemArr[i].name, itemArr[i].expiry, itemArr[i].value)
                     ));
@@ -478,6 +500,7 @@ function ItemDetailsScreen({ navigation }) {
         console.log(nf.state.value);
         console.log(nf.state.img);
         console.log(nf.state.category);
+        console.log(nf.state.quantity);
         checkChange = true;
         if (nf.validateDate(nf.state.expiry)) {
             storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });
