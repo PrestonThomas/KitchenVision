@@ -6511,6 +6511,11 @@
   dependencies:
     "prop-types" "^15.8.1"
 
+"react-native-dialog@^9.2.2":
+  "integrity" "sha512-d2w3fyqB6G8Os0DYJKnfVl6PgqQwplW8dHSvzkQpczXzmX5V4BXOJTTXqoiKwI+nsS6QEHYb6Bk8VG7vV9WuXQ=="
+  "resolved" "https://registry.npmjs.org/react-native-dialog/-/react-native-dialog-9.2.2.tgz"
+  "version" "9.2.2"
+
 "react-native-fab@^1.0.18":
   "integrity" "sha512-MBa0sTIsNTyJtEclYMQ3mNRwPdB13VLLG4BYAbs7/+MxZt4+3xcmZdF47ceqb5OY/Z1sZQB/gOHtOZtAcEiyXg=="
   "resolved" "https://registry.npmjs.org/react-native-fab/-/react-native-fab-1.0.18.tgz"

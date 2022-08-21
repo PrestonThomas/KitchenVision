@@ -13,6 +13,11 @@ import { TextInput } from 'react-native-gesture-handler';
 import { styles } from './screenStyles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import storage from '../api/storage';
+import { Menu, MenuOptions, MenuOption, MenuTrigger, } from 'react-native-popup-menu';
+import Dialog from 'react-native-dialog';
+import TextInputMask from 'react-native-text-input-mask';
+import NumericInput from 'react-native-numeric-input';
+import checkChange from './InventoryScreen';
 
 let dateToday = () => {
     let today = new Date();
@@ -26,60 +31,176 @@ let dateToday = () => {
     return Date.parse(String(today));
 };
 
+export let checkExpiryChange = false;
 let initialLoad = false;
 let getInvItem = async () => {
     let itemArr = [];
     dateToday();
     let idList = await storage.getAllKeys();
-    if (!initialLoad) {
+    if (!initialLoad || checkExpiryChange || checkChange) {
         initialLoad = true;
+        if (checkExpiryChange || checkChange) {
+            for (let i = 0; i < CONTENT.length; i++) {
+                CONTENT[i].customInnerItem = [];
+            }
+            console.log('Grocery list updated');
+            checkExpiryChange = false;
+        }
+        console.log('Grocery list loaded');
         for (let i = 0; i < idList.length; i++) {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
             // compare the date of the item to the date of the current day
             if (Date.parse(20 + itemArr[i].expiry) < dateToday()) {
                 // itemArr[i].expired = true;
                 console.log('This item has expired: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
-                CONTENT[i].customInnerItem.push((
-                    itemList(itemArr[i].name + ' on ' + itemArr[i].expiry)
-                    ));
+                // CONTENT[0].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry + '\n');
+                CONTENT[0].customInnerItem.push(listItem(itemArr[i].name, itemArr[i].expiry, idList[i]));
             }
             // Else if the item is 3 days or less from expiry, add a warning to the item
             else if (Date.parse(20 + itemArr[i].expiry) - dateToday() < 2592000000) {
                 // itemArr[i].warning = true;
                 console.log('This item is about to expire: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
-                CONTENT[i].customInnerItem.push((
-                    itemList(itemArr[i].name + ' on ' + itemArr[i].expiry)
-                    ));    
+                // CONTENT[1].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry + '\n');
+                CONTENT[1].customInnerItem.push(listItem(itemArr[i].name, itemArr[i].expiry, idList[i]));
             }
-            else {
-                return;
-            }
-
         }
         console.log(dateToday());
         console.log(Date.parse(20 + itemArr[0].expiry));
-        
     }
 };
+
+const deletePrompt = (itemKey) => {
+    Alert.alert(
+        'Delete Item',
+        'Are you sure you want to delete this item?',
+        [
+            { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: 'OK', onPress: () => storage.deleteItem(itemKey).then(checkExpiryChange = true) },
+        ],
+        { cancelable: false }
+    );
+};
+
+const infoPrompt = (itemKey) => {
+    // retrieve item from storage using itemKey
+    let itemInfo = storage.storage.load({ key: 'barcode', id: itemKey }).then(val => { itemInfo = val; });
+    storage.wait(100).then(() => {
+        Alert.alert(
+            'Item Information',
+            'Item Name: ' + itemInfo.name + '\n' + 'Expiry: ' + itemInfo.expiry + '\n' + 'Barcode: ' + itemInfo.value + '\n' + 'Category: ' + itemInfo.category + '\n' + 'Quantity: ' + itemInfo.quantity,
+            [
+                { text: 'OK' },
+            ],
+            { cancelable: false }
+        );
+    });
+};
+
+
+const ItemPopup = (itemKey) => {
+    const [visible, setVisible] = useState(false);
+    let updatedInfo = {expiry: '', quantity: ''};
+    const showDialog = () => {
+        setVisible(true);
+    };
+    const handleCancel = () => {
+        setVisible(false);
+    };
+    const handleUpdate = () => {
+        console.log(updatedInfo);
+        let itemInfo = storage.storage.load({ key: 'barcode', id: itemKey.itemKey.itemKey }).then(val => { itemInfo = val; });
+        storage.wait(100).then(() => {
+            itemInfo.expiry = updatedInfo.expiry;
+            itemInfo.quantity = updatedInfo.quantity;
+            console.log(itemInfo);
+            storage.storage.save({ key: 'barcode', id: itemKey.itemKey.itemKey, data: itemInfo }).then(() => {
+                checkExpiryChange = true;
+                setVisible(false);
+            }).catch(err => {
+                console.log(err);
+            }
+            );
+        });
+        setVisible(false);
+    };
+    return (
+        <Menu onSelect={value => alert(`Selected number: ${value}`)}>
+            <MenuTrigger text="Select option" customStyles={{
+                TriggerTouchableComponent: Button,
+                triggerTouchable: { title: '' },
+            }} />
+            <MenuOptions>
+                <MenuOption value={1} onSelect={() => {showDialog()}} text="Modify" />
+                <MenuOption value={2} onSelect={() => deletePrompt(itemKey.itemKey.itemKey)}>
+                    <Text style={{ color: 'red' }}>Delete Item</Text>
+                </MenuOption>
+            </MenuOptions>
+            <View style={styles.container}>
+                <Dialog.Container visible={visible}>
+                    <Dialog.Title>Modify Item</Dialog.Title>
+                    <Dialog.Description>
+                        Please enter the new quantity and expiry date for this item.
+                    </Dialog.Description>
+                    <View style={[styles.inputContainer]}>
+                        <NumericInput
+                            onChange={value => { updatedInfo.quantity = value; }}
+                            rounded
+                            valueType="real"
+                            minValue={1}
+                            iconStyle={{ color: 'black' }}
+                            rightButtonBackgroundColor="#EA3788"
+                            leftButtonBackgroundColor="#E56B70" />
+                    </View>
+                    <View style={[styles.inputContainer]}>
+                        <TextInputMask
+                            placeholder="(YY/MM/DD)"
+                            onChangeText={(text) => { updatedInfo.expiry = text; }}
+                            // value={this.state.expiry}
+                            mask={'[00]/[00]/[00]'}
+                            keyboardType="numeric"
+                        />
+                    </View>
+                    <Dialog.Button label="Cancel" onPress={handleCancel} />
+                    <Dialog.Button label="Update" onPress={handleUpdate} />
+                </Dialog.Container>
+            </View>
+        </Menu>
+    );
+};
+
+function listItem(itemName, itemExpiry, itemKey) {
+    return <><View>
+        <View style={styles.contentItemContainer}>
+            <View style={styles.contentBtnContainer}>
+                {/* <TouchableOpacity onPress={ItemPopup.MenuTrigger}>
+                    <Icon name="magnify" style={styles.contentIcon} />
+                </TouchableOpacity> */}
+                <ItemPopup itemKey={{itemKey}} />
+            </View>
+            <Text key={itemKey} style={styles.contentItem}>{itemName} --- {itemExpiry}</Text>
+            {/* <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 18, width: '40%', }}>{itemExpiry}</Text> */}
+        </View>
+    </View></>;
+}
 
 //Counter button onchange function
 const onChange = (number, type) => {
     console.log(number,type)
 };
 
-function itemList(itemName, itemExpiry) {
-    return <><View>
-         <View style={{width: '100%',flexDirection: 'row', height: '100%',borderWidth: 1, borderColor: '#000000' }}>
-         <View style= {styles.customInnerItem}>
-            <Text style = {styles.customInnerItem}>{itemName}{itemExpiry}
-            <View style = {{ width:'40%', alignItems: 'center', paddingHorizontal: 25,}}>
-                <Counter start = {1} onChange = {onChange} />
-            </View>
-            </Text>
-        </View>      
-        </View>
-        </View></>;
-}
+// function itemList(itemName, itemExpiry) {
+//     return <><View>
+//          <View style={{width: '100%',flexDirection: 'row', height: '100%',borderWidth: 1, borderColor: '#000000' }}>
+//          <View style= {styles.customInnerItem}>
+//             <Text style = {styles.customInnerItem}>{itemName}{itemExpiry}
+//             <View style = {{ width:'40%', alignItems: 'center', paddingHorizontal: 25,}}>
+//                 <Counter start = {1} onChange = {onChange} />
+//             </View>
+//             </Text>
+//         </View>      
+//         </View>
+//         </View></>;
+// }
 
 const wait = (timeout) => {
     return new Promise(resolve => {
@@ -130,10 +251,10 @@ function GroceryHome({ navigation }) {
         setRefreshing(true);
         console.log('Refreshing')
         // load inventory items from storage
-        // getInvItem().then((val) => {
+        getInvItem().then((val) => {
             
-        // }
-        // );
+        }
+        );
         storage.wait(100).then(() => setRefreshing(false));
     }, []);
 

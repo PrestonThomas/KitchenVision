@@ -35,4 +35,14 @@ const deleteItem = async (id) => {
     );
 };
 
+const modifyItem = async (key, id, data) => {
+    return await storage.save({ key: key, id: id, data: data }).then(() => {
+        return;
+    }
+    ).catch(err => {
+        console.log(err);
+    }
+    );
+}
+
 export default {storage, getAllKeys, wait, deleteItem};

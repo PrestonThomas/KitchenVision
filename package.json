@@ -33,6 +33,7 @@
     "react-native-collapsible": "^1.6.0",
     "react-native-counters": "^1.2.0",
     "react-native-date-picker": "^4.2.4",
+    "react-native-dialog": "^9.2.2",
     "react-native-fab": "^1.0.18",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.5.0",

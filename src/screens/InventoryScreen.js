@@ -15,8 +15,8 @@ import dayjs from 'dayjs';
 import storage from '../api/storage';
 import { styles } from './screenStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { Menu, MenuOptions, MenuOption, MenuTrigger, } from 'react-native-popup-menu';
+import checkExpiryChange from './GroceryScreen';
 
 LogBox.ignoreLogs(['Each child in a list should have a unique "key" prop.']);
 
@@ -28,15 +28,15 @@ function useForceUpdate() {
 // let invItems = storage.storage.load({ key: 'barcode', id: '5449000000996' }).then(val => { invItems = val; });
 
 let initialLoad = false;
-let checkChange = false;
+export let checkChange = false;
 let getInvItem = async () => {
     // let idList = storage.getAllKeys().then(keys => { idList = keys });
     let idList = await storage.getAllKeys();
     let itemArr = [];
     let idListLength = idList.length;
-    if (!initialLoad || checkChange) {
+    if (!initialLoad || checkChange || checkExpiryChange) {
         initialLoad = true;
-        if (checkChange) {
+        if (checkChange || checkExpiryChange) {
             for (let i = 0; i < CONTENT.length; i++) {
                 CONTENT[i].customInnerItem = [];
             }
@@ -139,6 +139,21 @@ const deletePrompt = (itemKey) => {
     );
 };
 
+const infoPrompt = (itemKey) => {
+    // retrieve item from storage using itemKey
+    let itemInfo = storage.storage.load({ key: 'barcode', id: itemKey }).then(val => { itemInfo = val; });
+    storage.wait(100).then(() => {
+        Alert.alert(
+            'Item Information',
+            'Item Name: ' + itemInfo.name + '\n' + 'Expiry: ' + itemInfo.expiry + '\n' + 'Barcode: ' + itemInfo.value + '\n' + 'Category: ' + itemInfo.category + '\n' + 'Quantity: ' + itemInfo.quantity,
+            [
+                { text: 'OK' },
+            ],
+            { cancelable: false }
+        );
+    });
+};
+
 const ItemPopup = (itemKey) => {
     return (
         <Menu onSelect={value => alert(`Selected number: ${value}`)}>
@@ -147,8 +162,8 @@ const ItemPopup = (itemKey) => {
                 triggerTouchable: { title: '' },
             }} />
             <MenuOptions>
-                <MenuOption onSelect={() => console.log(itemKey.itemKey.itemKey)} text="Save" />
-                <MenuOption value={2} onSelect={() => Linking.openURL('https://world.openfoodfacts.org/product/' + itemKey.itemKey.itemKey)} text="More info"/>
+                <MenuOption onSelect={() => infoPrompt(itemKey.itemKey.itemKey)} text="More info" />
+                <MenuOption value={2} onSelect={() => Linking.openURL('https://world.openfoodfacts.org/product/' + itemKey.itemKey.itemKey)} text="Nutrition Facts"/>
                 <MenuOption value={3} onSelect={() => deletePrompt(itemKey.itemKey.itemKey)}>
                     <Text style={{ color: 'red' }}>Delete Item</Text>
                 </MenuOption>
@@ -309,6 +324,7 @@ function InventoryHome({ navigation }) {
                             onChange={setSections} />
                     </View>
                 </ScrollView>
+                <Button title='Test' onPress={() => (storage.storage.load({ key: 'barcode', id: '644216179084' }).then(val => { console.log(val); }))}/>
                 {/* <Button
                     title="Log Storage output"
                     color="rgba(104,102,89,255)"
