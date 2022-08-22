@@ -1,6 +1,9 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, Dimensions } from 'react-native';
 // import { noCentroid } from 'react-native-mock-render/build/api/TouchHistoryMath';
 import { HEADER_MAX_HEIGHT } from './HomeScreen';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
 
@@ -105,24 +108,24 @@ export const styles = StyleSheet.create({
     contentContainer: {
         padding:'5%',
         backgroundColor: 'rgba(222, 199, 155,1)',
-        textAlign:'center',
+        // textAlign:'center',
+        alignItems:'center'
     },
     contentItemContainer:{
-        width:400,
+        width:325,
         padding:10,
         //marginBottom:5,
-        borderWidth: 2,
+        borderWidth: 1.5,
         borderColor: '#000000',
         flexDirection: 'row',
-        
     },
     //content item inside the collapsible list (name & date)
     contentItem: {
         paddingLeft: 20,
-        fontFamily: 'HelloKetta',
-        fontSize: 43,
+        // fontFamily: 'HelloKetta',
+        fontSize: 22,
         color: 'black',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
     },
     //magnifying glass icon
     contentIcon: {

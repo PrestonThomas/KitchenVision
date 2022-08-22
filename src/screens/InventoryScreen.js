@@ -206,7 +206,6 @@ function listItem(itemName, itemExpiry, itemKey) {
 }
 
 function InventoryHome({ navigation }) {
-
     const [refreshing, setRefreshing] = React.useState(false);
 
     const forceUpdate = useForceUpdate();
