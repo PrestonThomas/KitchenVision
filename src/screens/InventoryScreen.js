@@ -9,7 +9,6 @@ import barcode from '../api/barcode';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NameForm from '../components/ItemDetail';
-import dayjs from 'dayjs';
 import storage from '../api/storage';
 import { styles } from './screenStyles';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, } from 'react-native-popup-menu';
@@ -406,13 +405,14 @@ function queryItem(barcode) {
 }
 
 function extractDate(string) {
+    console.log('extractDate: ' + string);
     return string.match(/\d{2}\/\d{2}\/\d{2}/)[0];
 }
 
-function convertToDate(string) {
-    let date = string.split('/');
-    let output = dayjs(date[1] + '/' + date[0] + '/' + date[2]);
-    return output.toDate();
+function formatDate(string) {
+    //format date to yy/mm/dd
+    console.log('formatDate: ' + string);
+    return string.split('/').reverse().join('/');
 }
 
 function ItemDetailsScreen({ navigation }) {
@@ -463,19 +463,36 @@ function ItemDetailsScreen({ navigation }) {
         nf.state.name = item.product_name;
     }
     nf.handleExpiry = () => {
-        scanner.onCameraPress();
+        let scannedText;
+        scanner.onCameraPress(() => {
+        }).then(data => {
+            scanner.returnScannedText().then(text => {
+                console.log(text)
+                scannedText = text;
+                if (scannedText !== 'No text found') {
+                    let rawText = scannedText;
+                    let convertedDate = extractDate(rawText);
+                    nf.state.expiry = formatDate(convertedDate);
+                    Alert.alert('Expiry Date', 'Expiry date set to ' + nf.state.expiry);
+                    console.log("Expiry:" + nf.state.expiry);
+                    return nf.state.expiry;
+                } else {
+                    Alert.alert('No Expiry Date Detected', 'Please scan the expiry date of the item or enter it manually');
+                }
+            }).catch(error => {
+                console.log(error);
+            }
+            );
+        }).catch(error => {
+            console.log(error);
+        }
+        );
+        // scannedText = scanner.returnScannedText();
+        console.log(scanner.returnScannedText());
+
     };
     nf.returnExpiry = () => {
-        console.log(scanner.returnScannedText());
-        if (scanner.returnScannedText() !== 'No text found') {
-            let rawText = scanner.returnScannedText();
-            let convertedDate = extractDate(rawText);
-            nf.state.expiry = convertedDate;
-            console.log(nf.state.expiry);
-            return nf.state.expiry;
-        } else {
-            Alert.alert('No Expiry Date Detected', 'Please scan the expiry date of the item or enter it manually');
-        }
+        Alert.alert('Expiry Date', 'Expiry date set to ' + nf.state.expiry);
 
     };
     nf.handleCancel = () => {

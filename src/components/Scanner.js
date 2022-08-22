@@ -3,7 +3,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import checkForLabels from '../api/vision';
 
-let capturedImage;
+export let capturedImage;
 let output;
 
 let CameraOpen;
@@ -34,7 +34,7 @@ async function readFile(input) {
     }
 }
 
-function onCameraPress() {
+async function onCameraPress() {
     CameraOpen = true;
     const options = {
         saveToPhotos: true,
@@ -64,7 +64,7 @@ function onCameraPress() {
 
 var dataArray = []
 
-function returnScannedText() {
+async function returnScannedText() {
     // wait for the image to be read
     if (output === undefined) {
         return 'No text found';
