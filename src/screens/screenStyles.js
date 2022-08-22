@@ -108,20 +108,21 @@ export const styles = StyleSheet.create({
         textAlign:'center',
     },
     contentItemContainer:{
-        width:350,
+        width:400,
         padding:10,
-        // height:'100%',
-        // marginBottom:10,
-        borderWidth: 1,
+        //marginBottom:5,
+        borderWidth: 2,
         borderColor: '#000000',
         flexDirection: 'row',
+        
     },
     //content item inside the collapsible list (name & date)
     contentItem: {
-        paddingLeft:15,
+        paddingLeft: 20,
         fontFamily: 'HelloKetta',
-        fontSize: 35,
-        color: '#121212',
+        fontSize: 43,
+        color: 'black',
+        fontWeight: 'bold',
     },
     //magnifying glass icon
     contentIcon: {
@@ -131,23 +132,24 @@ export const styles = StyleSheet.create({
     },
     //search button(magnifying glass) container
     contentBtnContainer: {
-        backgroundColor: 'rgba(225,82,100,1)',
+        backgroundColor: '#EB984E',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 28,
-        shadowColor: '#111',
+        borderRadius: 30,
+        shadowColor: '#F5CBA7 ',
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.2,
-        shadowRadius: 1.2,
+        shadowOpacity: 0.5,
+        shadowRadius: 2.0,
         elevation: 2,
         minWidth: 30,
         maxWidth: 30,
         minHeight: 30,
         maxHeight: 30,
         opacity: 0.9,
+        borderWidth: 2,
     },
 
     /*
@@ -307,5 +309,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-
+    inputContainer: {
+        alignItems: 'center',
+    }
 });

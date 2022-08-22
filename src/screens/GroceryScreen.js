@@ -152,8 +152,8 @@ const ItemPopup = (itemKey) => {
                             valueType="real"
                             minValue={1}
                             iconStyle={{ color: 'black' }}
-                            rightButtonBackgroundColor="#EA3788"
-                            leftButtonBackgroundColor="#E56B70" />
+                            rightButtonBackgroundColor="#F1A075"
+                            leftButtonBackgroundColor="#FFBBA1" />
                     </View>
                     <View style={[styles.inputContainer]}>
                         <TextInputMask
