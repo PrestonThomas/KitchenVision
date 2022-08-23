@@ -13,6 +13,7 @@ import Dialog from 'react-native-dialog';
 import TextInputMask from 'react-native-text-input-mask';
 import NumericInput from 'react-native-numeric-input';
 import checkChange from './InventoryScreen';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 let dateToday = () => {
     let today = new Date();
@@ -128,10 +129,13 @@ const ItemPopup = (itemKey) => {
     };
     return (
         <Menu>
-            <MenuTrigger text="Select option" customStyles={{
+            {/* <MenuTrigger text="Select option" customStyles={{
                 TriggerTouchableComponent: Button,
                 triggerTouchable: { title: '' },
-            }} />
+            }} /> */}
+            <MenuTrigger style={styles.listPopupButton}>
+                <Icon name="more-vert" color='rgba(110, 73, 56,1)' size={25}/>
+            </MenuTrigger>
             <MenuOptions>
                 <MenuOption value={1} onSelect={() => infoPrompt(itemKey.itemKey.itemKey)} text="More info" />
                 <MenuOption value={2} onSelect={() => {showDialog()}} text="Modify" />
@@ -175,7 +179,7 @@ const ItemPopup = (itemKey) => {
 function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
         <View style={styles.contentItemContainer}>
-            <View style={styles.contentBtnContainer}>
+            <View>
                 <ItemPopup itemKey={{itemKey}} />
             </View>
             <Text key={itemKey} style={styles.contentItem}>{itemName} --- {itemExpiry}</Text>
@@ -266,7 +270,7 @@ function GroceryHome({ navigation }) {
         return (
             <Animatable.View
                 duration={400}
-                style={[styles.content, isActive ? styles.active : styles.inactive]}
+                // style={[styles.content, isActive ? styles.active : styles.inactive]}
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}

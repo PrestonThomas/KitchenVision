@@ -48,12 +48,25 @@ export const styles = StyleSheet.create({
         color: 'white',
     },
 
+    //inventory page section break top
+    //bread emoji header
+    inventoryscreenSectionBreakTop: {
+        backgroundColor: 'rgba(255,150,79, 0)',
+        borderWidth: 1.5,
+        borderColor: 'rgba(179, 118, 90,1)',
+    },
+    //bread emoji css
+    inventoryscreenBreadPos: {
+        textAlign: 'center',
+        fontSize: 25,
+        margin: 5,
+    },
+
+    //inventory & grocery page container css (whole screen)
     // collapsible list styling
-    //inventory page container (whole screen)
     containerA: {
         flex: 1,
         backgroundColor: 'transparent',
-        // paddingTop: '5%',
     },
     //function explanation text
     functionGuide: {
@@ -75,20 +88,8 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         marginRight: 8,
     },
-    //section break top
-    //bread emoji header
-    inventoryscreenSectionBreakTop: {
-        backgroundColor: 'rgba(255,150,79, 0)',
-        borderWidth: 1.5,
-        borderColor: 'rgba(179, 118, 90,1)',
-    },
-    //bread emoji css
-    inventoryscreenBreadPos: {
-        textAlign: 'center',
-        fontSize: 25,
-        margin: 5,
-    },
-    //category title of the collapsible list
+
+    //category title of the collapsible list(inventory & grocery page css)
     //(Meat, Dairy, Vegetables, Drinks, Others)
     categoryTitle: {
         padding: 10,
@@ -100,23 +101,23 @@ export const styles = StyleSheet.create({
         color:'rgba(110, 73, 56,1)',
     },
     //content inside the collapsible list
-    inventoryListcontent: {
-        width:'100%',
-        padding: 10,
-    },
-    active: {
-        // backgroundColor: 'rgba(242,242,242,255)',
-    },
-    inactive: {
-        backgroundColor: 'rgba(255,150,79, 0)',
-    },
-    refreshText:{
-        fontSize: 14,
-        fontWeight: '500',
-        textAlign: 'left',
-        paddingLeft:5,
-        color:'rgba(150, 179, 90,1)',
-    },
+    // inventoryListcontent: {
+    //     width:'100%',
+    //     padding: 10,
+    // },
+    // active: {
+    //     // backgroundColor: 'rgba(242,242,242,255)',
+    // },
+    // inactive: {
+    //     backgroundColor: 'rgba(255,150,79, 0)',
+    // },
+    // refreshText:{
+    //     fontSize: 14,
+    //     fontWeight: '500',
+    //     textAlign: 'left',
+    //     paddingLeft:5,
+    //     color:'rgba(150, 179, 90,1)',
+    // },
     //content inside the collapsible list css
     contentContainer: {
         padding:'5%',
@@ -134,36 +135,16 @@ export const styles = StyleSheet.create({
     },
     //content item inside the collapsible list (name & date)
     contentItem: {
-        paddingLeft: 20,
+        paddingLeft: 10,
         fontSize: normalize(20),
         color: 'black',
     },
-    //magnifying glass icon
-    // contentIcon: {
-    //     color: '#fff',
-    //     fontSize: 24,
-    //     alignSelf:'flex-start',
-    // },
-    //search button(magnifying glass) container
-    contentBtnContainer: {
-        // backgroundColor: '#EB984E',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // borderRadius: 30,
-        // shadowColor: '#F5CBA7 ',
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 2,
-        // },
-        // shadowOpacity: 0.5,
-        // shadowRadius: 2.0,
-        // elevation: 2,
-        // minWidth: 30,
-        // maxWidth: 30,
-        // minHeight: 30,
-        // maxHeight: 30,
-        // opacity: 0.9,
-        // borderWidth: 2,
+
+    //pop-up button inside the collapsible list items
+    listPopupButton:{
+        backgroundColor:'rgba(255,150,79, 0.4)',
+        marginTop:'10%',
+         borderRadius:5
     },
 
     /*
@@ -295,7 +276,7 @@ export const styles = StyleSheet.create({
         height: 50,
         margin: 0,
         backgroundColor: 'rgba(255,150,79, 0)',
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: 'rgba(179, 118, 90,1)',
     },
     groceryscreenBreadPos: {
@@ -306,13 +287,16 @@ export const styles = StyleSheet.create({
 
     customInnerItem : {
         // paddingTop:13,
-        textAlign: 'center',
-        fontFamily: 'HelloKetta',
-        fontSize: 35,
-        color: '#121212',
-        width: '100%',
-        height:'100%',
+        // textAlign: 'center',
+        // fontFamily: 'HelloKetta',
+        // fontSize: 35,
+        // color: '#121212',
+        // width: '100%',
+        // height:'100%',
+        // backgroundColor: 'rgba(222, 199, 155,1)',
+        padding:'5%',
         backgroundColor: 'rgba(222, 199, 155,1)',
+        alignItems:'center'
 
     },
 

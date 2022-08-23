@@ -175,11 +175,12 @@ const infoPrompt = (itemKey) => {
 const ItemPopup = (itemKey) => {
     return (
         <Menu onSelect={value => alert(`Selected number: ${value}`)}>
-            <MenuTrigger text="Select option" customStyles={{
+            {/* <MenuTrigger text="Select option" customStyles={{
                 TriggerTouchableComponent: Button,
                 triggerTouchable: { title:'' },
-            }} >
-                <Icon name="home" color='orange' size={20}/>
+            }} > */}
+            <MenuTrigger style={styles.listPopupButton}>
+                <Icon name="more-vert" color='rgba(110, 73, 56,1)' size={25}/>
             </MenuTrigger>
             <MenuOptions>
                 <MenuOption onSelect={() => infoPrompt(itemKey.itemKey.itemKey)} text="More info" />
@@ -196,7 +197,7 @@ const ItemPopup = (itemKey) => {
 function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
         <View style={styles.contentItemContainer}>
-            <View style={styles.contentBtnContainer}>
+            <View>
                 {/* <TouchableOpacity onPress={ItemPopup.MenuTrigger}>
                     <Icon name="magnify" style={styles.contentIcon} />
                 </TouchableOpacity> */}
