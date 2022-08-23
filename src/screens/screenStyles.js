@@ -1,9 +1,22 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native';
+import { Platform, StyleSheet, Dimensions ,PixelRatio} from 'react-native';
 // import { noCentroid } from 'react-native-mock-render/build/api/TouchHistoryMath';
 import { HEADER_MAX_HEIGHT } from './HomeScreen';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+
+const collapsibleContainerWidth = (windowWidth - ((10 * windowWidth)/100));
+
+const scale = windowWidth/320;
+
+const normalize = (size) => {
+    const newSize = size * scale;
+    if (Platform.OS === 'ios') {
+      return Math.round(PixelRatio.roundToNearestPixel(newSize));
+    } else {
+      return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+    }
+  };
 
 export const styles = StyleSheet.create({
 
@@ -54,7 +67,7 @@ export const styles = StyleSheet.create({
     multipleToggle: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginVertical: 20,
+        marginVertical: 15,
         alignItems: 'center',
     },
     multipleToggle__title: {
@@ -66,7 +79,7 @@ export const styles = StyleSheet.create({
     //bread emoji header
     inventoryscreenSectionBreakTop: {
         backgroundColor: 'rgba(255,150,79, 0)',
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: 'rgba(179, 118, 90,1)',
     },
     //bread emoji css
@@ -112,7 +125,7 @@ export const styles = StyleSheet.create({
         alignItems:'center'
     },
     contentItemContainer:{
-        width:325,
+        width:collapsibleContainerWidth,
         padding:10,
         //marginBottom:5,
         borderWidth: 1.5,
@@ -122,37 +135,35 @@ export const styles = StyleSheet.create({
     //content item inside the collapsible list (name & date)
     contentItem: {
         paddingLeft: 20,
-        // fontFamily: 'HelloKetta',
-        fontSize: 22,
+        fontSize: normalize(20),
         color: 'black',
-        // fontWeight: 'bold',
     },
     //magnifying glass icon
-    contentIcon: {
-        color: '#fff',
-        fontSize: 24,
-        alignSelf:'flex-start',
-    },
+    // contentIcon: {
+    //     color: '#fff',
+    //     fontSize: 24,
+    //     alignSelf:'flex-start',
+    // },
     //search button(magnifying glass) container
     contentBtnContainer: {
-        backgroundColor: '#EB984E',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 30,
-        shadowColor: '#F5CBA7 ',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 2.0,
-        elevation: 2,
-        minWidth: 30,
-        maxWidth: 30,
-        minHeight: 30,
-        maxHeight: 30,
-        opacity: 0.9,
-        borderWidth: 2,
+        // backgroundColor: '#EB984E',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // borderRadius: 30,
+        // shadowColor: '#F5CBA7 ',
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.5,
+        // shadowRadius: 2.0,
+        // elevation: 2,
+        // minWidth: 30,
+        // maxWidth: 30,
+        // minHeight: 30,
+        // maxHeight: 30,
+        // opacity: 0.9,
+        // borderWidth: 2,
     },
 
     /*

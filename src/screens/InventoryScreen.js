@@ -13,6 +13,7 @@ import storage from '../api/storage';
 import { styles } from './screenStyles';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, } from 'react-native-popup-menu';
 import checkExpiryChange from './GroceryScreen';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 LogBox.ignoreLogs(['Each child in a list should have a unique "key" prop.']);
 
@@ -176,8 +177,10 @@ const ItemPopup = (itemKey) => {
         <Menu onSelect={value => alert(`Selected number: ${value}`)}>
             <MenuTrigger text="Select option" customStyles={{
                 TriggerTouchableComponent: Button,
-                triggerTouchable: { title: '' },
-            }} />
+                triggerTouchable: { title:'' },
+            }} >
+                <Icon name="home" color='orange' size={20}/>
+            </MenuTrigger>
             <MenuOptions>
                 <MenuOption onSelect={() => infoPrompt(itemKey.itemKey.itemKey)} text="More info" />
                 <MenuOption value={2} onSelect={() => Linking.openURL('https://world.openfoodfacts.org/product/' + itemKey.itemKey.itemKey)} text="Nutrition Facts"/>
@@ -189,6 +192,7 @@ const ItemPopup = (itemKey) => {
     );
 };
 
+//collapsible list items function
 function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
         <View style={styles.contentItemContainer}>
@@ -321,7 +325,7 @@ function InventoryHome({ navigation }) {
                         refreshing={refreshing}
                         onRefresh={onRefresh} />} 
                 style={{backgroundColor:'rgba(255,150,79, 0.4)'}}>
-                    <View>
+                    <View style={{paddingBottom:100}}>
                         <View style={styles.inventoryscreenSectionBreakTop}>
                             <Text
                             style={styles.inventoryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
