@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, TouchableOpacity, ActivityIndicator, SafeAreaView, ScrollView, Alert, RefreshControl } from 'react-native';
-//import for the animation of Collapse and Expand
+import { Text, View, TouchableOpacity, ActivityIndicator, SafeAreaView, ScrollView, Alert, RefreshControl } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-//import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,15 +13,17 @@ import NumericInput from 'react-native-numeric-input';
 import checkChange from './InventoryScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+/* 
+Much of this screen is similar to the InventoryScreen.js file as such we won't add comments to shared code for the sake of readability.
+*/
+
 let dateToday = () => {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     // format as dd-mm-yy
-    // today = dd + '/' + mm + '/' + String(yyyy).substring(2);
     today = yyyy + '-' + mm + '-' + dd;
-    // console.log(today);
     return Date.parse(String(today));
 };
 
@@ -52,18 +52,14 @@ let getInvItem = async () => {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
             // compare the date of the item to the date of the current day
             if (Date.parse(20 + itemArr[i].expiry) < dateToday()) {
-                // itemArr[i].expired = true;
                 console.log('This item has expired: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
-                // CONTENT[0].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry + '\n');
                 expiredCount++;
                 CONTENT[0].title = 'Expired ⛔ (' + expiredCount + ')';
                 CONTENT[0].customInnerItem.push(listItem(itemArr[i].name, itemArr[i].expiry, idList[i]));
             }
             // Else if the item is 3 days or less from expiry, add a warning to the item
             else if (Date.parse(20 + itemArr[i].expiry) - dateToday() < 2592000000) {
-                // itemArr[i].warning = true;
                 console.log('This item is about to expire: ' + itemArr[i].name + ' on ' + itemArr[i].expiry);
-                // CONTENT[1].customInnerItem.push(itemArr[i].name + ' on ' + itemArr[i].expiry + '\n');
                 nearExpiryCount++;
                 CONTENT[1].title = 'Near Expiry ⚠️ (' + nearExpiryCount + ')';
                 CONTENT[1].customInnerItem.push(listItem(itemArr[i].name, itemArr[i].expiry, idList[i]));
@@ -127,12 +123,11 @@ const ItemPopup = (itemKey) => {
         });
         setVisible(false);
     };
+
+    // Below is the rendering code for the item popup
+
     return (
         <Menu>
-            {/* <MenuTrigger text="Select option" customStyles={{
-                TriggerTouchableComponent: Button,
-                triggerTouchable: { title: '' },
-            }} /> */}
             <MenuTrigger style={styles.listPopupButton}>
                 <Icon name="more-vert" color='rgba(110, 73, 56,1)' size={25}/>
             </MenuTrigger>
@@ -163,7 +158,6 @@ const ItemPopup = (itemKey) => {
                         <TextInputMask
                             placeholder="(YY/MM/DD)"
                             onChangeText={(text) => { updatedInfo.expiry = text; }}
-                            // value={this.state.expiry}
                             mask={'[00]/[00]/[00]'}
                             keyboardType="numeric"
                         />
@@ -231,7 +225,6 @@ function GroceryHome({ navigation }) {
 
     useEffect(() => {
         getInvItem().then((val) => {
-            // console.log(val[0].category);
         }
         );
         storage.wait(100).then(() => setLoading(false));
@@ -244,17 +237,14 @@ function GroceryHome({ navigation }) {
     };
 
     const toggleExpanded = () => {
-        //Toggling the state of single Collapsible
         setCollapsed(!collapsed);
     };
 
     const setSections = (sections) => {
-        //setting up a active section state
         setActiveSections(sections.includes(undefined) ? [] : sections);
     };
 
     const renderHeader = (section, _, isActive) => {
-        //Accordion Header View
         return (
             <Animatable.View
             duration={400}
@@ -266,11 +256,9 @@ function GroceryHome({ navigation }) {
     };
 
     const renderContent = (section, _, isActive) => {
-        //Accordion Content View
         return (
             <Animatable.View
                 duration={400}
-                // style={[styles.content, isActive ? styles.active : styles.inactive]}
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}
@@ -312,27 +300,15 @@ function GroceryHome({ navigation }) {
                         style={styles.groceryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
                     </View>
 
-                    {/*Code for Accordion/Expandable List starts here*/}
                     <Accordion
                         activeSections={activeSections}
-                        //for any default active section
                         sections={CONTENT}
-                        //title and content of accordion
                         touchableComponent={TouchableOpacity}
-                        //which type of touchable component you want
-                        //It can be the following Touchables
-                        //TouchableHighlight, TouchableNativeFeedback
-                        //TouchableOpacity , TouchableWithoutFeedback
                         expandMultiple={multipleSelect}
-                        //Do you want to expand mutiple at a time or single at a time
                         renderHeader={renderHeader}
-                        //Header Component(View) to render
                         renderContent={renderContent}
-                        //Content Component(View) to render
                         duration={400}
-                        //Duration for Collapse and expand
                         onChange={setSections} />
-                    {/*Code for Accordion/Expandable List ends here*/}
                     </View>
                </ScrollView>
             </View>

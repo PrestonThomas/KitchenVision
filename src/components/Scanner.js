@@ -8,6 +8,8 @@ let output;
 
 let CameraOpen;
 
+// This function resizes the captured image
+
 function resizeImage(uri) {
   return ImageResizer.createResizedImage(uri, 256, 256, 'JPEG', 80)
     .then((response) => {
@@ -20,12 +22,12 @@ function resizeImage(uri) {
     );
 }
 
+// This function reads the captured image and returns the scanned text
+
 async function readFile(input) {
     try {
         const file = await resizeImage(capturedImage);
-        // console.log(file);
         const fileData = await fs.readFile(file.uri, 'base64');
-        // console.log(fileData);
         const response = await checkForLabels(fileData);
         console.log(response);
         output = response.responses[0].textAnnotations[0].description;
@@ -33,6 +35,8 @@ async function readFile(input) {
         console.error(err);
     }
 }
+
+// This function opens the camera calls the aforementioned functions.
 
 async function onCameraPress() {
     CameraOpen = true;
@@ -62,21 +66,16 @@ async function onCameraPress() {
       );
 }
 
-var dataArray = []
-
 async function returnScannedText() {
-    // wait for the image to be read
     if (output === undefined) {
         return 'No text found';
     } else {
-        // JSON.stringify(dataArray.push(output));
-        // console.log('JSON STRING of Expiry Dates', dataArray);
         return output;
     }
 }
 
 function checkCameraStatus() {
-  if(CameraOpen === false) {
+  if (CameraOpen === false) {
     alert('Camera is closed');
   }
   return CameraOpen;

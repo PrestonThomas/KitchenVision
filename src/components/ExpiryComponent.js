@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Button } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import DatePicker from 'react-native-date-picker'
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-// Considering a datepicker for this
+// This is the component containing the scanning buttons for the expiry date
 
 const ExpiryForm = (props) => {
-    // const [expiry, setExpiry] = useState(new Date());
     const [expiry, setExpiry] = useState('');
     return (
         <View style={styles.twoItem}>
@@ -22,7 +20,6 @@ const ExpiryForm = (props) => {
                     style={styles.inputStyle}
                     onChangeText={(text) => { setExpiry(text) }}
                 />
-                 {/* <DatePicker mode="date" date={expiry} onDateChange={setExpiry} /> */}
             </View>
             <View style={styles.btnContainer}>
                 <TouchableOpacity onPress={() => { setExpiry(props.data); }} style={[styles.container, props.style]} >
@@ -31,27 +28,26 @@ const ExpiryForm = (props) => {
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     // two item side by side container
     twoItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        // justifyContent: 'space-between',
         marginBottom: 10,
         paddingLeft: 15,
-        paddingRight: 110
+        paddingRight: 110,
     },
     btnContainer: {
-        backgroundColor: "rgba(225,82,100,1)",
-        alignItems: "center",
-        justifyContent: "center",
+        backgroundColor: 'rgba(225,82,100,1)',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 28,
-        shadowColor: "#111",
+        shadowColor: '#111',
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 2,
         },
         shadowOpacity: 0.2,
         shadowRadius: 1.2,
@@ -60,35 +56,35 @@ const styles = StyleSheet.create({
         maxWidth: 60,
         minHeight: 40,
         maxHeight: 60,
-        opacity: 0.9
+        opacity: 0.9,
     },
     icon: {
-        color: "#fff",
+        color: '#fff',
         fontSize: 24,
-        alignSelf: "center"
+        alignSelf: 'center',
     },
     inputContainer: {
-        backgroundColor: "transparent",
-        flexDirection: "row",
-        alignItems: "center"
+        backgroundColor: 'transparent',
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     iconStyle: {
         fontSize: 39,
-        paddingLeft: 8
+        paddingLeft: 8,
     },
     inputStyle: {
-        color: "black",
+        color: 'black',
         marginLeft: 16,
         paddingRight: 5,
         fontSize: 16,
-        alignSelf: "stretch",
+        alignSelf: 'stretch',
         flex: 1,
         lineHeight: 16,
         borderBottomWidth: 1,
-        borderColor: "#D9D5DC",
+        borderColor: '#D9D5DC',
         paddingTop: 14,
-        paddingBottom: 8
-    }
+        paddingBottom: 8,
+    },
 });
 
 export default ExpiryForm;

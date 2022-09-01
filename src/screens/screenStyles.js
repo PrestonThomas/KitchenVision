@@ -1,5 +1,6 @@
+//Stylesheet for Screens
+
 import { Platform, StyleSheet, Dimensions ,PixelRatio} from 'react-native';
-// import { noCentroid } from 'react-native-mock-render/build/api/TouchHistoryMath';
 import { HEADER_MAX_HEIGHT } from './HomeScreen';
 
 const windowWidth = Dimensions.get('window').width;
@@ -26,7 +27,6 @@ export const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'Amsterdam',
         color: 'rgba(255,150,79, 1)',
-        // marginBottom: 50,
         marginTop: 30,
     },
     //Barcode scanner button
@@ -100,30 +100,12 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
         color:'rgba(110, 73, 56,1)',
     },
-    //content inside the collapsible list
-    // inventoryListcontent: {
-    //     width:'100%',
-    //     padding: 10,
-    // },
-    // active: {
-    //     // backgroundColor: 'rgba(242,242,242,255)',
-    // },
-    // inactive: {
-    //     backgroundColor: 'rgba(255,150,79, 0)',
-    // },
-    // refreshText:{
-    //     fontSize: 14,
-    //     fontWeight: '500',
-    //     textAlign: 'left',
-    //     paddingLeft:5,
-    //     color:'rgba(150, 179, 90,1)',
-    // },
     //content inside the collapsible list css
     contentContainer: {
         padding:'5%',
         backgroundColor: 'rgba(222, 199, 155,1)',
         // textAlign:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
     contentItemContainer:{
         width:collapsibleContainerWidth,
@@ -144,7 +126,7 @@ export const styles = StyleSheet.create({
     listPopupButton:{
         backgroundColor:'rgba(255,150,79, 0.4)',
         marginTop:'10%',
-         borderRadius:5
+         borderRadius:5,
     },
 
     /*
@@ -286,17 +268,9 @@ export const styles = StyleSheet.create({
     },
 
     customInnerItem : {
-        // paddingTop:13,
-        // textAlign: 'center',
-        // fontFamily: 'HelloKetta',
-        // fontSize: 35,
-        // color: '#121212',
-        // width: '100%',
-        // height:'100%',
-        // backgroundColor: 'rgba(222, 199, 155,1)',
         padding:'5%',
         backgroundColor: 'rgba(222, 199, 155,1)',
-        alignItems:'center'
+        alignItems:'center',
 
     },
 
@@ -309,5 +283,5 @@ export const styles = StyleSheet.create({
 
     inputContainer: {
         alignItems: 'center',
-    }
+    },
 });

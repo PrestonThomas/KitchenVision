@@ -9,6 +9,8 @@ export const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
+// getInventory retrieves all keys from the storage API and returns them as an array
+
 let getInventory = async () => {
   return await storage.getAllKeys().then(keys => {
     console.log(keys);
@@ -19,6 +21,7 @@ let getInventory = async () => {
   );
 };
 
+//This renders the Home Screen
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +59,6 @@ export default class HomeScreen extends Component {
     );
     return (
       <View style={styles.homescreenScrollViewContent}>
-        {/* {data.map((_, i) => ( */}
         <View style={styles.homescreenSectionBreakTop}>
           <Animatable.Text
           animation="bounceInUp"
@@ -77,7 +79,6 @@ export default class HomeScreen extends Component {
           delay={800}
           direction="alternate"
           style={styles.homescreenContentTextLong}>You Have Recorded a Total of {this.state.invStats.total} Items</Animatable.Text>
-          {/*Format of text is subject to changes dependent on data passing by Preston*/}
         </View>
         <View style={styles.homescreenRow}>
           <Animatable.Text
@@ -161,6 +162,8 @@ export default class HomeScreen extends Component {
       </View>
     );
   }
+
+  //Parallax Header logic control
 
   render() {
     // Because of content inset the scroll value will be negative on iOS so bring

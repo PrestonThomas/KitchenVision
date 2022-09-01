@@ -6,6 +6,8 @@ const credentials = require('./config.json');
 // Please create a file named config.json with the following content: { "apiKey": "YOUR_API_KEY" } and save it in the same directory as this file.
 // For our API key, please ask Preston.
 
+// This is a POST request to the Google Vision API.
+
 async function checkForLabels(base64) {
     return await
       fetch('https://vision.googleapis.com/v1/images:annotate?key=' + credentials.apiKey, {

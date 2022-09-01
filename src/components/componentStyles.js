@@ -1,8 +1,10 @@
+//Stylesheet for Components
+
 import { StyleSheet } from 'react-native';
 
 // Item Detail Component
 const componentStyles = StyleSheet.create({
-    //1 item per row container 
+    //1 item per row container
     itemDetailcontainer: {
       flex: 1,
       backgroundColor: 'rgba(255,150,79, 1)',
@@ -166,45 +168,43 @@ const componentStyles = StyleSheet.create({
       marginLeft: 28,
     },
     SubmitContainer: {
-        backgroundColor: "#009688",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "row",
+        backgroundColor: '#009688',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
         borderRadius: 2,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
           width: 0,
-          height: 1
+          height: 1,
         },
         shadowOpacity: 0.35,
         shadowRadius: 5,
         elevation: 2,
         minWidth: 88,
         paddingLeft: 16,
-        paddingRight: 16
+        paddingRight: 16,
       },
       SubmitButton: {
-        color: "#fff",
+        color: '#fff',
         fontSize: 14,
-        fontFamily: "acme-regular"
+        fontFamily: 'acme-regular',
       },
       icon: {
-        color: "#fff",
+        color: '#fff',
         fontSize: 24,
-        alignSelf: "center"
+        alignSelf: 'center',
       },
       twoItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        // justifyContent: 'space-between',
         marginBottom: 10,
         paddingLeft: 15,
-        paddingRight: 110
+        paddingRight: 110,
     },
     twoItemDropDown: {
       flexDirection: 'row',
       alignItems: 'center',
-      // justifyContent: 'space-between',
       marginBottom: 10,
       paddingLeft: 15,
       paddingRight: 90,
@@ -219,47 +219,37 @@ const componentStyles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000',
     },
-    icon: {
-        color: "#fff",
-        fontSize: 24,
-        alignSelf: "center"
-    },
     inputContainer: {
-        backgroundColor: "transparent",
-        flexDirection: "row",
-        alignItems: "center",
+        backgroundColor: 'transparent',
+        flexDirection: 'row',
+        alignItems: 'center',
         marginRight: 10,
     },
     iconStyle: {
         fontSize: 39,
-        paddingLeft: 8
+        paddingLeft: 8,
     },
     inputStyle: {
-        color: "black",
+        color: 'black',
         marginRight: 10,
         fontSize: 16,
-        alignSelf: "stretch",
+        alignSelf: 'stretch',
         flex: 1,
         lineHeight: 16,
         borderBottomWidth: 1,
-        borderColor: "#D9D5DC",
+        borderColor: '#D9D5DC',
         paddingTop: 14,
-        paddingBottom: 8
+        paddingBottom: 8,
     },
-    icon: {
-      color: "#fff",
-      fontSize: 24,
-      alignSelf: "center"
-  },
     btnContainer: {
-      backgroundColor: "rgba(225,82,100,1)",
-      alignItems: "center",
-      justifyContent: "center",
+      backgroundColor: 'rgba(225,82,100,1)',
+      alignItems: 'center',
+      justifyContent: 'center',
       borderRadius: 28,
-      shadowColor: "#111",
+      shadowColor: '#111',
       shadowOffset: {
           width: 0,
-          height: 2
+          height: 2,
       },
       shadowOpacity: 0.2,
       shadowRadius: 1.2,
@@ -268,29 +258,29 @@ const componentStyles = StyleSheet.create({
       maxWidth: 60,
       minHeight: 40,
       maxHeight: 60,
-      opacity: 0.9
+      opacity: 0.9,
   },
     scrollContainer: {
-      flex: 1
+      flex: 1,
     },
     splashText: {
       textAlign: 'center',
       fontSize:65,
-      fontFamily:"Sweet-Hipster",
-      color:"black",
-      marginBottom:30
+      fontFamily:'Sweet-Hipster',
+      color:'black',
+      marginBottom:30,
     },
     splashView: {
       flex: 1,
-      backgroundColor: '#FAC898'
+      backgroundColor: '#FAC898',
     },
     splashViewInner: {
       flex: 0.5,
-      backgroundColor: '#FAC898'
+      backgroundColor: '#FAC898',
     },
     splashBreadIcon: {
       textAlign: 'center',
-      fontSize:32
+      fontSize:32,
     },
   });
 

@@ -1,6 +1,8 @@
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// A new storage object is initialized with the name 'storage'.
+
 const storage = new Storage({
     size: 1000,
     storageBackend: AsyncStorage,
@@ -8,6 +10,8 @@ const storage = new Storage({
     enableCache: true,
     sync: {},
 });
+
+// The following are helper functions so that interacting with storage is easier.
 
 const wait = (timeout) => {
     return new Promise(resolve => {
@@ -34,15 +38,5 @@ const deleteItem = async (id) => {
     }
     );
 };
-
-const modifyItem = async (key, id, data) => {
-    return await storage.save({ key: key, id: id, data: data }).then(() => {
-        return;
-    }
-    ).catch(err => {
-        console.log(err);
-    }
-    );
-}
 
 export default {storage, getAllKeys, wait, deleteItem};

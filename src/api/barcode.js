@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, Button } from 'react-native';
-import { DynamsoftBarcodeReader, DynamsoftCameraView, EnumBarcodeFormat } from 'dynamsoft-capture-vision-react-native';
+import { Text } from 'react-native';
+import { DynamsoftBarcodeReader, DynamsoftCameraView } from 'dynamsoft-capture-vision-react-native';
 
 const credentials = require('./config.json');
 
+// This file is concerned with the barcode scanning function.
+// It handles the opening of the camera and the scanning of the barcode.
 
 let output = [];
 class BarcodeScanner extends React.Component {
@@ -19,14 +21,14 @@ class BarcodeScanner extends React.Component {
             }
             this.reader = await DynamsoftBarcodeReader.createInstance();
             this.reader.addResultListener((results) => {
-                if(this.state.results === null || this.state.results === []) {
+                if (this.state.results === null || this.state.results === []) {
                     console.log(this.state.results);
                     console.log(results.length);
-                    this.setState({results});
+                    this.setState({ results });
                 } else if (results.length === 1) {
                     console.log(this.state.results);
                     output.push(results);
-                    this.setState({results});
+                    this.setState({ results });
                     this.reader.stopScanning();
                 }
             });
@@ -35,7 +37,7 @@ class BarcodeScanner extends React.Component {
     }
 
     scanBarcode() {
-        console.log(this.state.results)
+        console.log(this.state.results);
         return this.state.results;
     }
 
@@ -54,11 +56,10 @@ class BarcodeScanner extends React.Component {
         }
         return (
             <DynamsoftCameraView
-                style={{flex: 1,}}
-                ref={(ref) => { this.scanner = ref }}
+                style={{ flex: 1, }}
+                ref={(ref) => { this.scanner = ref; }}
                 overlayVisible={true}>
-                {/*Add a text box to display the barcode result.*/}
-                <Text style={{ flex: 0.9, marginTop: 100, textAlign: 'center', color: 'white', fontSize: 18}}>
+                <Text style={{ flex: 0.9, marginTop: 100, textAlign: 'center', color: 'white', fontSize: 18 }}>
                     {results && results.length > 0 ? resultBoxText : 'No Barcode Detected'}</Text>
             </DynamsoftCameraView>
         );
@@ -67,4 +68,4 @@ class BarcodeScanner extends React.Component {
         return this.state.results;
     }
 }
-export default {BarcodeScanner, output};
+export default { BarcodeScanner, output };

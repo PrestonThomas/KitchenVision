@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Button, Text } from "react-native";
+import { StyleSheet, View, TextInput, TouchableOpacity} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+// This is a helper component to pass the barcode to the parent Item Details component
 
 const BarcodeForm = (props) => {
     const [Barcode, setBarcode] = useState('');

@@ -1,8 +1,8 @@
+/* eslint-disable no-trailing-spaces */
 import React from 'react';
 import { Text, View, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions,  Platform, TouchableOpacity, Linking, SafeAreaView, KeyboardAvoidingView, Alert } from 'react-native';
 import MaterialButtonSuccess from '../components/MaterialButtonSuccess';
 import componentStyles from '../components/componentStyles';
-//import {LocalCategories} from '../components/dropdownList';
 import BarcodeForm from './BarcodeForm';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NumericInput from 'react-native-numeric-input';
@@ -13,7 +13,9 @@ import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/
 const styles = componentStyles;
 const screenHeight = Dimensions.get('window').height;
 
-// Leaving this here so I don't have to search it up each time - https://world.openfoodfacts.org/api/v0/product/9002490100070.json
+// This is a React Class Component that renders the Item Details form.
+// It is used to add new items to storage.
+// The class component uses a state object to store the item's information.
 
 export default class NameForm extends React.Component {
   state = {};
@@ -31,7 +33,6 @@ export default class NameForm extends React.Component {
   handleChange(event) { this.setState({ value: event.target.value }); }
   handleCancel(event) { console.log('Cancel'); }
   handleSubmit(event) {
-    // alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
   handleExpiry(event) { console.log('expiry'); }
@@ -70,17 +71,11 @@ export default class NameForm extends React.Component {
 
   pullName(event) { console.log('pullName'); }
 
-  // convertDate(input) {
-  //     const date = input.split('/');
-  //     const day = parseInt(date[0], 10);
-  //     const month = parseInt(date[1], 10);
-  //     const year = parseInt(date[2], 10);
-  //     return new Date(year, month - 1, day);
-  // }
-
   render() {
     return this.detailsForm();
   }
+
+  // This function renders the Item Details form (GUI)
 
   detailsForm() {
     return <SafeAreaView style={({ flex: 1 }), {height: screenHeight}}>
@@ -106,8 +101,8 @@ export default class NameForm extends React.Component {
               <TextInput
                   placeholder='Input product name'
                   defaultValue={this.state.name}
-                  onChangeText={(text) => {this.state.name = text }}
-                  onChange={(text) => {this.state.name = text }}
+                  onChangeText={(text) => {this.state.name = text; }}
+                  onChange={(text) => {this.state.name = text; }}
                   style={styles.inputStyle}
               />
             </View>
@@ -116,15 +111,11 @@ export default class NameForm extends React.Component {
             <View style={styles.labelContainer}>
                 <Text style={styles.labelStyle}>Category:</Text>
             </View>
-          {/* DROP DOWN LIST  */}
             <View style={{padding: 20}, Platform.select({ ios: { zIndex: 100 } })}>
-              {/* <LocalCategories onChange={(selectedItem) => {this.state.category = selectedItem}}/> */}
                 <View>
                   <AutocompleteDropdown
                     clearOnFocus={false}
                     closeOnBlur={false}
-                    // onSelectItem={setSelectedItem}
-                    //  dataSet={dataSet}
                     dataSet={[
                       { id: '1', title: 'Meat' },
                       { id: '2', title: 'Dairy' },
@@ -134,17 +125,14 @@ export default class NameForm extends React.Component {
                     ]}
                     ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
                     getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
-                    // onChange={(selectedItem) => { NameForm.state.category = selectedItem }}
                     onSelectItem={(selectedItem) => { this.handleCategory(selectedItem); }}
                     onChange={(selectedItem) => { this.state.category = selectedItem.title; }}
                     onChangeText={(text) => {this.state.category = text; }}
                   />
-                  {/* <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text> */}
 
                 </View>
             </View>
           </View>
-          {/* DROP DOWN LIST  */}
         <View style={styles.twoItem}>
             <View style={styles.labelContainer}>
                 <Text style={styles.labelStyle}>Quantity:</Text>
@@ -174,15 +162,10 @@ export default class NameForm extends React.Component {
                 </TouchableOpacity>
             </View>
             <View style={[styles.inputContainer]}>
-                {/* <TextInput
-                    placeholder="Scan or enter expiry date"
-                    style={styles.inputStyle}
-                    onChangeText={(text) => { this.state.expiry = text }}
-                /> */}
                   <TextInputMask
                     style={styles.inputStyle}
                     placeholder="(YY/MM/DD) Scan/enter expiry date"
-                    onChangeText={(text) => { this.state.expiry = text }}
+                    onChangeText={(text) => { this.state.expiry = text; }}
                     value={this.state.expiry}
                     mask={'[00]/[00]/[00]'}
                     keyboardType="numeric"
@@ -217,18 +200,13 @@ export default class NameForm extends React.Component {
               onPress={this.handleCancel}>CANCEL</AwesomeButtonCartman>
             </View>
           <View style={styles.ItemDetailButtonLast}>
-            {/* <MaterialButtonSuccess
-              button="Get More Item Details"
-              style= {{height: 40}}
-              onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/' + this.state.value)}
-            /> */}
-            <Button title='Get More Item Details' onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/' + this.state.value)}></Button>
+            <Button title='Get More Item Details' onPress={() => Linking.openURL('https://world.openfoodfacts.org/product/' + this.state.value)} />
           </View>
         </View>
       </View>
     </ScrollView>
     </KeyboardAvoidingView>
-    </SafeAreaView>
+    </SafeAreaView>;
   
   }
 }

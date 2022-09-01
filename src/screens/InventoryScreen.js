@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl, LogBox, Linking } from 'react-native';
+import { Text, View, TouchableOpacity, ActivityIndicator, Pressable, SafeAreaView, Switch, ScrollView, Alert, RefreshControl, LogBox, Linking } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
 import scanner from '../components/Scanner';
@@ -17,17 +17,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 LogBox.ignoreLogs(['Each child in a list should have a unique "key" prop.']);
 
-function useForceUpdate() {
-    const [value, setValue] = useState(0);
-    return () => setValue(value => value + 1);
-}
-
-// let invItems = storage.storage.load({ key: 'barcode', id: '5449000000996' }).then(val => { invItems = val; });
-
 let initialLoad = false;
+
 export let checkChange = false;
+
+// getInvItem retrieves all keys from the storage API and returns them as an array
+
 let getInvItem = async () => {
-    // let idList = storage.getAllKeys().then(keys => { idList = keys });
     let idList = await storage.getAllKeys();
     let itemArr = [];
     let drinkCount;
@@ -55,7 +51,6 @@ let getInvItem = async () => {
             itemArr.push(await storage.storage.load({ key: 'barcode', id: idList[i] }));
             switch (itemArr[i].category) {
                 case 'Drinks':
-                    // count the number of drinks in the list
                     drinkCount++;
                     CONTENT[3].title = 'Drinks 🍹' + ' (' + drinkCount + ')';
                     CONTENT[3].customInnerItem.push((
@@ -97,6 +92,7 @@ let getInvItem = async () => {
 }
 
 // content in the collapsible list
+
 let CONTENT = [
     {
         title: 'Meat 🍖',
@@ -123,6 +119,8 @@ let CONTENT = [
 let barcodeOutput;
 
 const RootStack = createStackNavigator();
+
+// RootStack.Navigator is the navigation stack for this screen
 class InventoryScreen extends React.Component {
     render() {
         return (
@@ -158,7 +156,9 @@ const deletePrompt = (itemKey) => {
 };
 
 const infoPrompt = (itemKey) => {
+
     // retrieve item from storage using itemKey
+
     let itemInfo = storage.storage.load({ key: 'barcode', id: itemKey }).then(val => { itemInfo = val; });
     storage.wait(100).then(() => {
         Alert.alert(
@@ -172,13 +172,11 @@ const infoPrompt = (itemKey) => {
     });
 };
 
+// ItemPopupMenu is the context menu for each item in the list
+
 const ItemPopup = (itemKey) => {
     return (
         <Menu onSelect={value => alert(`Selected number: ${value}`)}>
-            {/* <MenuTrigger text="Select option" customStyles={{
-                TriggerTouchableComponent: Button,
-                triggerTouchable: { title:'' },
-            }} > */}
             <MenuTrigger style={styles.listPopupButton}>
                 <Icon name="more-vert" color='rgba(110, 73, 56,1)' size={25}/>
             </MenuTrigger>
@@ -198,21 +196,15 @@ function listItem(itemName, itemExpiry, itemKey) {
     return <><View>
         <View style={styles.contentItemContainer}>
             <View>
-                {/* <TouchableOpacity onPress={ItemPopup.MenuTrigger}>
-                    <Icon name="magnify" style={styles.contentIcon} />
-                </TouchableOpacity> */}
                 <ItemPopup itemKey={{itemKey}} />
             </View>
             <Text key={itemKey} style={styles.contentItem}>{itemName} --- {itemExpiry}</Text>
-            {/* <Text style={{ top: 15, left: 15, fontFamily: 'roboto-regular', color: '#121212', fontSize: 18, width: '40%', }}>{itemExpiry}</Text> */}
         </View>
     </View></>;
 }
 
 function InventoryHome({ navigation }) {
     const [refreshing, setRefreshing] = React.useState(false);
-
-    const forceUpdate = useForceUpdate();
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -224,15 +216,8 @@ function InventoryHome({ navigation }) {
         );
         storage.wait(1000).then(() => setRefreshing(false));
     }, []);
-
-
-    // Ddefault active selector
     const [activeSections, setActiveSections] = useState([]);
-    // Collapsed condition for the single collapsible
     const [collapsed, setCollapsed] = useState(true);
-    // MultipleSelect is for the Multiple Expand allowed
-    // Expand multiple at a time (True)
-    // One can be expand at a time (False)
     const [multipleSelect, setMultipleSelect] = useState(false);
 
     const toggleExpanded = () => {
@@ -241,15 +226,11 @@ function InventoryHome({ navigation }) {
     };
 
     const setSections = (sections) => {
-        //setting up a active section state
         setActiveSections(sections.includes(undefined) ? [] : sections);
     };
 
 
     const renderHeader = (section, _, isActive) => {
-        //Accordion Header view
-        //category name of the items in the inventory list
-        //such as (Meat, Dairy, Vegetables, Drinks, Other)
         return (
             <Animatable.View
                 duration={400}
@@ -277,13 +258,9 @@ function InventoryHome({ navigation }) {
     }
 
     let renderContent = (section, _, isActive) => {
-        //Accordion Content view
-        //content inside the collapsible list
-        //name of the items and date of expiry date
         return (
             <Animatable.View
                 duration={400}
-                // style={[styles.inventoryListcontent, isActive ? styles.active : styles.inactive]}
                 transition="backgroundColor">
                 <Animatable.Text
                     animation={isActive ? 'bounceIn' : undefined}
@@ -331,8 +308,6 @@ function InventoryHome({ navigation }) {
                             <Text
                             style={styles.inventoryscreenBreadPos}>🍞🍞🍞🍞🍞🍞🍞🍞🍞</Text>
                         </View>
-
-                        {/*Accordion/Expandable List*/}
                         <Accordion
                             activeSections={activeSections}
                             sections={CONTENT}
@@ -345,38 +320,13 @@ function InventoryHome({ navigation }) {
                             onChange={setSections} />
                     </View>
                 </ScrollView>
-                {/* <Button
-                    title="Log Storage output"
-                    color="rgba(104,102,89,255)"
-                    // style align to the bottom of the screen
-                    onPress={() => console.log(CONTENT)}/>
-                <Button
-                    title="Clear Storage" 
-                    color="rgba(104,102,89,255)"
-                    // style align to the bottom of the screen
-                    onPress={() => console.log(storage.storage.clearMap())}/>
-                <Button
-                    title="Log stored barcodes"
-                    color="rgba(104,102,89,255)"
-                    onPress={() =>
-                        storage.getAllKeys().then(keys => {
-                            console.log(keys);
-                        }
-                        ).catch(err => {
-                            console.log(err);
-                        }
-                        )
-                    }/> */}
-
-                {/* float button at the right button 
-                add new items button */}
                 <FAB buttonColor="red" iconTextColor="#FFFFFF" onClickAction={() => { navigation.navigate('Barcode Scanner') }} visible={true} />
             </View>
         </SafeAreaView>
     );
 }
 
-//scan barcode pop-up page code
+// Barcode scanner modal screen
 function BcScreenModal({ navigation }) {
     return (
         <View style={{ flex: 1 }}>
@@ -411,6 +361,7 @@ function queryItem(barcode) {
 
 function extractDate(string) {
     console.log('extractDate: ' + string);
+    // Regex to extract date from the scanned expiry date string
     return string.match(/\d{2}\/\d{2}\/\d{2}/)[0];
 }
 
@@ -420,6 +371,10 @@ function formatDate(string) {
     return string.split('/').reverse().join('/');
 }
 
+/*
+This function navigates to the item details screen, upon scanning a barcode. Upon loading, it initiates a query to the openfoodfacts API to retrieve the item information and
+initialises a new NameForm object with the item details.
+*/
 function ItemDetailsScreen({ navigation }) {
     let nf = new NameForm();
     const [isLoading, setLoading] = useState(true);
@@ -492,13 +447,10 @@ function ItemDetailsScreen({ navigation }) {
             console.log(error);
         }
         );
-        // scannedText = scanner.returnScannedText();
         console.log(scanner.returnScannedText());
-
     };
     nf.returnExpiry = () => {
         Alert.alert('Expiry Date', 'Expiry date set to ' + nf.state.expiry);
-
     };
     nf.handleCancel = () => {
         navigation.navigate('Inventory Home Screen');
@@ -511,11 +463,6 @@ function ItemDetailsScreen({ navigation }) {
         nf.state.name = nf.state.json.product_name;
     };
     nf.handleSubmit = () => {
-        console.log(item.brands);
-        console.log(nf.state.value);
-        console.log(nf.state.img);
-        console.log(nf.state.category);
-        console.log(nf.state.quantity);
         checkChange = true;
         if (nf.validateDate(nf.state.expiry)) {
             storage.storage.save({ key: 'barcode', id: nf.state.value, data: { value: nf.state.value, img: nf.state.img, expiry: nf.state.expiry, quantity: nf.state.quantity, category: nf.state.category, name: nf.state.name } });

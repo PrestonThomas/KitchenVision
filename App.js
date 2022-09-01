@@ -4,14 +4,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import InventoryScreen from './src/screens/InventoryScreen';
 import GroceryScreen from './src/screens/GroceryScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import {useEffect} from 'react'
-import { PermissionsAndroid, View, Text, Platform } from 'react-native';
+import {useEffect} from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Splash from './src/components/SplashAnimate';
 import { MenuProvider } from 'react-native-popup-menu';
 
 const Tab = createBottomTabNavigator();
 
+// This function renders the bottom navigation bar
 
 function MyTabs() {
     return (
@@ -38,7 +39,7 @@ function MyTabs() {
                 tabBarOptions: {
                     style: {
                         borderWidth: 0,
-                        backgroundColor: '#000000', //need change this color code as per prop
+                        backgroundColor: '#000000',
                         borderTopColor: '#000000',
                       }
                 }
@@ -54,6 +55,8 @@ function MyTabs() {
 
 
 export default function App() {
+
+    // Conditional permission check based on platform
 
     const permission = () => {
         if (Platform.OS === 'android') {
